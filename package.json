@@ -9,8 +9,15 @@
     "test": "node ace test"
   },
   "keywords": [
+    "movies",
+    "tv shows",
+    "automation",
     "torrents",
-    "bitorrent"
+    "hornberger",
+    "transmission",
+    "download",
+    "flexget",
+    "couchpotato"
   ],
   "author": "Grant Holle <http://grantholle.com>",
   "license": "MIT",
