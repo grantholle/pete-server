@@ -6,6 +6,6 @@ const Env = use('Env')
 module.exports = {
   quality: Env.get('MOVIE_QUALITY', '1080p'),
   useYify: Env.get('USE_YIFY', false),
-  fallback: ENV.get('MOVIE_QUALITY_FALLBACK', true),
+  fallback: Env.get('MOVIE_QUALITY_FALLBACK', true),
   location: Env.get('MOVIE_LOCATION', null)
 }

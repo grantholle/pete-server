@@ -5,6 +5,6 @@ const Env = use('Env')
 
 module.exports = {
   quality: Env.get('TV_QUALITY', 'HDTV'),
-  altQuality: ENV.get('TV_ALT_QUALITY', true),
+  altQuality: Env.get('TV_ALT_QUALITY', true),
   location: Env.get('TV_LOCATION', null)
 }
