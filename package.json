@@ -33,6 +33,9 @@
     "@adonisjs/lucid": "^6.1.3",
     "@adonisjs/session": "^1.0.27",
     "@adonisjs/shield": "^1.0.8",
+    "@adonisjs/vow": "^1.0.17",
+    "lodash": "^4.17.11",
+    "moviedb-promise": "^1.3.2",
     "sqlite3": "^4.0.8"
   },
   "devDependencies": {},
