@@ -1,13 +1,55 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Tmdb Tv')
+const { test, trait, afterEach } = use('Test/Suite')('Tmdb Tv')
 const Route = use('Route')
+const Show = use('App/Models/Show')
 const isArray = require('lodash/isArray')
+const moviedb = require('../../app/tmdb')
+let removeShow = false
+const tmdb_id = 87108
 
 trait('Test/ApiClient')
+trait('DatabaseTransactions')
+
+afterEach(async () => {
+  if (removeShow) {
+    try {
+      await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: tmdb_id, watchlist: false })
+    } catch (e) { }
+
+    removeShow = false
+  }
+})
 
 test('able to retrieve TV watchlist', async ({ assert, client }) => {
   const { body } = await client.get(Route.url('tmdb/tv.index')).end()
 
   assert.isTrue(isArray(body), 'response is an array')
 }).timeout(10000)
+
+test('able to add a new show to TV watchlist', async ({ assert, client }) => {
+  removeShow = true
+
+  const response = await client.post(Route.url('tmdb/tv.store'))
+    .send({
+      tmdb_id,
+      name: 'Chernobyl',
+      start_season: 1,
+      start_episode: 1
+    })
+    .end()
+
+  response.assertStatus(200)
+
+  // The show is in the watchlist
+  const { results } = await moviedb.accountTvWatchlist()
+  const existing = results.some(s => s.id === tmdb_id)
+
+  assert.isTrue(existing, 'show exsits in watchlist')
+
+  // Show is in the database
+  const show = await Show.findBy('tmdb_id', tmdb_id)
+  assert.isTrue(show.tmdb_id === tmdb_id, 'has matching tmdb id')
+  assert.isTrue(show.start_season === 1, 'has matching start season')
+  assert.isTrue(show.start_episode === 1, 'has matching start episode')
+}).timeout(30000)

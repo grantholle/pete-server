@@ -11,6 +11,7 @@ class ShowsSchema extends Schema {
       table.string('imdb_id').nullable()
       table.string('name').notNullable()
       table.integer('start_season').defaultTo(1)
+      table.integer('start_episode').defaultTo(1)
       table.string('quality').defaultTo('HDTV')
       table.boolean('use_alt_quality').defaultTo(true)
       table.timestamps()

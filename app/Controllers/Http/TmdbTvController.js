@@ -4,35 +4,58 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const movieDb = require('../../tmdb')
+const moviedb = require('../../tmdb')
+const Show = use('App/Models/Show')
+const Logger = use('Logger')
 
 /**
- * Resourceful controller for interacting with tmdbtvs
+ * Resourceful controller for interacting with TV watchlist
  */
 class TmdbTvController {
   /**
    * Fetch the user's watchlist
    *
    * @param {object} ctx
-   * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
   async index ({ response }) {
-    const { results } = await movieDb.accountTvWatchlist()
+    const { results } = await moviedb.accountTvWatchlist()
 
     return response.json(results)
   }
 
   /**
-   * Create/save a new tmdbtv.
-   * POST tmdbtvs
+   * Saves a show in the watchlist and
+   * show configuration in the db
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const media_id = request.input('tmdb_id')
+
+    // Add show to watchlist
+    await moviedb.accountWatchlistUpdate({
+      media_id,
+      media_type: 'tv',
+      watchlist: true
+    })
+
+    const show = await Show.findOrNew({ 'tmdb_id': media_id })
+    show.merge(request.only([
+      `start_season`,
+      `start_episode`,
+      `name`
+    ]))
+
+    try {
+      await show.save()
+    } catch (e) {
+      Logger.error(e)
+    }
+
+    return response.json(show)
   }
 
   /**
@@ -42,9 +65,8 @@ class TmdbTvController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response }) {
   }
 
   /**
@@ -54,9 +76,8 @@ class TmdbTvController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
+  async edit ({ params, request, response }) {
   }
 
   /**
