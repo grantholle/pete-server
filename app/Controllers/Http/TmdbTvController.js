@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const movieDb = require('./')
+const movieDb = require('../../tmdb')
 
 /**
  * Resourceful controller for interacting with tmdbtvs
@@ -19,9 +19,11 @@ class TmdbTvController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ response }) {
     // Fetch the user's watchlist
-    return []
+    const { results } = await movieDb.accountTvWatchlist()
+
+    return response.json(results)
   }
 
   /**

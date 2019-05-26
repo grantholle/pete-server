@@ -10,4 +10,4 @@ test('able to retrieve TV watchlist', async ({ assert, client }) => {
   const { body } = await client.get(Route.url('tmdb/tv.index')).end()
 
   assert.isTrue(isArray(body), 'response is an array')
-})
+}).timeout(10000)
