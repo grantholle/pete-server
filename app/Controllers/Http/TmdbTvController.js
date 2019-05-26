@@ -11,8 +11,7 @@ const movieDb = require('../../tmdb')
  */
 class TmdbTvController {
   /**
-   * Show a list of all tmdbtvs.
-   * GET tmdbtvs
+   * Fetch the user's watchlist
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -20,7 +19,6 @@ class TmdbTvController {
    * @param {View} ctx.view
    */
   async index ({ response }) {
-    // Fetch the user's watchlist
     const { results } = await movieDb.accountTvWatchlist()
 
     return response.json(results)
