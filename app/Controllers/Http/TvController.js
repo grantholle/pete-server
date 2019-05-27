@@ -71,6 +71,18 @@ class TvController {
   }
 
   /**
+   * Get show details from tmdb
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async tmdb ({ params, response }) {
+    const showInfo = await moviedb.tvInfo(params.id)
+
+    return response.json(showInfo)
+  }
+
+  /**
    * Update show details
    *
    * @param {object} ctx

@@ -117,3 +117,12 @@ test('able to remove show', async ({ assert, client }) => {
   assert.isFalse(existing, `the show is not on the watchlist`)
   assert.isNull(show, `the show doesn't exist in the database`)
 }).timeout(30000)
+
+test('able to get tmdb details', async ({ assert, client }) => {
+  const response = await client.get(Route.url('tv.tmdb', { id: tmdb_id })).end()
+
+  response.assertStatus(200)
+  assert.isObject(response.body, `the details are an object`)
+  assert.equal(response.body.name, 'Chernobyl', `the show name is valid`)
+  assert.property(response.body, 'seasons', `the show has a valid season property`)
+}).timeout(30000)
