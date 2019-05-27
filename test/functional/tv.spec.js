@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait, afterEach } = use('Test/Suite')('Tmdb Tv')
+const { test, trait, afterEach } = use('Test/Suite')('TV')
 const Route = use('Route')
 const Show = use('App/Models/Show')
 const isArray = require('lodash/isArray')
