@@ -11,6 +11,15 @@ const tmdb_id = 87108
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
+const createShow = () => {
+  return Show.create({
+    tmdb_id,
+    name: 'Chernobyl',
+    start_season: 1,
+    start_episode: 1
+  })
+}
+
 afterEach(async () => {
   if (removeShow) {
     try {
@@ -52,4 +61,14 @@ test('able to add a new show to TV watchlist', async ({ assert, client }) => {
   assert.isTrue(show.tmdb_id === tmdb_id, 'has matching tmdb id')
   assert.isTrue(show.start_season === 1, 'has matching start season')
   assert.isTrue(show.start_episode === 1, 'has matching start episode')
+}).timeout(30000)
+
+test('able to fetch show details', async ({ assert, client }) => {
+  await createShow()
+  const response = await client.get(Route.url('tv.show', { id: tmdb_id })).end()
+
+  response.assertStatus(200)
+  assert.equal(response.body.name, 'Chernobyl', `the name matches`)
+  assert.equal(response.body.start_season, 1, `the start season matches`)
+  assert.equal(response.body.start_episode, 1, `the start episode matches`)
 }).timeout(30000)

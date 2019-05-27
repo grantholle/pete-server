@@ -63,10 +63,12 @@ class TvController {
    * GET tmdbtvs/:id
    *
    * @param {object} ctx
-   * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async show ({ params, request, response }) {
+  async show ({ params, response }) {
+    const show = await Show.findOrFail(params.id)
+
+    return response.json(show)
   }
 
   /**

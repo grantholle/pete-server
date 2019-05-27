@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Show extends Model {
+  static get primaryKey () {
+    return 'tmdb_id'
+  }
 }
 
 module.exports = Show
