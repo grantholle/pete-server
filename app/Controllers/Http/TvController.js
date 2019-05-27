@@ -11,7 +11,7 @@ const Logger = use('Logger')
 /**
  * Resourceful controller for interacting with TV watchlist
  */
-class TmdbTvController {
+class TvController {
   /**
    * Fetch the user's watchlist
    *
@@ -103,4 +103,4 @@ class TmdbTvController {
   }
 }
 
-module.exports = TmdbTvController
+module.exports = TvController

@@ -18,4 +18,4 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 
-Route.resource('tmdb/tv', 'TmdbTvController').apiOnly()
+Route.resource('tv', 'TvController').apiOnly()

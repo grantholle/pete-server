@@ -22,7 +22,7 @@ afterEach(async () => {
 })
 
 test('able to retrieve TV watchlist', async ({ assert, client }) => {
-  const { body } = await client.get(Route.url('tmdb/tv.index')).end()
+  const { body } = await client.get(Route.url('tv.index')).end()
 
   assert.isTrue(isArray(body), 'response is an array')
 }).timeout(10000)
@@ -30,7 +30,7 @@ test('able to retrieve TV watchlist', async ({ assert, client }) => {
 test('able to add a new show to TV watchlist', async ({ assert, client }) => {
   removeShow = true
 
-  const response = await client.post(Route.url('tmdb/tv.store'))
+  const response = await client.post(Route.url('tv.store'))
     .send({
       tmdb_id,
       name: 'Chernobyl',
