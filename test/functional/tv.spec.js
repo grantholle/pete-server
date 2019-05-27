@@ -64,9 +64,9 @@ test('able to add a new show to TV watchlist', async ({ assert, client }) => {
 
   // Show is in the database
   const show = await Show.findBy('tmdb_id', tmdb_id)
-  assert.isTrue(show.tmdb_id === tmdb_id, 'has matching tmdb id')
-  assert.isTrue(show.start_season === 1, 'has matching start season')
-  assert.isTrue(show.start_episode === 1, 'has matching start episode')
+  assert.equal(show.tmdb_id, tmdb_id, 'has matching tmdb id')
+  assert.equal(show.start_season, 1, 'has matching start season')
+  assert.equal(show.start_episode, 1, 'has matching start episode')
 }).timeout(30000)
 
 test('able to fetch show details', async ({ assert, client }) => {
