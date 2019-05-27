@@ -18,4 +18,6 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 
-Route.resource('tv', 'TvController').apiOnly()
+Route.group(() => {
+  Route.resource('tv', 'TvController').apiOnly()
+}).prefix(`api/v1`)
