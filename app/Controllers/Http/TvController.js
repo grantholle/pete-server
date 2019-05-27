@@ -72,17 +72,6 @@ class TvController {
   }
 
   /**
-   * Render a form to update an existing tmdbtv.
-   * GET tmdbtvs/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async edit ({ params, request, response }) {
-  }
-
-  /**
    * Update tmdbtv details.
    * PUT or PATCH tmdbtvs/:id
    *
@@ -91,6 +80,18 @@ class TvController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const show = await Show.findOrFail(params.id)
+
+    show.merge(request.only([
+      `start_season`,
+      `start_episode`,
+      `quality`,
+      `use_alt_quality`
+    ]))
+
+    await show.save()
+
+    return response.json(show)
   }
 
   /**

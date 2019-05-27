@@ -11,7 +11,13 @@ const tmdb_id = 87108
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
-const createShow = () => {
+const createShow = async () => {
+  const show = await Show.find(tmdb_id)
+
+  if (show) {
+    return show
+  }
+
   return Show.create({
     tmdb_id,
     name: 'Chernobyl',
@@ -71,4 +77,25 @@ test('able to fetch show details', async ({ assert, client }) => {
   assert.equal(response.body.name, 'Chernobyl', `the name matches`)
   assert.equal(response.body.start_season, 1, `the start season matches`)
   assert.equal(response.body.start_episode, 1, `the start episode matches`)
+}).timeout(30000)
+
+test('able to update show details', async ({ assert, client }) => {
+  await createShow()
+
+  const response = await client.put(Route.url('tv.update', { id: tmdb_id }))
+    .send({
+      start_season: 2,
+      start_episode: 5,
+      quality: '1080p',
+      use_alt_quality: false
+    })
+    .end()
+
+  const show = await Show.find(tmdb_id)
+
+  response.assertStatus(200)
+  assert.equal(show.start_season, 2, `the start season was updated`)
+  assert.equal(show.start_episode, 5, `the start episode was updated`)
+  assert.equal(show.quality, '1080p', `the quality was updated`)
+  assert.equal(show.use_alt_quality, false, `the alt quality flag was updated`)
 }).timeout(30000)
