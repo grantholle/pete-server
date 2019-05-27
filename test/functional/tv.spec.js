@@ -99,3 +99,21 @@ test('able to update show details', async ({ assert, client }) => {
   assert.equal(show.quality, '1080p', `the quality was updated`)
   assert.equal(show.use_alt_quality, false, `the alt quality flag was updated`)
 }).timeout(30000)
+
+test('able to remove show', async ({ assert, client }) => {
+  await createShow()
+  await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: tmdb_id, watchlist: true })
+  let show = await Show.find(tmdb_id)
+
+  assert.isNotNull(show, `the the show exsits in the db`)
+
+  const response = await client.delete(Route.url('tv.destroy', { id: tmdb_id })).end()
+
+  show = await Show.find(tmdb_id)
+  const { results } = await moviedb.accountTvWatchlist()
+  const existing = results.some(s => s.id === tmdb_id)
+
+  response.assertStatus(200)
+  assert.isFalse(existing, `the show is not on the watchlist`)
+  assert.isNull(show, `the show doesn't exist in the database`)
+}).timeout(30000)

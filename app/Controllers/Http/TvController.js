@@ -59,8 +59,7 @@ class TvController {
   }
 
   /**
-   * Display a single tmdbtv.
-   * GET tmdbtvs/:id
+   * Display a single show.
    *
    * @param {object} ctx
    * @param {Response} ctx.response
@@ -72,8 +71,7 @@ class TvController {
   }
 
   /**
-   * Update tmdbtv details.
-   * PUT or PATCH tmdbtvs/:id
+   * Update show details
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -95,14 +93,22 @@ class TvController {
   }
 
   /**
-   * Delete a tmdbtv with id.
-   * DELETE tmdbtvs/:id
+   * Deletes a show from the db and removes from the watchlist
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const show = await Show.findOrFail(params.id)
+
+    await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: show.tmdb_id, watchlist: false })
+
+    await show.delete()
+
+    return response.json({
+      success: true
+    })
   }
 }
 
