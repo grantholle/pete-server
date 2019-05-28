@@ -15,12 +15,11 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-
-Route.on('/').render('welcome')
-
 Route.group(() => {
   Route.resource('tv', 'TvController')
     .apiOnly()
   Route.get(`tv/:id/tmdb`, `TvController.tmdb`)
     .as('tv.tmdb')
 }).prefix(`api/v1`)
+
+Route.on('*').render('welcome')
