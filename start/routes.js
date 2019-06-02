@@ -21,9 +21,8 @@ Route.group(() => {
   Route.get(`tv/:id/tmdb`, `TvController.tmdb`)
     .as('tv.tmdb')
 
-  Route.resource(`config`, `ConfigController`)
-    .except(['destroy', 'show'])
-    .apiOnly()
+  Route.get(`config`, `ConfigController.index`).as(`config.index`)
+  Route.post(`config`, `ConfigController.update`).as(`config.update`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('welcome')

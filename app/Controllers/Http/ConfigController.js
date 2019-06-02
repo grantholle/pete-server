@@ -29,50 +29,6 @@ class ConfigController {
   }
 
   /**
-   * Render a form to be used for creating a new config.
-   * GET configs/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async create ({ request, response }) {
-  }
-
-  /**
-   * Create/save a new config.
-   * POST configs
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store ({ request, response }) {
-  }
-
-  /**
-   * Display a single config.
-   * GET configs/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async show ({ params, request, response }) {
-  }
-
-  /**
-   * Render a form to update an existing config.
-   * GET configs/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async edit ({ params, request, response }) {
-  }
-
-  /**
    * Update config details.
    * PUT or PATCH configs/:id
    *
@@ -80,18 +36,26 @@ class ConfigController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
-  }
+  async update ({ request, response }) {
+    const config = await Config.first()
 
-  /**
-   * Delete a config with id.
-   * DELETE configs/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
+    config.merge(request.only([
+      `tv_directory`,
+      `movie_directory`,
+      `transmission_username`,
+      `transmission_pw`,
+      `transmission_host`,
+      `transmission_port`,
+      `pushbullet_token`,
+      `notify_on_start`,
+      `notify_on_finish`,
+      `movie_quality`,
+      `use_yify`,
+      `fallback_movie_quality`,
+    ]))
+    await config.save()
+
+    return response.json(config)
   }
 }
 
