@@ -15,11 +15,12 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
+
 Route.group(() => {
-  Route.resource('tv', 'TvController')
-    .apiOnly()
-  Route.get(`tv/:id/tmdb`, `TvController.tmdb`)
-    .as('tv.tmdb')
+  Route.resource('tv', 'TvController').apiOnly()
+  Route.get(`tv/:id/tmdb`, `TvController.tmdb`).as('tv.tmdb')
+
+  Route.resource('movies', 'MovieController').apiOnly()
 
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)
