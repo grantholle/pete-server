@@ -107,11 +107,12 @@ test('able to remove movie', async ({ assert, client }) => {
   assert.isNull(movie, `the movie doesn't exist in the database`)
 }).timeout(30000)
 
-// test('able to get tmdb details', async ({ assert, client }) => {
-//   const response = await client.get(Route.url('tv.tmdb', { id: tmdb_id })).end()
+test('able to get tmdb details', async ({ assert, client }) => {
+  const response = await client.get(Route.url('movies.tmdb', { id: tmdb_id })).end()
 
-//   response.assertStatus(200)
-//   assert.isObject(response.body, `the details are an object`)
-//   assert.equal(response.body.name, 'Chernobyl', `the show name is valid`)
-//   assert.property(response.body, 'seasons', `the show has a valid season property`)
-// }).timeout(30000)
+  response.assertStatus(200)
+  assert.isObject(response.body, `the details are an object`)
+  assert.equal(response.body.title, 'John Wick: Chapter 3 – Parabellum', `the movie title is valid`)
+  assert.equal(response.body.imdb_id, 'tt6146586', `the imdb matches`)
+  assert.property(response.body, 'release_date', `the movie has a valid release date property`)
+}).timeout(30000)

@@ -21,6 +21,7 @@ Route.group(() => {
   Route.get(`tv/:id/tmdb`, `TvController.tmdb`).as('tv.tmdb')
 
   Route.resource('movies', 'MovieController').apiOnly()
+  Route.get(`movies/:id/tmdb`, `MovieController.tmdb`).as('movies.tmdb')
 
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)

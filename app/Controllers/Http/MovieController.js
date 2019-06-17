@@ -60,17 +60,17 @@ class MovieController {
     return response.json(movie)
   }
 
-  // /**
-  //  * Get movie details from tmdb
-  //  *
-  //  * @param {object} ctx
-  //  * @param {Response} ctx.response
-  //  */
-  // async tmdb ({ params, response }) {
-  //   const movieInfo = await moviedb.tvInfo(params.id)
+  /**
+   * Get movie details from tmdb
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async tmdb ({ params, response }) {
+    const movieInfo = await moviedb.movieInfo(params.id)
 
-  //   return response.json(movieInfo)
-  // }
+    return response.json(movieInfo)
+  }
 
   /**
    * Update movie details
