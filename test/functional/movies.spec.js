@@ -76,26 +76,18 @@ test('able to fetch movie details', async ({ assert, client }) => {
   assert.equal(response.body.added, false, `it hasn't been added`)
 }).timeout(30000)
 
-// test('able to update show details', async ({ assert, client }) => {
-//   await createMovie()
+test('able to update movie details', async ({ assert, client }) => {
+  await createMovie()
 
-//   const response = await client.put(Route.url('tv.update', { id: tmdb_id }))
-//     .send({
-//       start_season: 2,
-//       start_episode: 5,
-//       quality: '1080p',
-//       use_alt_quality: false
-//     })
-//     .end()
+  const response = await client.put(Route.url('movies.update', { id: tmdb_id }))
+    .send({ added: true }).end()
 
-//   const show = await Movie.find(tmdb_id)
+  const movie = await Movie.find(tmdb_id)
 
-//   response.assertStatus(200)
-//   assert.equal(show.start_season, 2, `the start season was updated`)
-//   assert.equal(show.start_episode, 5, `the start episode was updated`)
-//   assert.equal(show.quality, '1080p', `the quality was updated`)
-//   assert.equal(show.use_alt_quality, false, `the alt quality flag was updated`)
-// }).timeout(30000)
+  response.assertStatus(200)
+  assert.equal(movie.name, 'John Wick: Chapter 3 – Parabellum', `the name matches`)
+  assert.equal(movie.added, true, `the movie is added`)
+}).timeout(30000)
 
 // test('able to remove show', async ({ assert, client }) => {
 //   await createMovie()

@@ -72,27 +72,25 @@ class MovieController {
   //   return response.json(movieInfo)
   // }
 
-  // /**
-  //  * Update movie details
-  //  *
-  //  * @param {object} ctx
-  //  * @param {Request} ctx.request
-  //  * @param {Response} ctx.response
-  //  */
-  // async update ({ params, request, response }) {
-  //   const movie = await movie.findOrFail(params.id)
+  /**
+   * Update movie details
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async update ({ params, request, response }) {
+    const movie = await Movie.findOrFail(params.id)
 
-  //   movie.merge(request.only([
-  //     `start_season`,
-  //     `start_episode`,
-  //     `quality`,
-  //     `use_alt_quality`
-  //   ]))
+    movie.merge(request.only([
+      `added`,
+      `attempts`
+    ]))
 
-  //   await movie.save()
+    await movie.save()
 
-  //   return response.json(movie)
-  // }
+    return response.json(movie)
+  }
 
   // /**
   //  * Deletes a movie from the db and removes from the watchlist
