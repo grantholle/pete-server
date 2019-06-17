@@ -66,15 +66,15 @@ test('able to add a new show to movie watchlist', async ({ assert, client }) => 
   assert.equal(movie.attempts, 0, 'has matching attempts')
 }).timeout(30000)
 
-// test('able to fetch show details', async ({ assert, client }) => {
-//   await createMovie()
-//   const response = await client.get(Route.url('tv.show', { id: tmdb_id })).end()
+test('able to fetch movie details', async ({ assert, client }) => {
+  await createMovie()
+  const response = await client.get(Route.url('movies.show', { id: tmdb_id })).end()
 
-//   response.assertStatus(200)
-//   assert.equal(response.body.name, 'Chernobyl', `the name matches`)
-//   assert.equal(response.body.start_season, 1, `the start season matches`)
-//   assert.equal(response.body.start_episode, 1, `the start episode matches`)
-// }).timeout(30000)
+  response.assertStatus(200)
+  assert.equal(response.body.name, 'John Wick: Chapter 3 – Parabellum', `the name matches`)
+  assert.equal(response.body.attempts, 0, `attempts is zero`)
+  assert.equal(response.body.added, false, `it hasn't been added`)
+}).timeout(30000)
 
 // test('able to update show details', async ({ assert, client }) => {
 //   await createMovie()

@@ -48,17 +48,17 @@ class MovieController {
     return response.json(movie)
   }
 
-  // /**
-  //  * Display a single movie.
-  //  *
-  //  * @param {object} ctx
-  //  * @param {Response} ctx.response
-  //  */
-  // async show ({ params, response }) {
-  //   const movie = await movie.findOrFail(params.id)
+  /**
+   * Display a single movie.
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async show ({ params, response }) {
+    const movie = await Movie.findOrFail(params.id)
 
-  //   return response.json(movie)
-  // }
+    return response.json(movie)
+  }
 
   // /**
   //  * Get movie details from tmdb
