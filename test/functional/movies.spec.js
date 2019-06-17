@@ -89,23 +89,23 @@ test('able to update movie details', async ({ assert, client }) => {
   assert.equal(movie.added, true, `the movie is added`)
 }).timeout(30000)
 
-// test('able to remove show', async ({ assert, client }) => {
-//   await createMovie()
-//   await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: tmdb_id, watchlist: true })
-//   let show = await Movie.find(tmdb_id)
+test('able to remove movie', async ({ assert, client }) => {
+  await createMovie()
+  await moviedb.accountWatchlistUpdate({ media_type: 'movie', media_id: tmdb_id, watchlist: true })
+  let movie = await Movie.find(tmdb_id)
 
-//   assert.isNotNull(show, `the the show exsits in the db`)
+  assert.isNotNull(movie, `the the movie exsits in the db`)
 
-//   const response = await client.delete(Route.url('tv.destroy', { id: tmdb_id })).end()
+  const response = await client.delete(Route.url('movies.destroy', { id: tmdb_id })).end()
 
-//   show = await Movie.find(tmdb_id)
-//   const { results } = await moviedb.accountTvWatchlist()
-//   const existing = results.some(s => s.id === tmdb_id)
+  movie = await Movie.find(tmdb_id)
+  const { results } = await moviedb.accountTvWatchlist()
+  const existing = results.some(s => s.id === tmdb_id)
 
-//   response.assertStatus(200)
-//   assert.isFalse(existing, `the show is not on the watchlist`)
-//   assert.isNull(show, `the show doesn't exist in the database`)
-// }).timeout(30000)
+  response.assertStatus(200)
+  assert.isFalse(existing, `the movie is not on the watchlist`)
+  assert.isNull(movie, `the movie doesn't exist in the database`)
+}).timeout(30000)
 
 // test('able to get tmdb details', async ({ assert, client }) => {
 //   const response = await client.get(Route.url('tv.tmdb', { id: tmdb_id })).end()

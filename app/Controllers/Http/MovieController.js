@@ -92,24 +92,24 @@ class MovieController {
     return response.json(movie)
   }
 
-  // /**
-  //  * Deletes a movie from the db and removes from the watchlist
-  //  *
-  //  * @param {object} ctx
-  //  * @param {Request} ctx.request
-  //  * @param {Response} ctx.response
-  //  */
-  // async destroy ({ params, request, response }) {
-  //   const movie = await movie.findOrFail(params.id)
+  /**
+   * Deletes a movie from the db and removes from the watchlist
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async destroy ({ params, response }) {
+    const movie = await Movie.findOrFail(params.id)
 
-  //   await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: movie.tmdb_id, watchlist: false })
+    await moviedb.removeMovieFromWatchlist(movie.tmdb_id)
 
-  //   await movie.delete()
+    await movie.delete()
 
-  //   return response.json({
-  //     success: true
-  //   })
-  // }
+    return response.json({
+      success: true
+    })
+  }
 }
 
 module.exports = MovieController
