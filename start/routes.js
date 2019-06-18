@@ -23,6 +23,8 @@ Route.group(() => {
   Route.resource('movies', 'MovieController').apiOnly()
   Route.get(`movies/:id/tmdb`, `MovieController.tmdb`).as('movies.tmdb')
 
+  Route.post('watchlist/update', 'WatchlistController.update').as('watchlist.update')
+
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)
 }).prefix(`api/v1`)
