@@ -8,6 +8,7 @@ class MovieSchema extends Schema {
     this.create('movies', (table) => {
       table.increments()
       table.string(`name`)
+      table.integer(`year`).nullable()
       table.string(`tmdb_id`)
       table.string(`imdb_id`).nullable()
       table.boolean(`added`).defaultTo(false)

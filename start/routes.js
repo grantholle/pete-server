@@ -22,6 +22,7 @@ Route.group(() => {
 
   Route.resource('movies', 'MovieController').apiOnly()
   Route.get(`movies/:id/tmdb`, `MovieController.tmdb`).as('movies.tmdb')
+  Route.get(`movies/:id/torrent`, `MovieController.torrent`).as('movies.torrent')
 
   Route.post('watchlist/update', 'WatchlistController.update').as('watchlist.update')
 

@@ -16,7 +16,7 @@ class ConfigController {
    * @param {object} ctx
    * @param {Response} ctx.response
    */
-  async index ({ request, response }) {
+  async index ({ response }) {
     let config = await Config.first()
 
     if (!config) {

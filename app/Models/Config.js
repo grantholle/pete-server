@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Config extends Model {
+  static get movieQualities () {
+    return ['720p', '1080p', '2160p']
+  }
 }
 
 module.exports = Config

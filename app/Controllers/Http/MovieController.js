@@ -2,7 +2,9 @@
 
 const moviedb = require('../../tmdb')
 const Movie = use(`App/Models/Movie`)
+const Config = use(`App/Models/Config`)
 const Logger = use('Logger')
+const movieSearch = require('../../lib/search-movie')
 
 class MovieController {
   /**
@@ -52,6 +54,7 @@ class MovieController {
    * Display a single movie.
    *
    * @param {object} ctx
+   * @param {Params} ctx.params
    * @param {Response} ctx.response
    */
   async show ({ params, response }) {
@@ -64,6 +67,7 @@ class MovieController {
    * Get movie details from tmdb
    *
    * @param {object} ctx
+   * @param {Params} ctx.params
    * @param {Response} ctx.response
    */
   async tmdb ({ params, response }) {
@@ -76,6 +80,7 @@ class MovieController {
    * Update movie details
    *
    * @param {object} ctx
+   * @param {Params} ctx.params
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
@@ -96,7 +101,7 @@ class MovieController {
    * Deletes a movie from the db and removes from the watchlist
    *
    * @param {object} ctx
-   * @param {Request} ctx.request
+   * @param {Params} ctx.params
    * @param {Response} ctx.response
    */
   async destroy ({ params, response }) {
@@ -109,6 +114,23 @@ class MovieController {
     return response.json({
       success: true
     })
+  }
+
+  /**
+   * Searches for a movie torrent
+   *
+   * @param {object} ctx
+   * @param {Params} ctx.params
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async torrent ({ params, response }) {
+    const movie = await Movie.findOrFail(params.id)
+    const config = await Config.first()
+
+    const magnet = await movieSearch(movie, config)
+
+    return response.json({ magnet })
   }
 }
 
