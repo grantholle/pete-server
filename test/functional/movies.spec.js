@@ -74,6 +74,7 @@ test('able to fetch movie details', async ({ assert, client }) => {
   assert.equal(response.body.name, 'John Wick: Chapter 3 – Parabellum', `the name matches`)
   assert.equal(response.body.attempts, 0, `attempts is zero`)
   assert.equal(response.body.added, false, `it hasn't been added`)
+  assert.equal(typeof response.body.id, 'number', `it has an id`)
 }).timeout(30000)
 
 test('able to update movie details', async ({ assert, client }) => {

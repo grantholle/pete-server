@@ -42,7 +42,7 @@ class MovieController {
 
     try {
       await movie.save()
-      await movie.reload()
+      // await movie.reload()
     } catch (e) {
       Logger.error(e)
     }
