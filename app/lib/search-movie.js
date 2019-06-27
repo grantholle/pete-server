@@ -22,7 +22,7 @@ module.exports = (movie, config) => {
   return new Promise((resolve, reject) => {
     // We'll give yify a higher priority for searching... I guess
     const search = async (searcher, quality) => {
-      const magnet = await searcher.searchForMovie(movie, quality)
+      const magnet = await searcher(movie, quality)
 
       // If there's a result, then yay, return that
       // Or if there's no fallback search source and no more qualities to try
@@ -32,7 +32,7 @@ module.exports = (movie, config) => {
 
       // If there's a fallback source search using that
       if (fallbackSource) {
-        return fallbackSource.searchForMovie(movie, quality).then(magnet => {
+        return fallbackSource(movie, quality).then(magnet => {
           if (magnet || (!config.fallback_movie_quality || qualities.length === 0)) {
             return resolve(magnet)
           }

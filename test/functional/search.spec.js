@@ -16,9 +16,10 @@ const createMovie = () => Movie.create({
 })
 
 test('can search for a movie torrent', async ({ assert, client }) => {
-  const movie = await createMovie()
+  await createMovie()
   await Config.create({ use_yify: true })
 
-  const res = await client.get(Route.url('movies.torrent', { id: movie })).end()
-  console.log(res.body)
+  const res = await client.get(Route.url('movies.torrent', { id: 181808 })).end()
+  res.assertStatus(200)
+  assert.property(res.body, 'magnet', `response has magnet property`)
 }).timeout(10000)
