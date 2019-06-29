@@ -25,6 +25,7 @@ Route.group(() => {
   Route.get(`movies/:id/torrent`, `MovieController.torrent`).as('movies.torrent')
 
   Route.post('watchlist/update', 'WatchlistController.update').as('watchlist.update')
+  Route.get('watchlist/movies', 'WatchlistController.movies').as('watchlist.movies')
 
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)

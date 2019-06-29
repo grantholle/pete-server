@@ -1,7 +1,7 @@
 'use strict'
 
 const moviedb = require('../../tmdb')
-const { validate } = use('Validator')
+const Movie = use('App/Models/Movie')
 
 class WatchlistController {
   /**
@@ -18,6 +18,28 @@ class WatchlistController {
     ]))
 
     return response.json(res)
+  }
+
+  /**
+   * Processes movies from the movie watchlist
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async movies ({ response }) {
+    const { results } = await moviedb.accountMovieWatchlist()
+
+    const magnets = results.map(async (m) => {
+      const movie = await Movie.create({
+        tmdb_id: m.id,
+        name: m.title,
+        year: Number(m.release_date.substring(0, 3))
+      })
+
+      return await movie.search()
+    })
+
+    return response.json({ magnets })
   }
 }
 
