@@ -11,15 +11,16 @@ const { first } = require('lodash')
  * @param {string} quality
  * @returns {Promise}
  */
-module.exports = (name, year, quality) => {
+module.exports = (movie, quality) => {
   return new Promise((resolve, reject) => {
-    yify.search(name, (err, results) => {
+    yify.search(movie.name, (err, results) => {
       if (err) {
         return reject(err)
       }
 
       // Get the movie with the matching release year
-      const yifyMovie = year ? results.find(item => item.year === year) : first(results)
+      const yifyMovie = movie.year ?
+        results.find(item => item.year === movie.year) : first(results)
 
       // If no movie matched, return a falsy result
       if (!yifyMovie) {

@@ -12,14 +12,15 @@ const { first } = require('lodash')
  * @returns {Promise}
  */
 module.exports = async (movie, quality) => {
+  const rarbg = new RarbgApi()
   const searchParams = {
     search_string: `${sanitize(movie.name)} ${movie.year || ''}`.trim(),
     sort: 'seeders',
-    category: this.categories[`MOVIES_X264_${quality.replace('p', '')}`]
+    category: rarbg.categories[`MOVIES_X264_${quality.replace('p', '')}`]
   }
 
   try {
-    const results = await (new RarbgApi()).search(searchParams)
+    const results = await rarbg.search(searchParams)
 
     return first(results).download
   } catch (err) {

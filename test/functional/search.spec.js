@@ -15,11 +15,12 @@ const createMovie = () => Movie.create({
   imdb_id: `tt2527336`
 })
 
-test('can search for a movie torrent', async ({ assert, client }) => {
+test('can search for a movie torrent when using yify', async ({ assert, client }) => {
   await createMovie()
   await Config.create({ use_yify: true })
 
   const res = await client.get(Route.url('movies.torrent', { id: 181808 })).end()
   res.assertStatus(200)
   assert.property(res.body, 'magnet', `response has magnet property`)
+  assert.isTrue(res.body.magnet.includes('yts'))
 }).timeout(10000)

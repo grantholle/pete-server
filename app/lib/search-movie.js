@@ -16,10 +16,10 @@ const { clone, first } = require('lodash')
  */
 module.exports = (movie, config) => {
   const source = config.use_yify ? yify : rarbg
-  const fallbackSource = config.useYify ? rarbg : false
+  const fallbackSource = config.use_yify ? rarbg : false
   const qualities = clone(Config.movieQualities)
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     // We'll give yify a higher priority for searching... I guess
     const search = async (searcher, quality) => {
       const magnet = await searcher(movie, quality)
@@ -45,7 +45,7 @@ module.exports = (movie, config) => {
       search(source, qualities.shift())
     }
 
-    let quality = qualities.splice(qualities.indexOf(config.quality), 1)
+    let quality = qualities.splice(qualities.indexOf(config.movie_quality), 1)
     search(source, first(quality))
   })
 }
