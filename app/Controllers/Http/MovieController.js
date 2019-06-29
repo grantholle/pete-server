@@ -121,7 +121,6 @@ class MovieController {
    *
    * @param {object} ctx
    * @param {Params} ctx.params
-   * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async torrent ({ params, response }) {
