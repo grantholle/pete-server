@@ -26,7 +26,7 @@ module.exports = (movie, config) => {
 
       // If there's a result, then yay, return that
       // Or if there's no fallback search source and no more qualities to try
-      if (magnet || (!fallbackSource && (qualities.length === 0 || !config.fallback))) {
+      if (magnet || (!fallbackSource && (qualities.length === 0 || !config.fallback_movie_quality))) {
         return resolve(magnet)
       }
 
