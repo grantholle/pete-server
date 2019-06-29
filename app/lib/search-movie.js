@@ -14,7 +14,8 @@ const { clone, first } = require('lodash')
  * @param {App/Models/Config} config
  * @returns {string} magnet URL
  */
-module.exports = (movie, config) => {
+module.exports = async movie => {
+  const config = await Config.first()
   const source = config.use_yify ? yify : rarbg
   const fallbackSource = config.use_yify ? rarbg : false
   const qualities = clone(Config.movieQualities)

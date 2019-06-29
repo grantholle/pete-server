@@ -2,7 +2,6 @@
 
 const moviedb = require('../../tmdb')
 const Movie = use(`App/Models/Movie`)
-const Config = use(`App/Models/Config`)
 const Logger = use('Logger')
 const movieSearch = require('../../lib/search-movie')
 
@@ -125,9 +124,8 @@ class MovieController {
    */
   async torrent ({ params, response }) {
     const movie = await Movie.findOrFail(params.id)
-    const config = await Config.first()
 
-    const magnet = await movieSearch(movie, config)
+    const magnet = await movieSearch(movie)
 
     return response.json({ magnet })
   }
