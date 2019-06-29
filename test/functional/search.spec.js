@@ -34,3 +34,11 @@ test('can search for a movie torrent when not using yify', async ({ assert, clie
   assert.property(res.body, 'magnet', `response has magnet property`)
   assert.isFalse(res.body.magnet.includes('yts'))
 }).timeout(10000)
+
+test('can search for a movie using the instance function', async ({ assert }) => {
+  const movie = await createMovie()
+  await Config.create({ use_yify: true })
+
+  const res = await movie.search()
+  assert.isTrue(res.includes('yts'))
+}).timeout(10000)

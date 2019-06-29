@@ -2,7 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const yify = require('../lib/yify')
+const movieSearch = require('../lib/search-movie')
 
 class Movie extends Model {
   static get primaryKey () {
@@ -10,16 +10,14 @@ class Movie extends Model {
   }
 
   /**
-   * Search yify for a movie. Currently does not support 4k/2160p
+   * Search for a movie torrent
    *
    * @param {string} quality 720p or 1080p
    */
-  searchYify (quality) {
-    if (quality === `2160p`) {
-      return false
-    }
+  async search () {
+    const result = await movieSearch(this)
 
-    return yify(this.name, this.year, quality)
+    return result
   }
 }
 
