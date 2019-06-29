@@ -24,3 +24,13 @@ test('can search for a movie torrent when using yify', async ({ assert, client }
   assert.property(res.body, 'magnet', `response has magnet property`)
   assert.isTrue(res.body.magnet.includes('yts'))
 }).timeout(10000)
+
+test('can search for a movie torrent when not using yify', async ({ assert, client }) => {
+  await createMovie()
+  await Config.create({ use_yify: false })
+
+  const res = await client.get(Route.url('movies.torrent', { id: 181808 })).end()
+  res.assertStatus(200)
+  assert.property(res.body, 'magnet', `response has magnet property`)
+  assert.isFalse(res.body.magnet.includes('yts'))
+}).timeout(10000)
