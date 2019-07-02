@@ -34,7 +34,7 @@ class WatchlistController {
       const movie = await Movie.create({
         tmdb_id: m.id,
         name: m.title,
-        year: Number(m.release_date.substring(0, 3))
+        year: Number(m.release_date.substring(0, 4))
       })
 
       // Remove the movie from the watchlist
