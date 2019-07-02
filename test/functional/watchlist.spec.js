@@ -7,6 +7,7 @@ const { isArray } = require('lodash')
 const Config = use('App/Models/Config')
 
 trait('Test/ApiClient')
+trait('DatabaseTransactions')
 
 test(`Can add and remove a movie to the watchlist`, async ({ assert, client }) => {
   const id = 301528

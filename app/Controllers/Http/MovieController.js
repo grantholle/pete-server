@@ -122,7 +122,7 @@ class MovieController {
    * @param {Response} ctx.response
    */
   async torrent ({ params, response }) {
-    const movie = await Movie.findOrFail(params.id)
+    const movie = await Movie.findByOrFail('tmdb_id', params.id)
     const magnet = await movie.search(movie)
 
     return response.json({ magnet })

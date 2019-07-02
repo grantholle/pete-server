@@ -65,7 +65,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async show ({ params, response }) {
-    const show = await Show.findOrFail(params.id)
+    const show = await Show.findByOrFail('tmdb_id', params.id)
 
     return response.json(show)
   }
@@ -90,7 +90,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const show = await Show.findOrFail(params.id)
+    const show = await Show.findByOrFail('tmdb_id', params.id)
 
     show.merge(request.only([
       `start_season`,
@@ -112,7 +112,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const show = await Show.findOrFail(params.id)
+    const show = await Show.findByOrFail('tmdb_id', params.id)
 
     await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: show.tmdb_id, watchlist: false })
 

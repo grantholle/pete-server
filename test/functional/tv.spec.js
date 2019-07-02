@@ -12,7 +12,7 @@ trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
 const createShow = async () => {
-  const show = await Show.find(tmdb_id)
+  const show = await Show.findBy('tmdb_id', tmdb_id)
 
   if (show) {
     return show
@@ -91,7 +91,7 @@ test('able to update show details', async ({ assert, client }) => {
     })
     .end()
 
-  const show = await Show.find(tmdb_id)
+  const show = await Show.findBy('tmdb_id', tmdb_id)
 
   response.assertStatus(200)
   assert.equal(show.start_season, 2, `the start season was updated`)
@@ -103,13 +103,13 @@ test('able to update show details', async ({ assert, client }) => {
 test('able to remove show', async ({ assert, client }) => {
   await createShow()
   await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: tmdb_id, watchlist: true })
-  let show = await Show.find(tmdb_id)
+  let show = await Show.findBy('tmdb_id', tmdb_id)
 
   assert.isNotNull(show, `the the show exsits in the db`)
 
   const response = await client.delete(Route.url('tv.destroy', { id: tmdb_id })).end()
 
-  show = await Show.find(tmdb_id)
+  show = await Show.findBy('tmdb_id', tmdb_id)
   const { results } = await moviedb.accountTvWatchlist()
   const existing = results.some(s => s.id === tmdb_id)
 

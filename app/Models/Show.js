@@ -4,8 +4,11 @@
 const Model = use('Model')
 
 class Show extends Model {
-  static get primaryKey () {
-    return 'tmdb_id'
+  /**
+   * Relationship to episodes
+   */
+  episodes () {
+    return this.hasMany('App/Models/Episode', 'id', 'show_id')
   }
 }
 
