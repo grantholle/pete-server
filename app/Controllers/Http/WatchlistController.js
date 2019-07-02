@@ -30,11 +30,17 @@ class WatchlistController {
     const { results } = await moviedb.accountMovieWatchlist()
 
     const magnets = results.map(async (m) => {
+      // Create the movie entry
       const movie = await Movie.create({
         tmdb_id: m.id,
         name: m.title,
         year: Number(m.release_date.substring(0, 3))
       })
+
+      // Remove the movie from the watchlist
+      // since we have a record of it locally
+      // Do it asynchronously
+      moviedb.removeMovieFromWatchlist(m.id)
 
       return await movie.search()
     })

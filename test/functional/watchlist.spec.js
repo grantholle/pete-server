@@ -55,14 +55,6 @@ test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, cl
   assert.property(movieRes.body, 'magnets', 'Has magents property')
   assert.isTrue(isArray(movieRes.body.magnets))
   assert.isTrue(movieRes.body.magnets.length === 1)
-
-  await client.post(Route.url('watchlist.update'))
-    .send({
-      media_type: 'movie',
-      media_id: id,
-      watchlist: false
-    })
-    .end()
 }).timeout(30000)
 
 test(`Can add and remove a tv show to the watchlist`, async ({ assert, client }) => {
