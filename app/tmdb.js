@@ -21,7 +21,8 @@ MovieDb.prototype.removeMovieFromWatchlist = function (mediaId) {
  */
 MovieDb.prototype.getImdbId = function (id) {
   return this.tvExternalIds(id)
-    .then(result => result.imdb_id && result.imdb_id[0] === 't' ? result.imdb_id.substr(2) : result.imdb_id)
+    .then(result => result.imdb_id && result.imdb_id[0] === 't' ?
+      result.imdb_id.substr(2) : result.imdb_id)
 }
 
 /**

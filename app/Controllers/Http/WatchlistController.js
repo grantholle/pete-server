@@ -69,6 +69,8 @@ class WatchlistController {
       return await movie.search()
     })
 
+    Logger.info(`${results.length} shows in your watchlist`)
+
     // Iterate through each show one at a time
     for (const watchlistShow of results) {
       // Get show info
@@ -97,80 +99,15 @@ class WatchlistController {
       )
 
       if (!show.imdb_id) {
-        const { imdb_id } = await moviedb.tvExternalIds(watchlistShow.id)
-        show.imdb_id = imdb_id
+        show.imdb_id = await moviedb.getImdbId(watchlistShow.id)
       }
 
-      // Process a season's episodes
-      const processSeason = async (season, startEpisode) => {
-        let res
-
-        try {
-          // Get the season information for the season we currently want
-          res = await moviedb.tvSeasonInfo({ id: show.tmdb_id, season_number: season })
-        } catch (err) {
-          winston.error(`Could not get season ${season} of ${show.name}: ${err.message}`)
-          return
-        }
-
-        // Only get episodes that are greater than the starting episde
-        // and we don't have an unadded episode that is released
-        // and the attempts is less than the max allowed
-        // Sort to take advantage of ending the iteration early
-        let episodes = res.episodes.filter(e => {
-          return e.episode_number >= startEpisode &&
-            !show.episodes.some(se => {
-              return (se.episode === e.episode_number &&
-                se.season === e.season_number &&
-                se.added) ||
-                (!se.added && se.attempts > EPISODE_FAILURE_MAX)
-            })
-        }).sort((a, b) => a.episode_number - b.episode_number)
-
-        // If no episodes are needed for this season
-        if (!episodes || episodes.length === 0) {
-          winston.info(`No episodes needed for season ${season} of ${show.name}`)
-          episodes = []
-        }
-
-        let hasFutureEpisode = false
-
-        for (const episode of episodes) {
-          // If it hasn't aired yet, just break from whatever is possibly left
-          // Try a typical evening (18 hours), plus the 12 hour time difference from here
-          // since it will be created as the day at midnight
-          if (!episode.air_date || now < moment(episode.air_date, 'YYYY-MM-DD').add(30, 'hours')) {
-            // show.next_air_date = episode.air_date
-            // show.start_episode = episode.episode_number
-            hasFutureEpisode = true
-            break
-          }
-
-          winston.info(`Searching for season ${episode.season_number} episode ${episode.episode_number} of ${show.name}`)
-
-          let directory = p.join(config.locations.tv, show.name, `Season ${episode.season_number}`)
-
-          try {
-            const magnet = await searchForEpisode(show, episode, show.use_alternate_quality)
-
-            winston.info(`Episode${magnet ? ' ' : ' not '}found for season ${episode.season_number} episode ${episode.episode_number} of ${show.name}`)
-
-            // Don't add anything if a magnet wasn't found
-            if (!magnet) {
-              continue
-            }
-
-            // Add the torrent
-            const name = `${show.name} - ${label(episode.season_number, episode.episode_number)} - ${sanitize(episode.name)}`
-            const torrent = await transmission.addMagnet(magnet, name, directory)
-            await database.updateOrCreateEpisode(show, episode, !!torrent)
-          } catch (err) {
-            winston.error(err)
-          }
-        }
+      const processSeason = async (season, episode) => {
+        // Process a season's episodes
+        const hasFutureEpisode = await show.searchForSeason(season, episode)
 
         // Check if there's a next season
-        const nextSeason = showInfo.seasons.find(s => s.season_number === (season + 1))
+        const nextSeason = showInfo.seasons.find(s => s.season_number === (show.start_season + 1))
 
         // If there's a season after the current one,
         // change the settings and check it for episodes
@@ -178,14 +115,17 @@ class WatchlistController {
           show.start_season = nextSeason.season_number
           show.start_episode = 1
           await processSeason(show.start_season, show.start_episode)
-          return
         }
-
-        // Reload the database to keep the torrents collection intact
-        await database.saveShow(show)
       }
 
-      await processSeason(show.start_season, show.start_episode)
+      try {
+        await processSeason(show.start_season, show.start_episode)
+        await show.save()
+      } catch (err) {
+        Logger.error(`Failed processing ${show.name}`, err)
+      }
+
+      // Reload the database to keep the torrents collection intact
     }
 
     return response.json({ magnets })

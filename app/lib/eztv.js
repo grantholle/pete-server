@@ -64,7 +64,7 @@ module.exports = async (show, episode, quality) => {
   // will be found first
   const torrent = torrentCache.sort((a, b) => a.seeds - b.seeds)
     .find(torrent => {
-      if (episode.season_number !== parseFloat(torrent.season) || episode.episode_number !== parseFloat(torrent.episode)) {
+      if (episode.season !== parseFloat(torrent.season) || episode.episode !== parseFloat(torrent.episode)) {
         return false
       }
 

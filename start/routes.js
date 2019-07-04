@@ -26,6 +26,7 @@ Route.group(() => {
 
   Route.post('watchlist/update', 'WatchlistController.update').as('watchlist.update')
   Route.get('watchlist/movies', 'WatchlistController.movies').as('watchlist.movies')
+  Route.get('watchlist/tv', 'WatchlistController.tv').as('watchlist.tv')
 
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)

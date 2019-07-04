@@ -1,6 +1,7 @@
 'use strict'
 
 const Config = use('App/Models/Config')
+const Logger = use('Logger')
 const eztv = require('./eztv')
 const rarbg = require('./rarbg-tv')
 const { clone } = require('lodash')
