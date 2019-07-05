@@ -3,7 +3,6 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 const Logger = use('Logger')
-const Config = use('App/Models/Config')
 const Episode = use('App/Models/Episode')
 const p = require('path')
 const searchForEpisode = require('../lib/search-tv')

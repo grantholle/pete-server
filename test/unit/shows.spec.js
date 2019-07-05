@@ -3,6 +3,8 @@
 const { test, trait } = use('Test/Suite')('Shows')
 const Show = use('App/Models/Show')
 const Episode = use('App/Models/Episode')
+const eztv = require('../../app/lib/eztv')
+const { last } = require('lodash')
 
 trait('DatabaseTransactions')
 
@@ -49,3 +51,21 @@ test('make sure show relationships work', async ({ assert }) => {
 
   assert.isTrue(episodes.size() === 5)
 }).timeout(30000)
+
+test('ensure eztv search function works', async ({ assert }) => {
+  const show = await Show.create({
+    tmdb_id: 32726,
+    imdb_id: 1561755,
+    name: `Bob's Burgers`,
+    start_season: 9,
+    start_episode: 20
+  })
+  await show.getEpisodesForSeason(9)
+  let episodes = await show.episodes().fetch()
+  episodes = episodes.toJSON()
+  const episode = last(episodes)
+
+  const result = await eztv(show, episode, 'HDTV')
+  assert.isString(result, 'the result is a string')
+  assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
+}).timeout(100000)

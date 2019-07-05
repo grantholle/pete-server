@@ -41,7 +41,7 @@ module.exports = async (show, episode, quality) => {
       // If we haven't gathered all the torrents for this show
       // Increase the page and get more
       if (!res.torrents || res.torrents.length < pageSize) {
-        return resolve()
+        return
       }
 
       return paginate(++page)
