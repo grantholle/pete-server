@@ -69,3 +69,20 @@ test('ensure eztv search function works', async ({ assert }) => {
   assert.isString(result, 'the result is a string')
   assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
 }).timeout(100000)
+
+test('ensure tv season search function works', async ({ assert }) => {
+  const show = await Show.create({
+    tmdb_id: 32726,
+    imdb_id: 1561755,
+    name: `Bob's Burgers`,
+    start_season: 9,
+    start_episode: 20,
+    quality: 'HDTV'
+  })
+  await show.searchForSeason(9, 22)
+
+  // Fetch the downloads
+  // const result = await eztv(show, episode, 'HDTV')
+  // assert.isString(result, 'the result is a string')
+  // assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
+}).timeout(100000)

@@ -4,7 +4,7 @@ const Config = use('App/Models/Config')
 const Logger = use('Logger')
 const eztv = require('./eztv')
 const rarbg = require('./rarbg-tv')
-const { clone } = require('lodash')
+const { clone, first } = require('lodash')
 
 /**
  * Searches for an episode of a show given the desired quality
@@ -14,7 +14,7 @@ const { clone } = require('lodash')
  * @param {Object} episode The episode object from TMdb
  * @returns {Promise} Resolves to either magnet URL if one is found or false
  */
-module.exports = (show, episode, fallback = true) => {
+module.exports = async (show, episode, fallback = true) => {
   const qualities = clone(Config.tvQualities)
   const search = async (show, episode, quality) => {
     // Check rarbg first for the desired quality
@@ -29,11 +29,11 @@ module.exports = (show, episode, fallback = true) => {
           return magnet
         }
       } catch (err) {
-        search(show, episode, qualities.shift())
+        return await search(show, episode, qualities.shift())
       }
 
       // Everthing failed for this quality, try the next one
-      search(show, episode, qualities.shift())
+      return await search(show, episode, qualities.shift())
     }
 
     try {
@@ -43,10 +43,10 @@ module.exports = (show, episode, fallback = true) => {
         return magnet
       }
 
-      return searchEztv()
+      return await searchEztv()
     } catch (err) {
       // If it fails for rarbg, attempt to do eztv
-      return searchEztv()
+      return await searchEztv()
     }
   }
 
@@ -55,5 +55,5 @@ module.exports = (show, episode, fallback = true) => {
   // until we've exhausted all options
   const quality = qualities.splice(qualities.indexOf(show.quality), 1)
 
-  return search(show, episode, quality[0])
+  return await search(show, episode, first(quality))
 }
