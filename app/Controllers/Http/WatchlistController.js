@@ -4,7 +4,6 @@ const moviedb = require('../../tmdb')
 const Movie = use('App/Models/Movie')
 const Logger = use('Logger')
 const Show = use('App/Models/Show')
-const Episode = use('App/Models/Episode')
 
 class WatchlistController {
   /**
