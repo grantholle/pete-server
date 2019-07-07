@@ -114,11 +114,9 @@ class WatchlistController {
       } catch (err) {
         Logger.error(`Failed processing ${show.name}`, err)
       }
-
-      // Reload the database to keep the torrents collection intact
     }
 
-    return response.json({ magnets })
+    return response.json({})
   }
 }
 
