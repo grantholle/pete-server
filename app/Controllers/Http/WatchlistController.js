@@ -60,15 +60,6 @@ class WatchlistController {
   async tv ({ response }) {
     const { results } = await moviedb.accountTvWatchlist()
 
-    const magnets = results.map(async (m) => {
-      const movie = await Movie.create({
-        tmdb_id: m.id,
-        name: m.title
-      })
-
-      return await movie.search()
-    })
-
     Logger.info(`${results.length} shows in your watchlist`)
 
     // Iterate through each show one at a time
