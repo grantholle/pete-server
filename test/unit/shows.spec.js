@@ -2,7 +2,6 @@
 
 const { test, trait } = use('Test/Suite')('Shows')
 const Show = use('App/Models/Show')
-const Episode = use('App/Models/Episode')
 const eztv = require('../../app/lib/eztv')
 const { last } = require('lodash')
 
