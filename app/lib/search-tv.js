@@ -14,7 +14,7 @@ const { clone, first } = require('lodash')
  * @param {Object} episode The episode object from TMdb
  * @returns {Promise} Resolves to either magnet URL if one is found or false
  */
-module.exports = async (show, episode, fallback = true) => {
+module.exports = async (show, episode) => {
   const qualities = clone(Config.tvQualities)
   const search = async (show, episode, quality) => {
     // Check rarbg first for the desired quality
@@ -25,7 +25,7 @@ module.exports = async (show, episode, fallback = true) => {
         const magnet = await eztv(show, episode, quality)
         // Either resolve the found magnet url
         // or false if we've gone through all qualities
-        if (magnet || qualities.length === 0 || (!fallback && !magnet)) {
+        if (magnet || qualities.length === 0 || (!show.use_alt_quality && !magnet)) {
           return magnet
         }
       } catch (err) {

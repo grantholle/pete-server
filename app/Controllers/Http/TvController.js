@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const moviedb = require('../../tmdb')
+const moviedb = require('../../lib/tmdb')
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
 

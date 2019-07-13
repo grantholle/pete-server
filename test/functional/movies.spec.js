@@ -2,7 +2,7 @@
 
 const { test, trait, afterEach } = use('Test/Suite')('Movies')
 const Route = use('Route')
-const moviedb = require('../../app/tmdb')
+const moviedb = require('../../app/lib/tmdb')
 let removeMovie = false
 const tmdb_id = 458156
 const Movie = use('App/Models/Movie')

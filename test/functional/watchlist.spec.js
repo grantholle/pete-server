@@ -2,7 +2,7 @@
 
 const Route = use('Route')
 const { test, trait } = use('Test/Suite')('Watchlist')
-const moviedb = require('../../app/tmdb')
+const moviedb = require('../../app/lib/tmdb')
 const { isArray } = require('lodash')
 const Config = use('App/Models/Config')
 

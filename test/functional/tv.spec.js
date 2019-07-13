@@ -4,7 +4,7 @@ const { test, trait, afterEach } = use('Test/Suite')('TV')
 const Route = use('Route')
 const Show = use('App/Models/Show')
 const isArray = require('lodash/isArray')
-const moviedb = require('../../app/tmdb')
+const moviedb = require('../../app/lib/tmdb')
 let removeShow = false
 const tmdb_id = 87108
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const moviedb = require('../../tmdb')
+const moviedb = require('../../lib/tmdb')
 const Movie = use(`App/Models/Movie`)
 const Logger = use('Logger')
 
@@ -122,8 +122,19 @@ class MovieController {
    * @param {Response} ctx.response
    */
   async torrent ({ params, response }) {
-    const movie = await Movie.findByOrFail('tmdb_id', params.id)
-    const magnet = await movie.search(movie)
+    let movie = await Movie.find('tmdb_id', params.id)
+
+    // Be forgiving when looking up movies
+    // If it doesn't exist, create it on the fly
+    if (!movie) {
+      movie = new Movie()
+      movie.tmdb_id = params.id
+
+      await movie.fetchAndFill()
+      await movie.save()
+    }
+
+    const magnet = await movie.findMagnet()
 
     return response.json({ magnet })
   }

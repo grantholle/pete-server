@@ -1,6 +1,6 @@
 'use strict'
 
-const moviedb = require('../../tmdb')
+const moviedb = require('../../lib/tmdb')
 const Movie = use('App/Models/Movie')
 const Logger = use('Logger')
 const Show = use('App/Models/Show')
@@ -31,23 +31,22 @@ class WatchlistController {
   async movies ({ response }) {
     const { results } = await moviedb.accountMovieWatchlist()
 
-    const magnets = results.map(async (m) => {
-      // Create the movie entry
+    for (const result of results) {
       const movie = await Movie.create({
-        tmdb_id: m.id,
-        name: m.title,
-        year: Number(m.release_date.substring(0, 4))
+        tmdb_id: result.id,
+        name: result.title,
+        year: Number(result.release_date.substring(0, 4))
       })
 
       // Remove the movie from the watchlist
       // since we have a record of it locally
       // Do it asynchronously
-      moviedb.removeMovieFromWatchlist(m.id)
+      moviedb.removeMovieFromWatchlist(result.id)
 
-      return await movie.search()
-    })
+      await movie.findAndAddMagnet()
+    }
 
-    return response.json({ magnets })
+    return response.json({})
   }
 
   /**

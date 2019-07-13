@@ -7,7 +7,7 @@ const Episode = use('App/Models/Episode')
 const p = require('path')
 const searchForEpisode = require('../lib/search-tv')
 const label = require('../lib/episode-label')
-const moviedb = require('../tmdb')
+const moviedb = require('../lib/tmdb')
 
 class Show extends Model {
   /**
@@ -43,7 +43,7 @@ class Show extends Model {
       Logger.info(`Searching for season ${episode.season} episode ${episode.episode} of ${this.name}`)
 
       try {
-        const magnet = await searchForEpisode(this, episode, this.use_alt_quality)
+        const magnet = await searchForEpisode(this, episode)
 
         Logger.info(`Episode${magnet ? ' ' : ' not '}found for season ${episode.season} episode ${episode.episode} of ${this.name}: ${magnet}.`)
 
