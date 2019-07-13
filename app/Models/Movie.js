@@ -6,11 +6,11 @@ const Config = use('App/Models/Config')
 const Logger = use('Logger')
 const path = require('path')
 const sanitize = require('sanitize-filename')
-const { clone } = require('lodash')
+const { clone, first } = require('lodash')
+const RarbgApi = require('rarbg')
 const moviedb = require('../lib/tmdb')
 const transmission = require('../lib/transmission')
-const yify = require('../lib/yify')
-const rarbg = require('../lib/rarbg-movie')
+const yify = require('yify-search')
 
 class Movie extends Model {
   static get primaryKey () {
@@ -44,9 +44,10 @@ class Movie extends Model {
       throw new Error(`Movie directory has not been configured!`)
     }
 
-    const directory = path.join(config.movie_directory, sanitize(`${this.name} (${this.year})`))
+    const movieName = sanitize(`${this.name} (${this.year})`)
+    const directory = path.join(config.movie_directory, movieName)
 
-    await transmission.add(magnet, this.name, directory)
+    await transmission.add(magnet, movieName, directory)
 
     this.added = true
   }
@@ -58,13 +59,13 @@ class Movie extends Model {
    */
   async findMagnet () {
     const config = await Config.last()
-    const source = config.use_yify ? yify : rarbg
-    const fallbackSearcher = config.use_yify ? rarbg : false
+    const source = config.use_yify ? this.searchYify : this.searchRarbg
+    const fallbackSearcher = config.use_yify ? this.searchRarbg : this.searchYify
 
     // We'll give yify a higher priority for searching... I guess
     const search = async (searcher, qualities) => {
       const quality = qualities.shift()
-      let magnet = await searcher(this, quality)
+      let magnet = await searcher(quality)
 
       // If there's a result, then yay, return that
       // Or if there's no fallback search source and no more qualities to try
@@ -74,7 +75,7 @@ class Movie extends Model {
 
       // If there's a fallback source search using that
       if (fallbackSearcher) {
-        magnet = await fallbackSearcher(this, quality)
+        magnet = await fallbackSearcher(quality)
 
         if (magnet || (!config.fallback_movie_quality || qualities.length === 0)) {
           return magnet
@@ -116,6 +117,64 @@ class Movie extends Model {
   async fillFromTmdb (results) {
     this.name = results.title
     this.year = Number(results.release_date.substring(0, 4))
+  }
+
+  /**
+   * Search rarbg for a movie
+   *
+   * @param {string} quality
+   * @returns {Promise}
+   */
+  async searchRarbg (quality) {
+    const rarbg = new RarbgApi()
+    const searchParams = {
+      search_string: `${sanitize(this.name)} ${this.year || ''}`.trim(),
+      sort: 'seeders',
+      category: rarbg.categories[`MOVIES_X264_${quality.replace('p', '')}`]
+    }
+
+    try {
+      const results = await rarbg.search(searchParams)
+
+      return first(results).download
+    } catch (err) {
+      if (err.message.toLowerCase().includes('no results')) {
+        return false
+      }
+
+      throw err
+    }
+  }
+
+  /**
+   * Search rarbg for a movie based on certain criterion
+   * Movie should be the object from TMdb
+   *
+   * @param {string} quality
+   * @returns {Promise}
+   */
+  searchYify (quality) {
+    return new Promise((resolve, reject) => {
+      yify.search(this.name, (err, results) => {
+        if (err) {
+          return reject(err)
+        }
+
+        // Get the movie with the matching release year
+        const yifyMovie = this.year ?
+          results.find(item => item.year === this.year) : first(results)
+
+        // If no movie matched, return a falsy result
+        if (!yifyMovie) {
+          return resolve(false)
+        }
+
+        // Resolve the url
+        const torrent = yifyMovie.torrents.find(t => t.quality === quality)
+
+        resolve(torrent ? torrent.url : false)
+      })
+    })
   }
 }
 

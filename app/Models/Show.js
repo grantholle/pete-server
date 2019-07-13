@@ -4,12 +4,11 @@
 const Model = use('Model')
 const Logger = use('Logger')
 const Episode = use('App/Models/Episode')
-const p = require('path')
-const searchForEpisode = require('../lib/search-tv')
-const label = require('../lib/episode-label')
 const moviedb = require('../lib/tmdb')
 
 class Show extends Model {
+  eztvCache = []
+
   /**
    * Relationship to episodes
    */
@@ -17,6 +16,11 @@ class Show extends Model {
     return this.hasMany('App/Models/Episode', 'id', 'show_id')
   }
 
+  /**
+   *
+   * @param {int} season The season to search
+   * @param {int} startEpisode The episode at which to start
+   */
   async searchForSeason (season, startEpisode = 1) {
     // Add the episodes for the season
     await this.getEpisodesForSeason(season)
@@ -29,21 +33,21 @@ class Show extends Model {
       .orderBy('episode', 'asc')
       .fetch()
 
-    episodes = episodes.toJSON()
-
     // If no episodes are needed for this season
-    if (!episodes || episodes.length === 0) {
+    if (!episodes || episodes.size() === 0) {
       Logger.info(`No episodes needed for season ${season} of ${this.name}`)
       return false
     }
 
-    Logger.info(`There are ${episodes.length} for ${this.name} that need to be added.`)
+    Logger.info(`There are ${episodes.size()} for ${this.name} that need to be added.`)
 
-    for (const episode of episodes) {
+    const magnets = {}
+
+    for (const episode of episodes.rows) {
       Logger.info(`Searching for season ${episode.season} episode ${episode.episode} of ${this.name}`)
 
       try {
-        const magnet = await searchForEpisode(this, episode)
+        const magnet = await episode.findMagnet(this)
 
         Logger.info(`Episode${magnet ? ' ' : ' not '}found for season ${episode.season} episode ${episode.episode} of ${this.name}: ${magnet}.`)
 
@@ -52,15 +56,13 @@ class Show extends Model {
           continue
         }
 
-        // magnets.push(magnet)
-        // Add a download for this torrent
-        Logger.info(`Do something with the magnet at this point`)
+        magnets[episode.episode] = magnet
       } catch (err) {
         Logger.error(`Error occurred searching for season ${episode.season} episode ${episode.episode} of ${this.name}`, err)
       }
     }
 
-    return true
+    return magnets
   }
 
   /**
@@ -90,7 +92,7 @@ class Show extends Model {
     const episodesToSave = res.episodes.filter(e => episodes.indexOf(e.episode_number) === -1)
 
     if (episodesToSave) {
-      Logger.info(`There are ${episodesToSave.length} episodes in season ${season} for ${this.name}.`)
+      Logger.info(`Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
 
       await this.episodes().createMany(episodesToSave.map(e => ({
         name: e.name,

@@ -2,8 +2,6 @@
 
 const { test, trait } = use('Test/Suite')('Shows')
 const Show = use('App/Models/Show')
-const eztv = require('../../app/lib/eztv')
-const { last } = require('lodash')
 
 trait('DatabaseTransactions')
 
@@ -51,6 +49,23 @@ test('make sure show relationships work', async ({ assert }) => {
   assert.isTrue(episodes.size() === 5)
 }).timeout(30000)
 
+test('ensure rarbg search function works', async ({ assert }) => {
+  const show = await Show.create({
+    tmdb_id: 32726,
+    imdb_id: 1561755,
+    name: `Bob's Burgers`,
+    start_season: 9,
+    start_episode: 20
+  })
+  await show.getEpisodesForSeason(9)
+  const episodes = await show.episodes().fetch()
+  const firstEpisode = episodes.first()
+
+  const result = await firstEpisode.searchRarbg(show, 'HDTV')
+  assert.isString(result, 'the result is a string')
+  assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
+}).timeout(100000)
+
 test('ensure eztv search function works', async ({ assert }) => {
   const show = await Show.create({
     tmdb_id: 32726,
@@ -60,16 +75,21 @@ test('ensure eztv search function works', async ({ assert }) => {
     start_episode: 20
   })
   await show.getEpisodesForSeason(9)
-  let episodes = await show.episodes().fetch()
-  episodes = episodes.toJSON()
-  const episode = last(episodes)
+  const episodes = await show.episodes().fetch()
+  const firstEpisode = episodes.first()
+  const lastEpisode = episodes.last()
 
-  const result = await eztv(show, episode, 'HDTV')
-  assert.isString(result, 'the result is a string')
-  assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
+  const firstResult = await firstEpisode.searchEztv(show, 'HDTV')
+  assert.isString(firstResult, 'the result is a string')
+  assert.isTrue(firstResult.startsWith(`magnet:?`), `the result is a valid magnet`)
+  assert.isTrue(show.eztvCache.length > 0, 'the eztv cache is populated')
+
+  const lastResult = await lastEpisode.searchEztv(show, 'HDTV')
+  assert.isString(lastResult, 'the result is a string')
+  assert.isTrue(lastResult.startsWith(`magnet:?`), `the result is a valid magnet`)
 }).timeout(100000)
 
-test('ensure tv season search function works', async ({ assert }) => {
+test('can find a magnet for an episode', async ({ assert }) => {
   const show = await Show.create({
     tmdb_id: 32726,
     imdb_id: 1561755,
@@ -78,10 +98,8 @@ test('ensure tv season search function works', async ({ assert }) => {
     start_episode: 20,
     quality: 'HDTV'
   })
-  await show.searchForSeason(9, 22)
+  const results = await show.searchForSeason(9, 21)
 
-  // Fetch the downloads
-  // const result = await eztv(show, episode, 'HDTV')
-  // assert.isString(result, 'the result is a string')
-  // assert.isTrue(result.startsWith(`magnet:?`), `the result is a valid magnet`)
+  assert.isObject(results)
+  assert.isTrue(Object.keys(results).length === 2)
 }).timeout(100000)
