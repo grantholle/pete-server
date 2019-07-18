@@ -1,8 +1,10 @@
 'use strict'
 
 const moviedb = require('../../lib/tmdb')
+/** @type {typeof import('../../Models/Movie')} */
 const Movie = use('App/Models/Movie')
 const Logger = use('Logger')
+/** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 
 class WatchlistController {
