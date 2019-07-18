@@ -31,6 +31,19 @@ test('movie lookup function', async ({ assert }) => {
   assert.property(results, 'release_date')
 }).timeout(30000)
 
+test('yify search method', async ({ assert }) => {
+  const movie = new Movie({
+    name: 'Star Wars: The Last Jedi',
+    year: 2017,
+    tmdb_id: 181808,
+    imdb_id: `tt2527336`
+  })
+
+  const magnet = await movie.searchYify('1080p')
+  assert.isString(magnet)
+  assert.isTrue(magnet.includes('yts'))
+}).timeout(10000)
+
 test('finds and adds a magnet', async ({ assert }) => {
   await Config.create({
     use_yify: true,

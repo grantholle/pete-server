@@ -10,7 +10,7 @@ const { clone, first } = require('lodash')
 const RarbgApi = require('rarbg')
 const moviedb = require('../lib/tmdb')
 const transmission = require('../lib/transmission')
-const yify = require('yify-search')
+const yify = require('yify-promise')
 
 class Movie extends Model {
   static get primaryKey () {
@@ -153,28 +153,24 @@ class Movie extends Model {
    * @param {string} quality
    * @returns {Promise}
    */
-  searchYify (quality) {
-    return new Promise((resolve, reject) => {
-      yify.search(this.name, (err, results) => {
-        if (err) {
-          return reject(err)
-        }
-
-        // Get the movie with the matching release year
-        const yifyMovie = this.year ?
-          results.find(item => item.year === this.year) : first(results)
-
-        // If no movie matched, return a falsy result
-        if (!yifyMovie) {
-          return resolve(false)
-        }
-
-        // Resolve the url
-        const torrent = yifyMovie.torrents.find(t => t.quality === quality)
-
-        resolve(torrent ? torrent.url : false)
-      })
+  async searchYify (quality) {
+    const { movies } = await yify.search({
+      query_term: this.name,
+      quality
     })
+
+    // Get the movie with the matching release year
+    const movie = this.year ?
+      movies.find(item => item.year === this.year) : first(movies)
+
+    // If no movie matched, return a falsy result
+    if (!movie) {
+      return false
+    }
+
+    const torrent = first(movie.torrents)
+
+    return torrent ? torrent.url : false
   }
 }
 
