@@ -36,7 +36,7 @@
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
     "eztv-b": "^1.1.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moviedb-promise": "^1.3.2",
     "pushbullet": "^2.4.0",
@@ -44,7 +44,7 @@
     "sanitize-filename": "^1.6.1",
     "sqlite3": "^4.0.8",
     "transmission-promise": "^1.1.2",
-    "yify-search": "^1.0.0"
+    "yify-promise": "^1.0.0"
   },
   "devDependencies": {},
   "autoload": {
