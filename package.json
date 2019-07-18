@@ -44,7 +44,7 @@
     "sanitize-filename": "^1.6.1",
     "sqlite3": "^4.0.8",
     "transmission-promise": "^1.1.2",
-    "yify-promise": "^1.0.0"
+    "yify-promise": "^1.0.1"
   },
   "devDependencies": {},
   "autoload": {
