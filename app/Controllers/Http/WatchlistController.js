@@ -33,7 +33,11 @@ class WatchlistController {
   async movies ({ response }) {
     const { results } = await moviedb.accountMovieWatchlist()
 
+    Logger.info(`There are ${results.length} movies in your watchlist.`)
+
     for (const result of results) {
+      Logger.info(`Processing ${result.title} from your watchlist.`)
+
       const movie = await Movie.create({
         tmdb_id: result.id,
         name: result.title,
