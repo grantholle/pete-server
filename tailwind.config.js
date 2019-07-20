@@ -1,6 +1,10 @@
 module.exports = {
   theme: {
-    extend: {}
+    extend: {},
+    container: {
+      center: true,
+      padding: `1.5rem`
+    }
   },
   variants: {},
   plugins: []

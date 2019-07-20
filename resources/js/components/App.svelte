@@ -1,1 +1,5 @@
-<h1>This is a component</h1>
+<script>
+import TvWatchlist from './TvWatchlist.svelte'
+</script>
+
+<TvWatchlist />
