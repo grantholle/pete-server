@@ -32,4 +32,4 @@ Route.group(() => {
   Route.post(`config`, `ConfigController.update`).as(`config.update`)
 }).prefix(`api/v1`)
 
-Route.on('*').render('welcome')
+Route.on('*').render('index')
