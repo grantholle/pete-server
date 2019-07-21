@@ -1,4 +1,5 @@
 <script>
+  import Loading from './Loading.svelte'
   import axios from 'axios'
   import { onMount } from 'svelte'
 
@@ -14,7 +15,7 @@
   <h2>TV Watchlist</h2>
 
   {#if (shows.length === 0)}
-    <p class="text-center">Loading watchlist...</p>
+    <Loading />
   {:else}
     <div class="flex flex-wrap -mx-4">
       {#each shows as show}
