@@ -3,10 +3,6 @@
   import { onMount } from 'svelte'
 
   let results = axios.get('/api/v1/tv')
-
-  // onMount(() => {
-  //   results = axios.get('/api/v1/tv')
-  // })
 </script>
 
 <div class="container">

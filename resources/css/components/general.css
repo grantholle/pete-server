@@ -1,0 +1,7 @@
+html, body {
+  @apply font-sans bg-gray-1000;
+}
+
+body {
+  @apply text-white;
+}

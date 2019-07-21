@@ -1,5 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
+
+@import "./components/general.css";
+@import "./components/typography.css";
 
 @import "tailwindcss/utilities";
