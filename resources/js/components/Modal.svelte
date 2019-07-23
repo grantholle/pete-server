@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte'
+  import { fade, scale } from 'svelte/transition'
 
   const dispatch = createEventDispatcher()
 </script>
@@ -15,9 +16,16 @@
   }
 </style>
 
-<div class="bg-black opacity-25 fixed inset-0 w-full h-full" on:click="{() => dispatch('close')}"></div>
+<div
+  class="bg-black opacity-25 fixed inset-0 w-full h-full"
+  on:click="{() => dispatch('close')}"
+  transition:fade="{{ duration: 250 }}"
+></div>
 
-<div class="modal absolute bg-white rounded-lg shadow-lg p-6 overflow-auto text-gray-1000">
+<div
+  class="modal fixed bg-white rounded-lg shadow-lg p-6 overflow-auto text-gray-1000"
+  transition:scale="{{ duration: 250 }}"
+>
   <slot name="header"></slot>
 
   <slot></slot>
