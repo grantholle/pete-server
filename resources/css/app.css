@@ -6,5 +6,6 @@
 
 @import "./components/general.css";
 @import "./components/typography.css";
+@import "./components/buttons.css";
 
 @import "tailwindcss/utilities";
