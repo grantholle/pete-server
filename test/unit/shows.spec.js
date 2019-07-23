@@ -1,6 +1,7 @@
 'use strict'
 
 const { test, trait } = use('Test/Suite')('Shows')
+/** @type {typeof import('../../app/Models/Show')} */
 const Show = use('App/Models/Show')
 
 trait('DatabaseTransactions')
@@ -32,6 +33,17 @@ const originalEpisodes = [
     "season": 1,
   }
 ]
+
+test('can populate from a tmdb id', async ({ assert }) => {
+  const show = new Show()
+  show.tmdb_id = 1412
+  await show.fetchAndFill()
+  await show.save()
+
+  const savedShow = await Show.findBy('tmdb_id', 1412)
+  assert.isTrue(savedShow.name === 'Arrow')
+  assert.isTrue(savedShow.start_season === 7)
+}).timeout(30000)
 
 test('make sure show relationships work', async ({ assert }) => {
   const show = await Show.create({

@@ -17,6 +17,44 @@ class Show extends Model {
   }
 
   /**
+   * Looks up the show in TMDb
+   *
+   * @returns {Promise<object>}
+   */
+  async lookup () {
+    if (!this.tmdb_id) {
+      throw new Error(`This movie doesn't have an id to look up in TMDb. Set one first then attmept to look up.`)
+    }
+
+    return await moviedb.tvInfo(this.tmdb_id)
+  }
+
+  /**
+   * Fetches info from TMDb and populates
+   * relevant properties
+   *
+   * @returns {Promise<void>}
+   */
+  async fetchAndFill () {
+    const results = await this.lookup()
+
+    await this.fillFromTmdb(results)
+  }
+
+  /**
+   * Accepts the TMDb info and populates
+   * properties
+   *
+   * @param {object} results The info from TMDb
+   * @returns {Promise<void>}
+   */
+  async fillFromTmdb (results) {
+    this.start_season = results.number_of_seasons
+    this.start_episode = 1
+    this.name = results.name
+  }
+
+  /**
    *
    * @param {int} season The season to search
    * @param {int} startEpisode The episode at which to start
