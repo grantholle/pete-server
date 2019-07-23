@@ -7,9 +7,9 @@ h1 {
 }
 
 h2 {
-  @apply text-3xl;
+  @apply text-3xl pb-4 border-b border-indigo-100;
 }
 
 h3 {
-  @apply text-2xl;
+  @apply text-2xl text-gray-1000;
 }
