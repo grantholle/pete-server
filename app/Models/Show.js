@@ -2,8 +2,8 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const Event = use('Event')
 const Logger = use('Logger')
-const Episode = use('App/Models/Episode')
 const moviedb = require('../lib/tmdb')
 
 class Show extends Model {
@@ -77,21 +77,21 @@ class Show extends Model {
 
     // If no episodes are needed for this season
     if (!episodes || episodes.size() === 0) {
-      Logger.info(`No episodes needed for season ${season} of ${this.name}`)
+      Event.emit('notification::message', `No episodes needed for season ${season} of ${this.name}`)
       return false
     }
 
-    Logger.info(`There are ${episodes.size()} for ${this.name} that need to be added.`)
+    Event.emit('notification::message', `There are ${episodes.size()} episodes for ${this.name} that need to be added.`)
 
     const magnets = {}
 
     for (const episode of episodes.rows) {
-      Logger.info(`Searching for season ${episode.season} episode ${episode.episode} of ${this.name}`)
+      Event.emit('notification::message', `Searching for season ${episode.season} episode ${episode.episode} of ${this.name}`)
 
       try {
         const magnet = await episode.findMagnet(this)
 
-        Logger.info(`Episode${magnet ? ' ' : ' not '}found for season ${episode.season} episode ${episode.episode} of ${this.name}: ${magnet}.`)
+        Event.emit('notification::message', `Episode${magnet ? ' ' : ' not '}found for season ${episode.season} episode ${episode.episode} of ${this.name}: ${magnet}.`)
 
         // Don't add anything if a magnet wasn't found
         if (!magnet) {
@@ -100,7 +100,10 @@ class Show extends Model {
 
         magnets[episode.episode] = magnet
       } catch (err) {
-        Logger.error(`Error occurred searching for season ${episode.season} episode ${episode.episode} of ${this.name}`, err)
+        Event.emit('notification::message', {
+          type: 'error',
+          message: `Error occurred searching for season ${episode.season} episode ${episode.episode} of ${this.name}: ${err.message}`
+        })
       }
     }
 
@@ -113,7 +116,7 @@ class Show extends Model {
    * @param {Number} season The season to process
    */
   async getEpisodesForSeason (season) {
-    Logger.info(`Getting episodes in season ${season} for ${this.name}.`)
+    Event.emit('notification::message', `Getting episode information for season ${season} of ${this.name}.`)
 
     let res
 
@@ -121,7 +124,11 @@ class Show extends Model {
       // Get the season information for the season we currently want
       res = await moviedb.tvSeasonInfo({ id: this.tmdb_id, season_number: season })
     } catch (err) {
-      Logger.error(`Could not get season ${season} of ${this.name}: ${err.message}`)
+      Event.emit('notification::message', {
+        type: 'error',
+        message: `Could not get season ${season} of ${this.name}: ${err.message}`
+      })
+
       return
     }
 
@@ -134,7 +141,7 @@ class Show extends Model {
     const episodesToSave = res.episodes.filter(e => episodes.indexOf(e.episode_number) === -1)
 
     if (episodesToSave) {
-      Logger.info(`Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
+      Event.emit('notification::message', `Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
 
       await this.episodes().createMany(episodesToSave.map(e => ({
         name: e.name,

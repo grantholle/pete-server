@@ -20,6 +20,7 @@ Route.group(() => {
   Route.resource('tv', 'TvController').apiOnly()
   Route.get(`tv/:id/tmdb`, `TvController.tmdb`).as('tv.tmdb')
   Route.post(`tv/:id/tmdb`, `TvController.tmdbCreate`).as('tv.new')
+  Route.post(`tv/:id/fetch`, `TvController.fetchSeason`).as('tv.fetch')
 
   Route.resource('movies', 'MovieController').apiOnly()
   Route.get(`movies/:id/tmdb`, `MovieController.tmdb`).as('movies.tmdb')

@@ -1,0 +1,11 @@
+.notification {
+  @apply w-full shadow my-2 bg-white border-l-4 border-white rounded p-2 text-gray-1000;
+
+  &.info {
+    @apply bg-blue-100 text-blue-900 border-blue-900;
+  }
+
+  &.error {
+    @apply bg-red-100 text-red-900 border-red-900;
+  }
+}
