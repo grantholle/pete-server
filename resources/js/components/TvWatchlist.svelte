@@ -60,7 +60,12 @@
       }
     }
 
-    const { data } = await axios.get(`/api/v1/tv/${selectedShow.id}/tmdb`)
+    await setAvailableSeasons(selectedShow)
+    configurationLoading = false
+  }
+
+  const setAvailableSeasons = async show => {
+    const { data } = await axios.get(`/api/v1/tv/${show.id}/tmdb`)
     availableSeasons = data.seasons.reduce((seasons, season) => {
       // Ignore season zero
       if (season.season_number !== 0) {
@@ -74,8 +79,6 @@
 
       return seasons
     }, {})
-
-    configurationLoading = false
   }
 
   const saveConfiguration = async e => {
