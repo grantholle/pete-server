@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const moviedb = require('../../lib/tmdb')
+/** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
 
@@ -80,6 +81,22 @@ class TvController {
     const showInfo = await moviedb.tvInfo(params.id)
 
     return response.json(showInfo)
+  }
+
+  /**
+   * Creates a show from tmdb
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async tmdbCreate ({ params, response }) {
+    const show = new Show()
+    show.tmdb_id = params.id
+    await show.fetchAndFill()
+    await show.save()
+    await show.reload()
+
+    return response.json(show)
   }
 
   /**

@@ -17,7 +17,7 @@
 </style>
 
 <div
-  class="bg-black opacity-25 fixed inset-0 w-full h-full"
+  class="bg-black opacity-50 fixed inset-0 w-full h-full"
   on:click="{() => dispatch('close')}"
   transition:fade="{{ duration: 250 }}"
 ></div>

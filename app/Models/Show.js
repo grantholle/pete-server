@@ -54,6 +54,10 @@ class Show extends Model {
     this.name = results.name
   }
 
+  getUseAltQuality (value) {
+    return value === 1
+  }
+
   /**
    *
    * @param {int} season The season to search

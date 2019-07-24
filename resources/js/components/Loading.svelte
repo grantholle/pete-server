@@ -1,5 +1,9 @@
+<script>
+export let color = '#fff'
+</script>
+
 <div class="flex items-center justify-center py-24">
-  <svg width="90" height="90" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+  <svg width="90" height="90" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="{color}">
     <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
       <circle cx="22" cy="22" r="6" stroke-opacity="0">
         <animate
