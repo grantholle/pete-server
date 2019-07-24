@@ -93,6 +93,8 @@ class Movie extends Model {
 
   /**
    * Searches for and adds a magnet if found
+   *
+   * @returns {Promise<string>}
    */
   async findAndAddMagnet () {
     const magnet = await this.findMagnet()
@@ -108,12 +110,25 @@ class Movie extends Model {
     return magnet
   }
 
+  /**
+   * Fetches info from TMDb and populates
+   * relevant properties
+   *
+   * @returns {Promise<void>}
+   */
   async fetchAndFill () {
     const results = await this.lookup()
 
     await this.fillFromTmdb(results)
   }
 
+  /**
+   * Accepts the TMDb info and populates
+   * properties
+   *
+   * @param {object} results The info from TMDb
+   * @returns {Promise<void>}
+   */
   async fillFromTmdb (results) {
     this.name = results.title
     this.year = Number(results.release_date.substring(0, 4))
@@ -123,7 +138,7 @@ class Movie extends Model {
    * Search rarbg for a movie
    *
    * @param {string} quality
-   * @returns {Promise}
+   * @returns {Promise<string>}
    */
   async searchRarbg (quality) {
     const rarbg = new RarbgApi()
@@ -151,7 +166,7 @@ class Movie extends Model {
    * Movie should be the object from TMdb
    *
    * @param {string} quality
-   * @returns {Promise}
+   * @returns {Promise<string>}
    */
   async searchYify (quality) {
     const { movies } = await yify.search({

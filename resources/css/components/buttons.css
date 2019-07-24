@@ -1,0 +1,23 @@
+button:focus {
+  outline: none;
+}
+
+.btn {
+  @apply inline-block bg-white rounded border border-gray-300 px-4 py-2 text-gray-900;
+  transition: background-color 250ms ease,
+    color 250ms ease,
+    box-shadow 250ms ease,
+    border-color 250ms ease;
+
+  &:hover {
+    @apply bg-gray-200;
+  }
+}
+
+.btn-primary {
+  @apply border-indigo-900 bg-indigo-500 text-white;
+
+  &:hover {
+    @apply bg-indigo-800;
+  }
+}

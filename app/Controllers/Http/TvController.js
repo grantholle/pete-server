@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const moviedb = require('../../lib/tmdb')
+/** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
 
@@ -83,6 +84,22 @@ class TvController {
   }
 
   /**
+   * Creates a show from tmdb
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async tmdbCreate ({ params, response }) {
+    const show = new Show()
+    show.tmdb_id = params.id
+    await show.fetchAndFill()
+    await show.save()
+    await show.reload()
+
+    return response.json(show)
+  }
+
+  /**
    * Update show details
    *
    * @param {object} ctx
@@ -111,7 +128,7 @@ class TvController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
     const show = await Show.findByOrFail('tmdb_id', params.id)
 
     await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: show.tmdb_id, watchlist: false })
@@ -121,6 +138,28 @@ class TvController {
     return response.json({
       success: true
     })
+  }
+
+  /**
+   * Gets a season's worth of episodes
+   * starting at a specified episode
+   *
+   * @param {object} ctx
+   * @param {object} ctx.params
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async fetchSeason ({ params, request, response }) {
+    let show = await Show.findBy('tmdb_id', params.id)
+
+    if (!show) {
+      show.tmdb_id = params.id
+      await show.fetchAndFill()
+      await show.save()
+      await show.reload()
+    }
+
+    // perform search here
   }
 }
 
