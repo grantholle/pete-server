@@ -1,0 +1,3 @@
+.alert.warning {
+  @apply border-orange-900 text-orange-900 bg-orange-200;
+}
