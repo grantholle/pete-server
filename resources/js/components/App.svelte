@@ -41,7 +41,7 @@ activeTab.subscribe(value => {
 
 <Notifications />
 
-<header class="flex justify-between w-full p-5 bg-indigo-500">
+<header class="flex justify-between w-full p-5 bg-indigo-500 shadow-md">
   <h1 class="leading-none">Pete</h1>
   <nav>
   {#each tabs as tab}
