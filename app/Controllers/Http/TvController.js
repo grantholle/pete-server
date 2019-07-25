@@ -8,6 +8,7 @@ const moviedb = require('../../lib/tmdb')
 /** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
+const Event = use('Event')
 
 /**
  * Resourceful controller for interacting with TV watchlist
@@ -150,16 +151,16 @@ class TvController {
    * @param {Response} ctx.response
    */
   async fetchSeason ({ params, request, response }) {
-    let show = await Show.findBy('tmdb_id', params.id)
+    const show = await Show.findByOrFail('tmdb_id', params.id)
+    const season = request.input('season', show.start_season)
+    const start = request.input('start', show.start_episode)
 
-    if (!show) {
-      show.tmdb_id = params.id
-      await show.fetchAndFill()
-      await show.save()
-      await show.reload()
-    }
+    Event.emit('notification::message', `Fetching episodes of ${show.name} for season ${season} starting at episode ${start}`)
 
-    // perform search here
+    // Run async/background
+    show.searchForSeason(season, start)
+
+    return response.json({ success: true })
   }
 }
 

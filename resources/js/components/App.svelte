@@ -1,6 +1,31 @@
 <script>
 import TvWatchlist from './TvWatchlist.svelte'
-import { activeTab } from '../store'
+import Notifications from './Notifications.svelte'
+import Ws from '@adonisjs/websocket-client'
+import { activeTab, notifications } from '../store'
+
+const ws = Ws()
+ws.connect()
+
+ws.on('open', () => {
+  const notes = ws.subscribe('notifications')
+
+  notes.on('message', data => {
+    notifications.set([
+      ...$notifications,
+      data
+    ])
+
+    setTimeout(() => {
+      const index = $notifications.findIndex(n => n.id === data.id)
+
+      notifications.set([
+        ...$notifications.slice(0, index),
+        ...$notifications.slice(index + 1)
+      ])
+    }, 4000)
+  })
+})
 
 let currentTab
 const tabs = [
@@ -17,6 +42,8 @@ const changeTabs = tab => {
   activeTab.set(tab)
 }
 </script>
+
+<Notifications />
 
 <header class="block w-full p-5 bg-indigo-500">
   <h1 class="leading-none">Pete</h1>

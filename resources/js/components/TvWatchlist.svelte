@@ -7,8 +7,11 @@
   let loading = true
   let shows = []
   let selectedShow = {}
-  let showConfigureModal = false
-  let configurationLoading = false
+  const modals = {
+    showConfigureModal: false,
+    showFetchModal: false
+  }
+  let modalLoading = false
   let showData = {}
   let availableSeasons = {}
 
@@ -18,6 +21,7 @@
     const { data } = await axios.get('/api/v1/tv')
     shows = data.map(show => {
       show.removing = false
+      show.fetching = false
 
       return show
     })
@@ -43,10 +47,10 @@
     }
   }
 
-  const configure = async index => {
-    configurationLoading = true
+  const configure = async (index, modal) => {
+    modalLoading = true
     selectedShow = shows[index]
-    showConfigureModal = true
+    modals[modal] = true
 
     // Fetch the show configuration
     try {
@@ -61,7 +65,7 @@
     }
 
     await setAvailableSeasons(selectedShow)
-    configurationLoading = false
+    modalLoading = false
   }
 
   const setAvailableSeasons = async show => {
@@ -83,7 +87,16 @@
 
   const saveConfiguration = async e => {
     await axios.put(`/api/v1/tv/${showData.tmdb_id}`, showData)
-    showConfigureModal = false
+    modals.showConfigureModal = false
+  }
+
+  const fetchSeason = e => {
+    axios.post(`/api/v1/tv/${showData.tmdb_id}/fetch`, {
+      season: showData.start_season,
+      start: showData.start_episode
+    })
+
+    modals.showFetchModal = false
   }
 
   onMount(getList)
@@ -103,7 +116,15 @@
 
             <button
               class="block py-2 w-full text-gray-1000"
-              on:click="{() => configure(index)}"
+              on:click="{() => configure(index, 'showFetchModal')}"
+              disabled="{show.fetching}"
+            >
+              Fetch season
+            </button>
+
+            <button
+              class="block border-t border-gray-400 py-2 w-full text-gray-1000"
+              on:click="{() => configure(index, 'showConfigureModal')}"
               disabled="{show.removing}"
             >
               Configure
@@ -123,16 +144,16 @@
   {/if}
 </div>
 
-{#if showConfigureModal}
-<Modal on:close="{() => showConfigureModal = false}">
+{#if modals.showConfigureModal}
+<Modal on:close="{() => modals.showConfigureModal = false}">
   <h3 slot="header">{selectedShow.name}</h3>
 
-  {#if configurationLoading}
+  {#if modalLoading}
     <Loading color="hsl(210, 24%, 16%)" />
   {:else}
     <form on:submit|preventDefault="{saveConfiguration}" class="py-4">
       <label class="block">
-        <span class="text-gray-700">Start season {showData.start_season}</span>
+        <span class="text-gray-700">Start season</span>
         <select bind:value="{showData.start_season}" class="form-select mt-1 block w-full">
           {#each Object.keys(availableSeasons) as season}
             <option value="{Number(season)}">{season}</option>
@@ -171,10 +192,50 @@
     slot="action"
     class="btn btn-primary ml-2"
     on:click="{saveConfiguration}"
-    disabled="{configurationLoading}"
+    disabled="{modalLoading}"
     type="button"
   >
     Save
+  </button>
+</Modal>
+{/if}
+
+{#if modals.showFetchModal}
+<Modal on:close="{() => modals.showFetchModal = false}">
+  <h3 slot="header">{selectedShow.name}</h3>
+
+  {#if modalLoading}
+    <Loading color="hsl(210, 24%, 16%)" />
+  {:else}
+    <form on:submit|preventDefault="{fetchSeason}" class="py-4">
+      <label class="block">
+        <span class="text-gray-700">Start season</span>
+        <select bind:value="{showData.start_season}" class="form-select mt-1 block w-full">
+          {#each Object.keys(availableSeasons) as season}
+            <option value="{Number(season)}">{season}</option>
+          {/each}
+        </select>
+      </label>
+
+      <label class="block mt-4">
+        <span class="text-gray-700">Start episode</span>
+        <select bind:value="{showData.start_episode}" class="form-select mt-1 block w-full">
+          {#each availableSeasons[showData.start_season] as episode}
+            <option value="{episode}">{episode}</option>
+          {/each}
+        </select>
+      </label>
+    </form>
+  {/if}
+
+  <button
+    slot="action"
+    class="btn btn-primary ml-2"
+    on:click="{fetchSeason}"
+    disabled="{modalLoading}"
+    type="button"
+  >
+    Fetch
   </button>
 </Modal>
 {/if}
