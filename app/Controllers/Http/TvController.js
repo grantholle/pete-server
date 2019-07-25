@@ -157,6 +157,7 @@ class TvController {
 
     Event.emit('notification::message', `Fetching episodes of ${show.name} for season ${season} starting at episode ${start}`)
 
+    // Run async/background
     show.searchForSeason(season, start)
 
     return response.json({ success: true })

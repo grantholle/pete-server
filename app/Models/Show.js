@@ -81,17 +81,15 @@ class Show extends Model {
       return false
     }
 
-    Event.emit('notification::message', `There are ${episodes.size()} episodes for ${this.name} that need to be added.`)
+    Event.emit('notification::message', `There are ${episodes.size()} episodes for ${this.name} that need to be downloaded.`)
 
     const magnets = {}
 
     for (const episode of episodes.rows) {
-      Event.emit('notification::message', `Searching for season ${episode.season} episode ${episode.episode} of ${this.name}`)
+      Event.emit('notification::message', `Searching for season ${episode.season} episode ${episode.episode} of ${this.name}.`)
 
       try {
-        const magnet = await episode.findMagnet(this)
-
-        Event.emit('notification::message', `Episode${magnet ? ' ' : ' not '}found for season ${episode.season} episode ${episode.episode} of ${this.name}: ${magnet}.`)
+        const magnet = await episode.findAndAddMagnet(this)
 
         // Don't add anything if a magnet wasn't found
         if (!magnet) {
@@ -116,7 +114,7 @@ class Show extends Model {
    * @param {Number} season The season to process
    */
   async getEpisodesForSeason (season) {
-    Event.emit('notification::message', `Getting episode information for season ${season} of ${this.name}.`)
+    Logger.info(`Getting episode information for season ${season} of ${this.name}.`)
 
     let res
 
@@ -141,7 +139,7 @@ class Show extends Model {
     const episodesToSave = res.episodes.filter(e => episodes.indexOf(e.episode_number) === -1)
 
     if (episodesToSave) {
-      Event.emit('notification::message', `Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
+      Logger.info(`Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
 
       await this.episodes().createMany(episodesToSave.map(e => ({
         name: e.name,

@@ -2,6 +2,8 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const Event = use('Event')
+const Logger = use('Logger')
 const Config = use('App/Models/Config')
 const { clone, first } = require('lodash')
 const sanitize = require('sanitize-filename')
@@ -45,7 +47,11 @@ class Episode extends Model {
     const episodeName = sanitize(`${showName} - ${this.getLabel()} - ${this.name}`)
     const directory = path.join(config.tv_directory, showName, episodeName)
 
+    Logger.debug(`Adding magnet for ${episodeName}: ${magnet}`)
+
     await transmission.add(magnet, episodeName, directory)
+
+    Event.emit('notification::message', `${episodeName} added to Transmission.`)
 
     this.added = true
   }
@@ -64,7 +70,8 @@ class Episode extends Model {
         // Check eztv second because it's quite a big more
         // involved to search for an episode
         try {
-          const magnet = await eztv(show, episode, quality)
+          const magnet = await this.searchEztv(show, quality)
+
           // Either resolve the found magnet url
           // or false if we've gone through all qualities
           if (magnet || qualities.length === 0 || (!show.use_alt_quality && !magnet)) {
@@ -141,6 +148,8 @@ class Episode extends Model {
       searchParams.search_string = `${show.name} ${searchParams.search_string}`
     }
 
+    Logger.debug(`Searching rarbg for ${show.name} ${this.getLabel()} using ${JSON.stringify(searchParams)}`)
+
     try {
       const results = await rarbg.search(searchParams)
       const goodQuality = quality === 'HDTV' ? first(results) : results.find(r => r.filename.includes(quality))
@@ -164,6 +173,8 @@ class Episode extends Model {
    */
   async searchEztv (show, quality) {
     const eztv = new Eztv()
+
+    Logger.debug(`Searching eztv for ${show.name} ${this.getLabel()}`)
 
     const getAllSEpisodes = () => {
       const paginate = async page => {
