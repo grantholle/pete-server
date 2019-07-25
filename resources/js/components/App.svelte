@@ -30,36 +30,32 @@ ws.on('open', () => {
 let currentTab
 const tabs = [
   'tv',
-  'movies'
+  'movies',
+  'settings'
 ]
 
 activeTab.subscribe(value => {
   currentTab = value
 })
-
-const changeTabs = tab => {
-  console.log(tab)
-  activeTab.set(tab)
-}
 </script>
 
 <Notifications />
 
-<header class="block w-full p-5 bg-indigo-500">
+<header class="flex justify-between w-full p-5 bg-indigo-500">
   <h1 class="leading-none">Pete</h1>
+  <nav>
+  {#each tabs as tab}
+    <button
+      class="tab-control uppercase focus:outline-none py-1 px-2 mx-2"
+      class:active="{currentTab === tab}"
+      on:click="{() => activeTab.set(tab)}"
+    >
+      {tab}
+    </button>
+  {/each}
+  </nav>
 </header>
 
-<nav class="flex">
-{#each tabs as tab}
-  <button
-    class="tab-control flex-1 uppercase focus:outline-none py-2 text-xl hover:bg-indigo-500"
-    class:active="{currentTab === tab}"
-    on:click="{() => changeTabs(tab)}"
-  >
-    {tab}
-  </button>
-{/each}
-</nav>
 
 <div class="py-12">
 {#if currentTab === 'tv'}
@@ -74,7 +70,12 @@ const changeTabs = tab => {
   transition: background-color 250ms ease;
 }
 
+.tab-control:last-child {
+  margin-right: 0;
+}
+
 .tab-control.active {
-  background: hsl(227, 50%, 59%);
+  border-bottom-width: 1px;
+  border-color: white;
 }
 </style>

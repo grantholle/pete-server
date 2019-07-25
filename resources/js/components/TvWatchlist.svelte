@@ -115,7 +115,7 @@
             <img class="block w-full" src="//image.tmdb.org/t/p/w342{show.poster_path}" alt={show.name} />
 
             <button
-              class="block py-2 w-full text-gray-1000"
+              class="block py-1 text-sm md:text-base md:py-2 w-full text-gray-1000"
               on:click="{() => configure(index, 'showFetchModal')}"
               disabled="{show.fetching}"
             >
@@ -123,7 +123,7 @@
             </button>
 
             <button
-              class="block border-t border-gray-400 py-2 w-full text-gray-1000"
+              class="block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000"
               on:click="{() => configure(index, 'showConfigureModal')}"
               disabled="{show.removing}"
             >
@@ -131,7 +131,7 @@
             </button>
 
             <button
-              class="block border-t border-gray-400 py-2 w-full text-red-{show.removing ? '200' : '800'}"
+              class="block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-red-{show.removing ? '200' : '800'}"
               on:click="{() => removeShow(show, index)}"
               disabled="{show.removing}"
             >
