@@ -1,5 +1,6 @@
 <script>
 import TvWatchlist from './TvWatchlist.svelte'
+import Settings from './Settings.svelte'
 import Notifications from './Notifications.svelte'
 import Ws from '@adonisjs/websocket-client'
 import { activeTab, notifications, config } from '../store'
@@ -46,24 +47,10 @@ config.subscribe(value => {
 
   const localAlerts = []
 
-  if (!value.transmission_username) {
+  if (!value.transmission_username || !value.tv_directory || !value.movie_directory) {
     localAlerts.push({
       type: `warning`,
-      message: `<strong>Heads up!</strong> Transmission isn't configured.`
-    })
-  }
-
-  if (!value.tv_directory) {
-    localAlerts.push({
-      type: `warning`,
-      message: `<strong>Heads up!</strong> You're missing a path to store your TV shows.`
-    })
-  }
-
-  if (!value.movie_directory) {
-    localAlerts.push({
-      type: `warning`,
-      message: `<strong>Heads up!</strong> You're missing a path to store your movies.`
+      message: `<strong>Heads up!</strong> Your configuration isn't complete. Stuff won't work right...`
     })
   }
 
@@ -89,18 +76,22 @@ config.subscribe(value => {
 </header>
 
 <div class="py-12">
-  <div class="container mb-12">
+{#if alerts.length > 0}
+  <div class="container mb-8">
     {#each alerts as userAlert}
       <div class="alert p-3 my-2 shadow border rounded {userAlert.type}">
         {@html userAlert.message}
       </div>
     {/each}
   </div>
+{/if}
 
 {#if currentTab === 'tv'}
   <TvWatchlist />
 {:else if (currentTab === 'movies')}
   <p>movies</p>
+{:else if (currentTab === 'settings')}
+  <Settings />
 {/if}
 </div>
 

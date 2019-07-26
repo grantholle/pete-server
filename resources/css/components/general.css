@@ -5,3 +5,7 @@ html, body {
 body {
   @apply text-white;
 }
+
+input, select, textarea {
+  @apply text-gray-1000;
+}
