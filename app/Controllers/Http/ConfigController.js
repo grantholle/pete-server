@@ -17,7 +17,7 @@ class ConfigController {
    * @param {Response} ctx.response
    */
   async index ({ response }) {
-    let config = await Config.first()
+    let config = await Config.last()
 
     if (!config) {
       config = await Config.create({})
@@ -37,7 +37,7 @@ class ConfigController {
    * @param {Response} ctx.response
    */
   async update ({ request, response }) {
-    const config = await Config.first()
+    const config = await Config.last()
 
     config.merge(request.only([
       `tv_directory`,

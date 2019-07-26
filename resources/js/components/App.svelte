@@ -1,8 +1,9 @@
 <script>
 import TvWatchlist from './TvWatchlist.svelte'
+import Settings from './Settings.svelte'
 import Notifications from './Notifications.svelte'
 import Ws from '@adonisjs/websocket-client'
-import { activeTab, notifications } from '../store'
+import { activeTab, notifications, config } from '../store'
 
 const ws = Ws()
 ws.connect()
@@ -30,42 +31,67 @@ ws.on('open', () => {
 let currentTab
 const tabs = [
   'tv',
-  'movies'
+  'movies',
+  'settings'
 ]
+let alerts = []
 
 activeTab.subscribe(value => {
   currentTab = value
 })
 
-const changeTabs = tab => {
-  console.log(tab)
-  activeTab.set(tab)
-}
+config.subscribe(value => {
+  if (!value) {
+    return
+  }
+
+  const localAlerts = []
+
+  if (!value.transmission_username || !value.tv_directory || !value.movie_directory) {
+    localAlerts.push({
+      type: `warning`,
+      message: `<strong>Heads up!</strong> Your configuration isn't complete. Stuff won't work right...`
+    })
+  }
+
+  alerts = localAlerts
+})
 </script>
 
 <Notifications />
 
-<header class="block w-full p-5 bg-indigo-500">
+<header class="flex justify-between w-full p-5 bg-indigo-500 shadow-md">
   <h1 class="leading-none">Pete</h1>
+  <nav>
+  {#each tabs as tab}
+    <button
+      class="tab-control uppercase focus:outline-none py-1 px-2 mx-2"
+      class:active="{currentTab === tab}"
+      on:click="{() => activeTab.set(tab)}"
+    >
+      {tab}
+    </button>
+  {/each}
+  </nav>
 </header>
 
-<nav class="flex">
-{#each tabs as tab}
-  <button
-    class="tab-control flex-1 uppercase focus:outline-none py-2 text-xl hover:bg-indigo-500"
-    class:active="{currentTab === tab}"
-    on:click="{() => changeTabs(tab)}"
-  >
-    {tab}
-  </button>
-{/each}
-</nav>
-
 <div class="py-12">
+{#if alerts.length > 0}
+  <div class="container mb-8">
+    {#each alerts as userAlert}
+      <div class="alert p-3 my-2 shadow border rounded {userAlert.type}">
+        {@html userAlert.message}
+      </div>
+    {/each}
+  </div>
+{/if}
+
 {#if currentTab === 'tv'}
   <TvWatchlist />
 {:else if (currentTab === 'movies')}
   <p>movies</p>
+{:else if (currentTab === 'settings')}
+  <Settings />
 {/if}
 </div>
 
@@ -74,7 +100,12 @@ const changeTabs = tab => {
   transition: background-color 250ms ease;
 }
 
+.tab-control:last-child {
+  margin-right: 0;
+}
+
 .tab-control.active {
-  background: hsl(227, 50%, 59%);
+  border-bottom-width: 1px;
+  border-color: white;
 }
 </style>
