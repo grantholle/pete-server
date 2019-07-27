@@ -123,7 +123,7 @@ const saveConfig = async () => {
     <div class="py-2">
       <label class="flex items-center">
         <input bind:checked="{$config.use_yify}" type="checkbox" class="form-checkbox">
-        <span class="ml-2">Use Yify as a source for movies. It will be given priority during searching. Yify is known for small filesizes, but quality suffers.</span>
+        <span class="ml-2">Give Yify priority when searching for movies.</span>
       </label>
     </div>
 
