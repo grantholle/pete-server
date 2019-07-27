@@ -2,6 +2,12 @@
 
 const { test, trait } = use('Test/Suite')('Config')
 const Route = use('Route')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
+
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
@@ -37,6 +43,8 @@ test(`can update the config`, async ({ assert, client }) => {
     movie_quality: '720p',
     use_yify: true,
     fallback_movie_quality: false,
+    tmdb_key,
+    tmdb_session
   }
 
   await client.get(Route.url('config.index')).end()
@@ -54,4 +62,6 @@ test(`can update the config`, async ({ assert, client }) => {
   assert.equal(body.movie_quality, newConfig.movie_quality)
   assert.equal(body.use_yify, newConfig.use_yify)
   assert.equal(body.fallback_movie_quality, newConfig.fallback_movie_quality)
+  assert.equal(body.tmdb_key, newConfig.tmdb_key)
+  assert.equal(body.tmdb_session, newConfig.tmdb_session)
 })

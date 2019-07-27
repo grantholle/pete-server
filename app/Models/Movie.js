@@ -8,8 +8,9 @@ const path = require('path')
 const sanitize = require('sanitize-filename')
 const { clone, first } = require('lodash')
 const RarbgApi = require('rarbg')
-const moviedb = require('../lib/tmdb')
+const getMoviedb = require('../lib/tmdb')
 const transmission = require('../lib/transmission')
+const notify = require('../lib/notify')
 const yify = require('yify-promise')
 
 class Movie extends Model {
@@ -25,6 +26,8 @@ class Movie extends Model {
       throw new Error(`This movie doesn't have an id to look up in TMDb. Set one first then attmept to look up.`)
     }
 
+    const moviedb = await getMoviedb()
+
     return await moviedb.movieInfo(this.tmdb_id)
   }
 
@@ -35,7 +38,7 @@ class Movie extends Model {
    */
   async addMagnet (magnet) {
     if (!magnet) {
-      return Logger.info(`Attempting to add an invalid magnet for ${this.name}.`)
+      return notify(`Attempting to add an invalid magnet for ${this.name}.`)
     }
 
     const config = await Config.last()
@@ -47,7 +50,14 @@ class Movie extends Model {
     const movieName = sanitize(`${this.name} (${this.year})`)
     const directory = path.join(config.movie_directory, movieName)
 
-    await transmission.add(magnet, movieName, directory)
+    try {
+      await transmission.add(magnet, movieName, directory)
+    } catch (err) {
+      notify({
+        type: 'error',
+        message: err.message
+      })
+    }
 
     this.added = true
   }
@@ -59,13 +69,13 @@ class Movie extends Model {
    */
   async findMagnet () {
     const config = await Config.last()
-    const source = config.use_yify ? this.searchYify : this.searchRarbg
-    const fallbackSearcher = config.use_yify ? this.searchRarbg : this.searchYify
+    const source = config.use_yify ? 'searchYify' : 'searchRarbg'
+    const fallbackSearcher = config.use_yify ? 'searchRarbg' : 'searchYify'
 
     // We'll give yify a higher priority for searching... I guess
     const search = async (searcher, qualities) => {
       const quality = qualities.shift()
-      let magnet = await searcher(quality)
+      let magnet = await this[searcher](quality)
 
       // If there's a result, then yay, return that
       // Or if there's no fallback search source and no more qualities to try
@@ -75,7 +85,7 @@ class Movie extends Model {
 
       // If there's a fallback source search using that
       if (fallbackSearcher) {
-        magnet = await fallbackSearcher(quality)
+        magnet = await this[fallbackSearcher](quality)
 
         if (magnet || (!config.fallback_movie_quality || qualities.length === 0)) {
           return magnet
@@ -149,6 +159,7 @@ class Movie extends Model {
     }
 
     try {
+      Logger.debug(`Search rarbg for ${this.name} using search params ${JSON.stringify(searchParams)}`)
       const results = await rarbg.search(searchParams)
 
       return first(results).download
@@ -169,6 +180,7 @@ class Movie extends Model {
    * @returns {Promise<string>}
    */
   async searchYify (quality) {
+    Logger.debug(`Search yify for ${this.name} @ ${quality}`)
     const { movies } = await yify.search({
       query_term: this.name,
       quality

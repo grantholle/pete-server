@@ -1,8 +1,6 @@
 'use strict'
 
-const Config = use('Config')
-const apiKey = Config.get('tmdb.apiKey')
-const sessionId = Config.get('tmdb.sessionId')
+const Config = use('App/Models/Config')
 const MovieDb = require('moviedb-promise')
 
 /**
@@ -35,10 +33,14 @@ MovieDb.prototype.getMovieImdbId = function (id) {
     .then(result => result.imdb_id && result.imdb_id[0] === 't' ? result.imdb_id.substr(2) : result.imdb_id)
 }
 
-const moviedb = apiKey ? new MovieDb(apiKey) : null
+module.exports = async () => {
+  const config = await Config.last()
 
-if (sessionId) {
-  moviedb.sessionId = sessionId
+  const moviedb = new MovieDb(config.tmdb_key)
+
+  if (config.tmdb_session) {
+    moviedb.sessionId = config.tmdb_session
+  }
+
+  return moviedb
 }
-
-module.exports = moviedb

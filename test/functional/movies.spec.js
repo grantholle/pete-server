@@ -1,11 +1,18 @@
 'use strict'
 
-const { test, trait, afterEach } = use('Test/Suite')('Movies')
+const { test, trait, afterEach, before } = use('Test/Suite')('Movies')
 const Route = use('Route')
-const moviedb = require('../../app/lib/tmdb')
+const getTmdb = require('../../app/lib/tmdb')
+let moviedb = null
 let removeMovie = false
 const tmdb_id = 458156
 const Movie = use('App/Models/Movie')
+const Config = use('App/Models/Config')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
@@ -22,6 +29,15 @@ const createMovie = async () => {
     name: 'John Wick: Chapter 3 – Parabellum'
   })
 }
+
+before(async () => {
+  await Config.create({
+    tmdb_key,
+    tmdb_session
+  })
+
+  moviedb = await getTmdb()
+})
 
 afterEach(async () => {
   if (removeMovie) {

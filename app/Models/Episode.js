@@ -10,6 +10,7 @@ const sanitize = require('sanitize-filename')
 const transmission = require('../lib/transmission')
 const RarbgApi = require('rarbg')
 const Eztv = require('eztv-b')
+const path = require('path')
 
 class Episode extends Model {
   /**
@@ -39,7 +40,7 @@ class Episode extends Model {
 
     const config = await Config.last()
 
-    if (typeof config.movie_directory !== 'string') {
+    if (typeof config.tv_directory !== 'string') {
       throw new Error(`Movie directory has not been configured!`)
     }
 
@@ -118,7 +119,7 @@ class Episode extends Model {
     if (!magnet) {
       this.attempts = this.attempts + 1
     } else {
-      await this.addMagnet(magnet)
+      await this.addMagnet(show, magnet)
     }
 
     await this.save()

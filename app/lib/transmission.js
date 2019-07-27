@@ -7,7 +7,7 @@ const Logger = use('Logger')
 const notify = require('./pushbullet')
 
 const getInstance = async () => {
-  const config = await Config.first()
+  const config = await Config.last()
 
   return new Transmission({
     username: config.transmission_username,
@@ -29,7 +29,7 @@ const getInstance = async () => {
 module.exports.add = async (magnet, name, directory) => {
   Logger.info(`${name}: ${magnet}`)
   const transmission = await getInstance()
-  const config = await Config.first()
+  const config = await Config.last()
 
   const torrent = await transmission.addUrl(magnet, { 'download-dir': directory })
   const msg = `Started download for ${name}`

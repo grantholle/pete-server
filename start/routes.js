@@ -32,6 +32,9 @@ Route.group(() => {
 
   Route.get(`config`, `ConfigController.index`).as(`config.index`)
   Route.post(`config`, `ConfigController.update`).as(`config.update`)
+
+  Route.post(`token`, `SessionController.getRequestToken`)
+  Route.post(`session`, `SessionController.getSession`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('index')

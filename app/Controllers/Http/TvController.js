@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const moviedb = require('../../lib/tmdb')
+const getMoviedb = require('../../lib/tmdb')
 /** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
@@ -21,6 +21,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async index ({ response }) {
+    const moviedb = await getMoviedb()
     const { results } = await moviedb.accountTvWatchlist()
 
     return response.json(results)
@@ -35,6 +36,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const moviedb = await getMoviedb()
     const media_id = request.input('tmdb_id')
 
     // Add show to watchlist
@@ -79,6 +81,7 @@ class TvController {
    * @param {Response} ctx.response
    */
   async tmdb ({ params, response }) {
+    const moviedb = await getMoviedb()
     const showInfo = await moviedb.tvInfo(params.id)
 
     return response.json(showInfo)
@@ -131,6 +134,7 @@ class TvController {
    */
   async destroy ({ params, response }) {
     const show = await Show.findByOrFail('tmdb_id', params.id)
+    const moviedb = await getMoviedb()
 
     await moviedb.accountWatchlistUpdate({ media_type: 'tv', media_id: show.tmdb_id, watchlist: false })
 

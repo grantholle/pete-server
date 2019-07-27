@@ -1,6 +1,6 @@
 'use strict'
 
-const moviedb = require('../../lib/tmdb')
+const getMoviedb = require('../../lib/tmdb')
 /** @type {typeof import('../../Models/Movie')} */
 const Movie = use('App/Models/Movie')
 const Logger = use('Logger')
@@ -15,6 +15,7 @@ class WatchlistController {
    * @param {Response} ctx.response
    */
   async update ({ response, request }) {
+    const moviedb = await getMoviedb()
     const res = await moviedb.accountWatchlistUpdate(request.only([
       'media_type',
       'media_id',
@@ -31,6 +32,7 @@ class WatchlistController {
    * @param {Response} ctx.response
    */
   async movies ({ response }) {
+    const moviedb = await getMoviedb()
     const { results } = await moviedb.accountMovieWatchlist()
 
     Logger.info(`There are ${results.length} movies in your watchlist.`)
@@ -49,7 +51,11 @@ class WatchlistController {
       // Do it asynchronously
       moviedb.removeMovieFromWatchlist(result.id)
 
-      await movie.findAndAddMagnet()
+      try {
+        await movie.findAndAddMagnet()
+      } catch (err) {
+        Logger.error(`Error finding and adding magnet: ${err.message}`, err)
+      }
     }
 
     return response.json({})
@@ -62,6 +68,7 @@ class WatchlistController {
    * @param {Response} ctx.response
    */
   async tv ({ response }) {
+    const moviedb = await getMoviedb()
     const { results } = await moviedb.accountTvWatchlist()
 
     Logger.info(`${results.length} shows in your watchlist`)
