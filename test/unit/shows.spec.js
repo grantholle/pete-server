@@ -1,10 +1,32 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Shows')
+const { test, trait, before, after } = use('Test/Suite')('Shows')
 /** @type {typeof import('../../app/Models/Show')} */
 const Show = use('App/Models/Show')
+/** @type {typeof import('../../app/Models/Config')} */
+const Config = use('App/Models/Config')
+/** @type {typeof import('../../app/Models/Download')} */
+const Download = use('App/Models/Download')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+const Event = use('Event')
+const Logger = use('Logger')
+const trans = require('../traits/clears-transmission')
+
+Logger.level = 'debug'
+
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
+const transmission_username = Env.get('TRANSMISSION_USERNAME', null)
+const transmission_pw = Env.get('TRANSMISSION_PW', null)
+const transmission_host = Env.get('TRANSMISSION_HOST', null)
+const transmission_port = Env.get('TRANSMISSION_PORT', null)
 
 trait('DatabaseTransactions')
+trait(trans)
+
+before(() => Event.fake())
+after(async () => Event.restore())
 
 const originalEpisodes = [
   {
@@ -101,7 +123,16 @@ test('ensure eztv search function works', async ({ assert }) => {
   assert.isTrue(lastResult.startsWith(`magnet:?`), `the result is a valid magnet`)
 }).timeout(100000)
 
-test('can find a magnet for an episode', async ({ assert }) => {
+test('can find a magnet for episodes and get added to transmission', async ({ assert, clearTransmission }) => {
+  await Config.create({
+    tmdb_key,
+    tmdb_session,
+    transmission_username,
+    transmission_pw,
+    transmission_host,
+    transmission_port,
+    tv_directory: `/tmp/TV Shows`,
+  })
   const show = await Show.create({
     tmdb_id: 32726,
     imdb_id: 1561755,
@@ -110,8 +141,12 @@ test('can find a magnet for an episode', async ({ assert }) => {
     start_episode: 20,
     quality: 'HDTV'
   })
-  const results = await show.searchForSeason(9, 21)
 
-  assert.isObject(results)
-  assert.isTrue(Object.keys(results).length === 2)
+  await show.searchForSeason(9, 21)
+  const downloads = await Download.all()
+
+  assert.equal(downloads.size(), 2)
+  await clearTransmission()
 }).timeout(100000)
+
+

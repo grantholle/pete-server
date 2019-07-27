@@ -1,12 +1,25 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Search')
+const { test, trait, before } = use('Test/Suite')('Search')
 const Movie = use('App/Models/Movie')
 const Config = use('App/Models/Config')
 const Route = use('Route')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
+
+before(async () => {
+  await Config.create({
+    use_yify: true,
+    tmdb_key,
+    tmdb_session,
+  })
+})
 
 const createMovie = () => Movie.create({
   name: 'Star Wars: The Last Jedi',
@@ -17,7 +30,6 @@ const createMovie = () => Movie.create({
 
 test('can search for a movie torrent when using yify', async ({ assert, client }) => {
   await createMovie()
-  await Config.create({ use_yify: true })
 
   const res = await client.get(Route.url('movies.torrent', { id: 181808 })).end()
   res.assertStatus(200)
@@ -27,7 +39,9 @@ test('can search for a movie torrent when using yify', async ({ assert, client }
 
 test('can search for a movie torrent when not using yify', async ({ assert, client }) => {
   await createMovie()
-  await Config.create({ use_yify: false })
+  const config = await Config.last()
+  config.use_yify = false
+  await config.save()
 
   const res = await client.get(Route.url('movies.torrent', { id: 181808 })).end()
   res.assertStatus(200)

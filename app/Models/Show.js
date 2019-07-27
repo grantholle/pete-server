@@ -4,7 +4,8 @@
 const Model = use('Model')
 const Event = use('Event')
 const Logger = use('Logger')
-const moviedb = require('../lib/tmdb')
+const getMoviedb = require('../lib/tmdb')
+const notify = require('../lib/notify')
 
 class Show extends Model {
   eztvCache = []
@@ -25,6 +26,8 @@ class Show extends Model {
     if (!this.tmdb_id) {
       throw new Error(`This movie doesn't have an id to look up in TMDb. Set one first then attmept to look up.`)
     }
+
+    const moviedb = await getMoviedb()
 
     return await moviedb.tvInfo(this.tmdb_id)
   }
@@ -77,35 +80,24 @@ class Show extends Model {
 
     // If no episodes are needed for this season
     if (!episodes || episodes.size() === 0) {
-      Event.emit('notification::message', `No episodes needed for season ${season} of ${this.name}`)
+      notify(`No episodes needed for season ${season} of ${this.name}`)
       return false
     }
 
-    Event.emit('notification::message', `There are ${episodes.size()} episodes for ${this.name} that need to be downloaded.`)
-
-    const magnets = {}
+    notify(`There are ${episodes.size()} episodes for ${this.name} that need to be downloaded.`)
 
     for (const episode of episodes.rows) {
-      Event.emit('notification::message', `Searching for season ${episode.season} episode ${episode.episode} of ${this.name}.`)
+      notify(`Searching for season ${episode.season} episode ${episode.episode} of ${this.name}.`)
 
       try {
-        const magnet = await episode.findAndAddMagnet(this)
-
-        // Don't add anything if a magnet wasn't found
-        if (!magnet) {
-          continue
-        }
-
-        magnets[episode.episode] = magnet
+        await episode.findAndAddMagnet(this)
       } catch (err) {
-        Event.emit('notification::message', {
+        notify({
           type: 'error',
           message: `Error occurred searching for season ${episode.season} episode ${episode.episode} of ${this.name}: ${err.message}`
         })
       }
     }
-
-    return magnets
   }
 
   /**
@@ -114,6 +106,7 @@ class Show extends Model {
    * @param {Number} season The season to process
    */
   async getEpisodesForSeason (season) {
+    const moviedb = await getMoviedb()
     Logger.info(`Getting episode information for season ${season} of ${this.name}.`)
 
     let res
@@ -122,7 +115,7 @@ class Show extends Model {
       // Get the season information for the season we currently want
       res = await moviedb.tvSeasonInfo({ id: this.tmdb_id, season_number: season })
     } catch (err) {
-      Event.emit('notification::message', {
+      notify({
         type: 'error',
         message: `Could not get season ${season} of ${this.name}: ${err.message}`
       })

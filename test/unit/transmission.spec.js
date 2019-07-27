@@ -4,6 +4,11 @@ const { test, trait } = use('Test/Suite')('Transmission')
 const Config = use('App/Models/Config')
 const Download = use('App/Models/Download')
 const transmission = require('../../app/lib/transmission')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+const transmission_username = Env.get('TRANSMISSION_USERNAME', null)
+const transmission_pw = Env.get('TRANSMISSION_PW', null)
 
 trait('DatabaseTransactions')
 
@@ -14,8 +19,8 @@ test('make sure torrent gets added and a download is added', async ({ assert }) 
   const dir = __dirname
 
   await Config.create({
-    transmission_username: 'a',
-    transmission_pw: '111',
+    transmission_username,
+    transmission_pw,
   })
 
   await transmission.add(url, name, dir)

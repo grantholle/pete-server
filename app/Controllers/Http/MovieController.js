@@ -1,6 +1,6 @@
 'use strict'
 
-const moviedb = require('../../lib/tmdb')
+const getMoviedb = require('../../lib/tmdb')
 const Movie = use(`App/Models/Movie`)
 const Logger = use('Logger')
 
@@ -12,6 +12,7 @@ class MovieController {
    * @param {Response} ctx.response
    */
   async index ({ response }) {
+    const moviedb = await getMoviedb()
     const { results } = await moviedb.accountMovieWatchlist()
 
     return response.json(results)
@@ -26,6 +27,7 @@ class MovieController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const moviedb = await getMoviedb()
     const media_id = request.input('tmdb_id')
 
     // Add movie to watchlist
@@ -69,6 +71,7 @@ class MovieController {
    * @param {Response} ctx.response
    */
   async tmdb ({ params, response }) {
+    const moviedb = await getMoviedb()
     const movieInfo = await moviedb.movieInfo(params.id)
 
     return response.json(movieInfo)
@@ -104,6 +107,7 @@ class MovieController {
    */
   async destroy ({ params, response }) {
     const movie = await Movie.findOrFail(params.id)
+    const moviedb = await getMoviedb()
 
     await moviedb.removeMovieFromWatchlist(movie.tmdb_id)
 

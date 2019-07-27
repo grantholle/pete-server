@@ -1,15 +1,31 @@
 'use strict'
 
-const { test, trait, afterEach } = use('Test/Suite')('TV')
+const { test, trait, afterEach, before } = use('Test/Suite')('TV')
 const Route = use('Route')
 const Show = use('App/Models/Show')
 const isArray = require('lodash/isArray')
-const moviedb = require('../../app/lib/tmdb')
+const getMoviedb = require('../../app/lib/tmdb')
+let moviedb
 let removeShow = false
 const tmdb_id = 87108
+const Config = use('App/Models/Config')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
+
+before(async () => {
+  await Config.create({
+    tmdb_key,
+    tmdb_session
+  })
+
+  moviedb = await getMoviedb()
+})
 
 const createShow = async () => {
   const show = await Show.findBy('tmdb_id', tmdb_id)

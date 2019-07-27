@@ -1,15 +1,50 @@
 'use strict'
 
 const Route = use('Route')
-const { test, trait } = use('Test/Suite')('Watchlist')
-const moviedb = require('../../app/lib/tmdb')
-const { isArray } = require('lodash')
+const Event = use('Event')
+const { test, trait, before, after } = use('Test/Suite')('Watchlist')
+const getMoviedb = require('../../app/lib/tmdb')
+let moviedb
 const Config = use('App/Models/Config')
+const Download = use('App/Models/Download')
+/** @type {import('@adonisjs/framework/src/Env')} */
+const Env = use('Env')
+const tmdb_key = Env.get('TMDB_KEY', null)
+const tmdb_session = Env.get('TMDB_SESSION', null)
+const transmission_username = Env.get('TRANSMISSION_USERNAME', null)
+const transmission_pw = Env.get('TRANSMISSION_PW', null)
+const transmission_host = Env.get('TRANSMISSION_HOST', null)
+const transmission_port = Env.get('TRANSMISSION_PORT', null)
+const trans = require('../traits/clears-transmission')
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
+trait(trans)
 
-test(`Can add and remove a movie to the watchlist`, async ({ assert, client }) => {
+before(async () => {
+  Event.fake()
+
+  await Config.create({
+    tmdb_key,
+    tmdb_session,
+    transmission_username,
+    transmission_pw,
+    transmission_host,
+    transmission_port,
+    tv_directory: '/tmp/TV Shows',
+    movie_directory: '/tmp/Movies',
+  })
+
+  moviedb = await getMoviedb()
+})
+
+after(async () => {
+  const config = await Config.last()
+  await config.delete()
+  Event.restore()
+})
+
+test(`Can add and remove a movie to the watchlist`, async ({ assert, client, clearTransmission }) => {
   const id = 301528
 
   await client.post(Route.url('watchlist.update'))
@@ -37,11 +72,11 @@ test(`Can add and remove a movie to the watchlist`, async ({ assert, client }) =
   existing = res.results.some(m => m.id === id);
 
   assert.isFalse(existing, `Movie gets removed successfully`)
+  await clearTransmission()
 }).timeout(30000)
 
-test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, client }) => {
+test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, client, clearTransmission }) => {
   const id = 181808
-  await Config.create({ use_yify: true })
 
   await client.post(Route.url('watchlist.update'))
     .send({
@@ -53,12 +88,14 @@ test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, cl
 
   const movieRes = await client.get(Route.url('watchlist.movies')).end()
   movieRes.assertStatus(200)
-  assert.property(movieRes.body, 'magnets', 'Has magents property')
-  assert.isTrue(isArray(movieRes.body.magnets))
-  assert.isTrue(movieRes.body.magnets.length === 1)
+
+  const downloads = await Download.all()
+  assert.equal(downloads.size(), 1)
+
+  await clearTransmission()
 }).timeout(30000)
 
-test(`Can add and remove a tv show to the watchlist`, async ({ assert, client }) => {
+test(`Can add and remove a tv show to the watchlist`, async ({ assert, client, clearTransmission }) => {
   const id = 87108
   await client.post(Route.url('watchlist.update'))
     .send({
@@ -85,9 +122,11 @@ test(`Can add and remove a tv show to the watchlist`, async ({ assert, client })
   existing = res.results.some(m => m.id === id);
 
   assert.isFalse(existing, `Show gets removed successfully`)
+
+  await clearTransmission()
 }).timeout(30000)
 
-test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert, client }) => {
+test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert, client, clearTransmission }) => {
   // Get the current watchlist and modify it to contain
   // only one show, reset it later
   let needToAdd = true
@@ -98,14 +137,6 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
     return results.map(r => r.id)
   }
   const existingWatchlist = await getExistingWatchlist()
-  // [
-  //   32726, 62286,
-  //    1685, 48891,
-  //   60059, 30957,
-  //   14658, 62560,
-  //    1421, 67136,
-  //   60625
-  // ]
 
   for (const id of existingWatchlist) {
     if (id === bobsBurgers) {
@@ -120,8 +151,6 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
     })
   }
 
-  await Config.create()
-
   // Add bob's burgers
   if (needToAdd) {
     await moviedb.accountWatchlistUpdate({
@@ -133,6 +162,9 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
 
   const res = await client.get(Route.url('watchlist.tv')).end()
   res.assertStatus(200)
+
+  const downloads = await Download.all()
+  assert.isTrue(downloads.size() > 0)
 
   // Remove bob's burgers
   if (needToAdd) {
@@ -155,4 +187,6 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
       watchlist: true
     })
   }
+
+  await clearTransmission()
 }).timeout(Infinity)

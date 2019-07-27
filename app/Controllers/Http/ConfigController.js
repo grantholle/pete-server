@@ -52,6 +52,8 @@ class ConfigController {
       `movie_quality`,
       `use_yify`,
       `fallback_movie_quality`,
+      `tmdb_key`,
+      `tmdb_session`,
     ]))
     await config.save()
 
