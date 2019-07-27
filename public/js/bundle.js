@@ -4520,6 +4520,43 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "./node_modules/nanoid/index.browser.js":
+/*!**********************************************!*\
+  !*** ./node_modules/nanoid/index.browser.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+if (true) {
+  if (typeof self === 'undefined' || (!self.crypto && !self.msCrypto)) {
+    throw new Error(
+      'Your browser does not have secure random generator. ' +
+      'If you don’t need unpredictable IDs, you can use nanoid/non-secure.'
+    )
+  }
+}
+
+var crypto = self.crypto || self.msCrypto
+
+/*
+ * This alphabet uses a-z A-Z 0-9 _- symbols.
+ * Symbols order was changed for better gzip compression.
+ */
+var url = 'Uint8ArdomValuesObj012345679BCDEFGHIJKLMNPQRSTWXYZ_cfghkpqvwxyz-'
+
+module.exports = function (size) {
+  size = size || 21
+  var id = ''
+  var bytes = crypto.getRandomValues(new Uint8Array(size))
+  while (0 < size--) {
+    id += url[bytes[size] & 63]
+  }
+  return id
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -8092,7 +8129,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (66:2) {#each tabs as tab}
+// (71:2) {#each tabs as tab}
 function create_each_block_1(ctx) {
 	var button, t0_value = ctx.tab, t0, t1, dispose;
 
@@ -8107,7 +8144,7 @@ function create_each_block_1(ctx) {
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "tab-control uppercase focus:outline-none py-1 px-2 mx-2 svelte-34onxr");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["toggle_class"])(button, "active", ctx.currentTab === ctx.tab);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 66, 4, 1361);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 71, 4, 1400);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", click_handler);
 		},
 
@@ -8134,7 +8171,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (79:0) {#if alerts.length > 0}
+// (84:0) {#if alerts.length > 0}
 function create_if_block_3(ctx) {
 	var div;
 
@@ -8154,7 +8191,7 @@ function create_if_block_3(ctx) {
 				each_blocks[i].c();
 			}
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "container mb-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 79, 2, 1633);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 84, 2, 1672);
 		},
 
 		m: function mount(target, anchor) {
@@ -8198,7 +8235,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (81:4) {#each alerts as userAlert}
+// (86:4) {#each alerts as userAlert}
 function create_each_block(ctx) {
 	var div, raw_value = ctx.userAlert.message, raw_after, t, div_class_value;
 
@@ -8208,7 +8245,7 @@ function create_each_block(ctx) {
 			raw_after = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])('noscript');
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", div_class_value = "alert p-3 my-2 shadow border rounded " + ctx.userAlert.type + " svelte-34onxr");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 81, 6, 1700);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 86, 6, 1739);
 		},
 
 		m: function mount(target, anchor) {
@@ -8237,7 +8274,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (93:38) 
+// (98:38) 
 function create_if_block_2(ctx) {
 	var current;
 
@@ -8271,7 +8308,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (91:36) 
+// (96:36) 
 function create_if_block_1(ctx) {
 	var p;
 
@@ -8279,7 +8316,7 @@ function create_if_block_1(ctx) {
 		c: function create() {
 			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
 			p.textContent = "movies";
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 91, 2, 1926);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 96, 2, 1965);
 		},
 
 		m: function mount(target, anchor) {
@@ -8297,7 +8334,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (89:0) {#if currentTab === 'tv'}
+// (94:0) {#if currentTab === 'tv'}
 function create_if_block(ctx) {
 	var current;
 
@@ -8385,12 +8422,12 @@ function create_fragment(ctx) {
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			if (if_block1) if_block1.c();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h1, "class", "leading-none");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h1, file, 63, 2, 1292);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(nav, file, 64, 2, 1329);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h1, file, 68, 2, 1331);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(nav, file, 69, 2, 1368);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(header, "class", "flex justify-between w-full p-5 bg-indigo-500 shadow-md");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(header, file, 62, 0, 1217);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(header, file, 67, 0, 1256);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "py-12");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 77, 0, 1587);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 82, 0, 1626);
 		},
 
 		l: function claim(nodes) {
@@ -8562,7 +8599,12 @@ _store__WEBPACK_IMPORTED_MODULE_5__["config"].subscribe(value => {
 
   const localAlerts = []
 
-  if (!value.transmission_username || !value.tv_directory || !value.movie_directory) {
+  if (
+    !value.transmission_username ||
+    !value.tv_directory ||
+    !value.movie_directory ||
+    !value.tmdb_key
+  ) {
     localAlerts.push({
       type: `warning`,
       message: `<strong>Heads up!</strong> Your configuration isn't complete. Stuff won't work right...`
@@ -9261,42 +9303,191 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nanoid__WEBPACK_IMPORTED_MODULE_3__);
 /* resources/js/components/Settings.svelte generated by Svelte v3.6.7 */
+
 
 
 
 
 const file = "resources/js/components/Settings.svelte";
 
-function create_fragment(ctx) {
-	var div10, form, h20, t1, label0, span0, t3, input0, t4, h21, t6, label1, span1, t8, input1, t9, label2, span2, t11, select, option0, option1, option2, t15, div0, label3, input2, t16, span3, t18, div1, label4, input3, t19, span4, t21, h22, t23, div6, div2, label5, span5, t25, input4, t26, div3, label6, span6, t28, input5, t29, div4, label7, span7, t31, input6, t32, div5, label8, span8, t34, input7, t35, h23, t37, label9, span9, t39, input8, t40, div7, label10, input9, t41, span10, t43, div8, label11, input10, t44, span11, t46, div9, button, dispose;
+// (110:56) 
+function create_if_block_2(ctx) {
+	var div, t_1, button, dispose;
 
 	return {
 		c: function create() {
-			div10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			div.textContent = "After authorizing the app you've created, return to this tab without closing to get the session for your key.";
+			t_1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
+			button.textContent = "Authorize Pete";
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "text-sm text-gray-300 py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 110, 6, 2697);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 111, 6, 2859);
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(ctx.getRequestToken));
+		},
+
+		m: function mount(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, div, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, t_1, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d: function destroy(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(div);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(t_1);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(button);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (107:28) 
+function create_if_block_1(ctx) {
+	var div, t_1, button, dispose;
+
+	return {
+		c: function create() {
+			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			div.textContent = "Authorized successfully, you're now able to get the session.";
+			t_1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
+			button.textContent = "Get session";
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "text-sm text-gray-300 py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 107, 6, 2427);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 108, 6, 2540);
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(ctx.getSessionId));
+		},
+
+		m: function mount(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, div, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, t_1, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d: function destroy(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(div);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(t_1);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(button);
+			}
+
+			dispose();
+		}
+	};
+}
+
+// (102:4) {#if $config.tmdb_key && $config.tmdb_session}
+function create_if_block(ctx) {
+	var label, span, t_1, input, dispose;
+
+	return {
+		c: function create() {
+			label = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
+			span = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			span.textContent = "Session ID";
+			t_1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			input = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span, file, 103, 8, 2255);
+			input.disabled = true;
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-input mt-1 block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 104, 8, 2287);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label, "class", "block");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label, file, 102, 6, 2225);
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input, "input", ctx.input_input_handler);
+		},
+
+		m: function mount(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, label, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label, span);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label, t_1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label, input);
+
+			input.value = ctx.$config.tmdb_session;
+		},
+
+		p: function update(changed, ctx) {
+			if (changed.$config && (input.value !== ctx.$config.tmdb_session)) input.value = ctx.$config.tmdb_session;
+		},
+
+		d: function destroy(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(label);
+			}
+
+			dispose();
+		}
+	};
+}
+
+function create_fragment(ctx) {
+	var div12, form, h20, t1, label0, span0, t3, input0, t4, div0, t5, a, t7, t8, div1, t9, h21, t11, label1, span1, t13, input1, t14, h22, t16, label2, span2, t18, input2, t19, label3, span3, t21, select, option0, option1, option2, t25, div2, label4, input3, t26, span4, t28, div3, label5, input4, t29, span5, t31, h23, t33, div8, div4, label6, span6, t35, input5, t36, div5, label7, span7, t38, input6, t39, div6, label8, span8, t41, input7, t42, div7, label9, span9, t44, input8, t45, h24, t47, label10, span10, t49, input9, t50, div9, label11, input10, t51, span11, t53, div10, label12, input11, t54, span12, t56, div11, button, dispose;
+
+	function select_block_type(ctx) {
+		if (ctx.$config.tmdb_key && ctx.$config.tmdb_session) return create_if_block;
+		if (ctx.hasAuthorized) return create_if_block_1;
+		if (ctx.$config.tmdb_key && !ctx.$config.tmdb_session) return create_if_block_2;
+	}
+
+	var current_block_type = select_block_type(ctx);
+	var if_block = current_block_type && current_block_type(ctx);
+
+	return {
+		c: function create() {
+			div12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			form = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("form");
 			h20 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
-			h20.textContent = "TV";
+			h20.textContent = "TMDb";
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			label0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span0.textContent = "TV directory";
+			span0.textContent = "API key";
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("See ");
+			a = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
+			a.textContent = "instructions";
+			t7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(" on how to create an api key.");
+			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			if (if_block) if_block.c();
+			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			h21 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
-			h21.textContent = "Movies";
-			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			h21.textContent = "TV";
+			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			label1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span1.textContent = "Movie directory";
-			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span1.textContent = "TV directory";
+			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			t14 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			h22 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
+			h22.textContent = "Movies";
+			t16 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			label2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span2.textContent = "Movie quality";
-			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span2.textContent = "Movie directory";
+			t18 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			input2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			t19 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			label3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
+			span3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			span3.textContent = "Movie quality";
+			t21 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			select = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("select");
 			option0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("option");
 			option0.textContent = "720p";
@@ -9304,211 +9495,227 @@ function create_fragment(ctx) {
 			option1.textContent = "1080p";
 			option2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("option");
 			option2.textContent = "2160p";
-			t15 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			label3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
-			input2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t16 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			span3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span3.textContent = "If the above quality can't be found, use an alternate better/poorer quality";
-			t18 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			t25 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			input3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t19 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			span4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span4.textContent = "Use Yify as a source for movies. It will be given priority during searching. Yify is known for small filesizes, but quality suffers.";
-			t21 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			h22 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
-			h22.textContent = "Transmission";
-			t23 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			div2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			label5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
-			span5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span5.textContent = "Username";
-			t25 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			input4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t26 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			span4.textContent = "If the above quality can't be found, use an alternate better/poorer quality";
+			t28 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			div3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			label5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
+			input4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			t29 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			span5.textContent = "Use Yify as a source for movies. It will be given priority during searching. Yify is known for small filesizes, but quality suffers.";
+			t31 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			h23 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
+			h23.textContent = "Transmission";
+			t33 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			div4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span6.textContent = "Password";
-			t28 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span6.textContent = "Username";
+			t35 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t29 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			t36 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span7.textContent = "Host";
-			t31 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span7.textContent = "Password";
+			t38 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t32 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			t39 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
 			span8.textContent = "Host";
-			t34 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			t41 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t35 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			h23 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
-			h23.textContent = "Notifications";
-			t37 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			t42 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			span9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span9.textContent = "Pushbullet token";
-			t39 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span9.textContent = "Host";
+			t44 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			input8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t40 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			t45 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			h24 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h2");
+			h24.textContent = "Notifications";
+			t47 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			label10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
-			input9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t41 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			span10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span10.textContent = "Send a notification when a download is started";
-			t43 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			span10.textContent = "Pushbullet token";
+			t49 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			input9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			t50 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			label11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
 			input10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
-			t44 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			t51 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			span11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			span11.textContent = "Send a notification when a download is finished";
-			t46 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			div9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			span11.textContent = "Send a notification when a download is started";
+			t53 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			label12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("label");
+			input11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			t54 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			span12.textContent = "Send a notification when a download is finished";
+			t56 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
 			button.textContent = "Save";
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h20, file, 31, 4, 664);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 34, 6, 714);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h20, file, 92, 4, 1750);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 95, 6, 1802);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input0, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input0, "placeholder", "/mnt/media/TV Shows");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input0, file, 35, 6, 746);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input0, file, 96, 6, 1829);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "class", "text-gray-300 underline");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "href", "https://developers.themoviedb.org/3/getting-started/introduction");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "target", "_blank");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a, file, 97, 50, 1956);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "text-sm text-gray-600 py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 97, 6, 1912);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label0, "class", "block py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 33, 4, 681);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 94, 4, 1769);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 100, 4, 2149);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h21, "class", "pt-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h21, file, 38, 4, 879);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 41, 6, 946);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h21, file, 115, 4, 2985);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 118, 6, 3048);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input1, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input1, "placeholder", "/mnt/media/Movies");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input1, file, 42, 6, 981);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input1, "placeholder", "/mnt/media/TV Shows");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input1, file, 119, 6, 3080);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label1, "class", "block py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 40, 4, 913);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span2, file, 46, 6, 1148);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 117, 4, 3015);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h22, "class", "pt-8");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h22, file, 122, 4, 3213);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span2, file, 125, 6, 3280);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input2, "class", "form-input mt-1 block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input2, "placeholder", "/mnt/media/Movies");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input2, file, 126, 6, 3315);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label2, "class", "block py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label2, file, 124, 4, 3247);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span3, file, 130, 6, 3482);
 			option0.__value = "720p";
 			option0.value = option0.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option0, file, 48, 8, 1273);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option0, file, 132, 8, 3607);
 			option1.__value = "1080p";
 			option1.value = option1.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option1, file, 49, 8, 1316);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option1, file, 133, 8, 3650);
 			option2.__value = "2160p";
 			option2.value = option2.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option2, file, 50, 8, 1361);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option2, file, 134, 8, 3695);
 			if (ctx.$config.movie_quality === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select_change_handler.call(select));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select, file, 47, 6, 1181);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label2, "class", "block py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label2, file, 45, 4, 1115);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input2, "type", "checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input2, "class", "form-checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input2, file, 56, 8, 1499);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span3, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span3, file, 57, 8, 1601);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label3, "class", "flex items-center");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label3, file, 55, 6, 1457);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 54, 4, 1432);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select, file, 131, 6, 3515);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label3, "class", "block py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label3, file, 129, 4, 3449);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input3, "type", "checkbox");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input3, "class", "form-checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input3, file, 63, 8, 1801);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input3, file, 140, 8, 3833);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span4, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span4, file, 64, 8, 1889);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span4, file, 141, 8, 3935);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label4, "class", "flex items-center");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label4, file, 62, 6, 1759);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 61, 4, 1734);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h22, "class", "pt-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h22, file, 68, 4, 2079);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span5, file, 73, 10, 2240);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input4, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input4, "placeholder", "/mnt/media/Movies");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input4, file, 74, 10, 2272);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label5, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label5, file, 72, 8, 2208);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div2, "class", "w-full md:w-1/2 px-4 py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div2, file, 71, 6, 2160);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span6, file, 80, 10, 2511);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label4, file, 139, 6, 3791);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div2, "class", "py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div2, file, 138, 4, 3766);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input4, "type", "checkbox");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input4, "class", "form-checkbox");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input4, file, 147, 8, 4135);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span5, "class", "ml-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span5, file, 148, 8, 4223);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label5, "class", "flex items-center");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label5, file, 146, 6, 4093);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div3, "class", "py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div3, file, 145, 4, 4068);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h23, "class", "pt-8");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h23, file, 152, 4, 4413);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span6, file, 157, 10, 4574);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input5, "class", "form-input mt-1 block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input5, "placeholder", "/mnt/media/Movies");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input5, file, 81, 10, 2543);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input5, file, 158, 10, 4606);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label6, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label6, file, 79, 8, 2479);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div3, "class", "w-full md:w-1/2 px-4 py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div3, file, 78, 6, 2431);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span7, file, 87, 10, 2776);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input6, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input6, "placeholder", "localhost");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input6, file, 88, 10, 2804);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label7, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label7, file, 86, 8, 2744);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label6, file, 156, 8, 4542);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div4, "class", "w-full md:w-1/2 px-4 py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div4, file, 85, 6, 2696);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span8, file, 94, 10, 3031);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input7, "type", "number");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input7, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input7, "placeholder", "9091");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input7, file, 95, 10, 3059);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label8, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label8, file, 93, 8, 2999);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div4, file, 155, 6, 4494);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span7, file, 164, 10, 4845);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input6, "class", "form-input mt-1 block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input6, "placeholder", "/mnt/media/Movies");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input6, file, 165, 10, 4877);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label7, "class", "block");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label7, file, 163, 8, 4813);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div5, "class", "w-full md:w-1/2 px-4 py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div5, file, 92, 6, 2951);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div6, "class", "flex flex-wrap -mx-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div6, file, 70, 4, 2119);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h23, "class", "pt-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h23, file, 100, 4, 3224);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span9, file, 103, 6, 3298);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div5, file, 162, 6, 4765);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span8, file, 171, 10, 5110);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input7, "class", "form-input mt-1 block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input7, "placeholder", "localhost");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input7, file, 172, 10, 5138);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label8, "class", "block");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label8, file, 170, 8, 5078);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div6, "class", "w-full md:w-1/2 px-4 py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div6, file, 169, 6, 5030);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span9, file, 178, 10, 5365);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input8, "type", "number");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input8, "class", "form-input mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input8, file, 104, 6, 3334);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label9, "class", "block py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label9, file, 102, 4, 3265);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input9, "type", "checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input9, "class", "form-checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input9, file, 109, 8, 3504);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span10, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span10, file, 110, 8, 3599);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label10, "class", "flex items-center");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label10, file, 108, 6, 3462);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div7, "class", "py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div7, file, 107, 4, 3437);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input8, "placeholder", "9091");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input8, file, 179, 10, 5393);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label9, "class", "block");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label9, file, 177, 8, 5333);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div7, "class", "w-full md:w-1/2 px-4 py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div7, file, 176, 6, 5285);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div8, "class", "flex flex-wrap -mx-4");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div8, file, 154, 4, 4453);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h24, "class", "pt-8");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h24, file, 184, 4, 5558);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span10, file, 187, 6, 5632);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input9, "class", "form-input mt-1 block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input9, file, 188, 6, 5668);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label10, "class", "block py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label10, file, 186, 4, 5599);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input10, "type", "checkbox");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input10, "class", "form-checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input10, file, 116, 8, 3770);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input10, file, 193, 8, 5838);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span11, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span11, file, 117, 8, 3866);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span11, file, 194, 8, 5933);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label11, "class", "flex items-center");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label11, file, 115, 6, 3728);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div8, "class", "py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div8, file, 114, 4, 3703);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label11, file, 192, 6, 5796);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div9, "class", "py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div9, file, 191, 4, 5771);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input11, "type", "checkbox");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input11, "class", "form-checkbox");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input11, file, 200, 8, 6104);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span12, "class", "ml-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span12, file, 201, 8, 6200);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label12, "class", "flex items-center");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label12, file, 199, 6, 6062);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div10, "class", "py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div10, file, 198, 4, 6037);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary text-xl");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "submit");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 122, 6, 4007);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div9, "class", "text-right py-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div9, file, 121, 4, 3971);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 30, 2, 613);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div10, "class", "container");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div10, file, 29, 0, 587);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 206, 6, 6341);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div11, "class", "text-right py-2");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div11, file, 205, 4, 6305);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 91, 2, 1699);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div12, "class", "container");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div12, file, 90, 0, 1673);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input0, "input", ctx.input0_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input1, "input", ctx.input1_input_handler),
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input2, "input", ctx.input2_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(select, "change", ctx.select_change_handler),
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input2, "change", ctx.input2_change_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input3, "change", ctx.input3_change_handler),
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input4, "input", ctx.input4_input_handler),
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input4, "change", ctx.input4_change_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input5, "input", ctx.input5_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input6, "input", ctx.input6_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input7, "input", ctx.input7_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input8, "input", ctx.input8_input_handler),
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input9, "change", ctx.input9_change_handler),
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input9, "input", ctx.input9_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input10, "change", ctx.input10_change_handler),
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input11, "change", ctx.input11_change_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(form, "submit", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(ctx.saveConfig))
 			];
 		},
@@ -9518,8 +9725,8 @@ function create_fragment(ctx) {
 		},
 
 		m: function mount(target, anchor) {
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, div10, anchor);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div10, form);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, div12, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div12, form);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h20);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label0);
@@ -9527,132 +9734,163 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label0, t3);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label0, input0);
 
-			input0.value = ctx.$config.tv_directory;
+			input0.value = ctx.$config.tmdb_key;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label0, t4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label0, div0);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div0, t5);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div0, a);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div0, t7);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div1);
+			if (if_block) if_block.m(div1, null);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t9);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h21);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t6);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t11);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label1, span1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label1, t8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label1, t13);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label1, input1);
 
-			input1.value = ctx.$config.movie_directory;
+			input1.value = ctx.$config.tv_directory;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t9);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t14);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h22);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t16);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label2);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label2, span2);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label2, t11);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label2, select);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label2, t18);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label2, input2);
+
+			input2.value = ctx.$config.movie_directory;
+
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t19);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label3);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, span3);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, t21);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, select);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(select, option0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(select, option1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(select, option2);
 
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["select_option"])(select, ctx.$config.movie_quality)
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t15);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div0);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div0, label3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, input2);
-
-			input2.checked = ctx.$config.fallback_movie_quality;
-
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, t16);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label3, span3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t18);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, label4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t25);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div2);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, label4);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label4, input3);
 
-			input3.checked = ctx.$config.use_yify;
+			input3.checked = ctx.$config.fallback_movie_quality;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label4, t19);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label4, t26);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label4, span4);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t21);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h22);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t23);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div6);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, div2);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, label5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label5, span5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label5, t25);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t28);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div3);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div3, label5);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label5, input4);
 
-			input4.value = ctx.$config.transmission_username;
+			input4.checked = ctx.$config.use_yify;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, t26);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, div3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div3, label6);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label5, t29);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label5, span5);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t31);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h23);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t33);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, div4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div4, label6);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label6, span6);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label6, t28);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label6, t35);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label6, input5);
 
-			input5.value = ctx.$config.transmission_pw;
+			input5.value = ctx.$config.transmission_username;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, t29);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, div4);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div4, label7);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, t36);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, div5);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div5, label7);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label7, span7);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label7, t31);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label7, t38);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label7, input6);
 
-			input6.value = ctx.$config.transmission_host;
+			input6.value = ctx.$config.transmission_pw;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, t32);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, div5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div5, label8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, t39);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, div6);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div6, label8);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label8, span8);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label8, t34);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label8, t41);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label8, input7);
 
-			input7.value = ctx.$config.transmission_port;
+			input7.value = ctx.$config.transmission_host;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t35);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h23);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t37);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label9);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, t42);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, div7);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div7, label9);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label9, span9);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label9, t39);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label9, t44);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label9, input8);
 
-			input8.value = ctx.$config.pushbullet_token;
+			input8.value = ctx.$config.transmission_port;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t40);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div7);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div7, label10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t45);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, h24);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t47);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, label10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label10, span10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label10, t49);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label10, input9);
 
-			input9.checked = ctx.$config.notify_on_start;
+			input9.value = ctx.$config.pushbullet_token;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label10, t41);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label10, span10);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t43);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div8);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div8, label11);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t50);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div9);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div9, label11);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label11, input10);
 
-			input10.checked = ctx.$config.notify_on_finish;
+			input10.checked = ctx.$config.notify_on_start;
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label11, t44);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label11, t51);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label11, span11);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t46);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div9);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div9, button);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t53);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div10, label12);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label12, input11);
+
+			input11.checked = ctx.$config.notify_on_finish;
+
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label12, t54);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(label12, span12);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t56);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div11);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div11, button);
 		},
 
 		p: function update(changed, ctx) {
-			if (changed.$config && (input0.value !== ctx.$config.tv_directory)) input0.value = ctx.$config.tv_directory;
-			if (changed.$config && (input1.value !== ctx.$config.movie_directory)) input1.value = ctx.$config.movie_directory;
+			if (changed.$config && (input0.value !== ctx.$config.tmdb_key)) input0.value = ctx.$config.tmdb_key;
+
+			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+				if_block.p(changed, ctx);
+			} else {
+				if (if_block) if_block.d(1);
+				if_block = current_block_type && current_block_type(ctx);
+				if (if_block) {
+					if_block.c();
+					if_block.m(div1, null);
+				}
+			}
+
+			if (changed.$config && (input1.value !== ctx.$config.tv_directory)) input1.value = ctx.$config.tv_directory;
+			if (changed.$config && (input2.value !== ctx.$config.movie_directory)) input2.value = ctx.$config.movie_directory;
 			if (changed.$config) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["select_option"])(select, ctx.$config.movie_quality)
-			if (changed.$config) input2.checked = ctx.$config.fallback_movie_quality;
-			if (changed.$config) input3.checked = ctx.$config.use_yify;
-			if (changed.$config && (input4.value !== ctx.$config.transmission_username)) input4.value = ctx.$config.transmission_username;
-			if (changed.$config && (input5.value !== ctx.$config.transmission_pw)) input5.value = ctx.$config.transmission_pw;
-			if (changed.$config && (input6.value !== ctx.$config.transmission_host)) input6.value = ctx.$config.transmission_host;
-			if (changed.$config) input7.value = ctx.$config.transmission_port;
-			if (changed.$config && (input8.value !== ctx.$config.pushbullet_token)) input8.value = ctx.$config.pushbullet_token;
-			if (changed.$config) input9.checked = ctx.$config.notify_on_start;
-			if (changed.$config) input10.checked = ctx.$config.notify_on_finish;
+			if (changed.$config) input3.checked = ctx.$config.fallback_movie_quality;
+			if (changed.$config) input4.checked = ctx.$config.use_yify;
+			if (changed.$config && (input5.value !== ctx.$config.transmission_username)) input5.value = ctx.$config.transmission_username;
+			if (changed.$config && (input6.value !== ctx.$config.transmission_pw)) input6.value = ctx.$config.transmission_pw;
+			if (changed.$config && (input7.value !== ctx.$config.transmission_host)) input7.value = ctx.$config.transmission_host;
+			if (changed.$config) input8.value = ctx.$config.transmission_port;
+			if (changed.$config && (input9.value !== ctx.$config.pushbullet_token)) input9.value = ctx.$config.pushbullet_token;
+			if (changed.$config) input10.checked = ctx.$config.notify_on_start;
+			if (changed.$config) input11.checked = ctx.$config.notify_on_finish;
 		},
 
 		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
@@ -9660,38 +9898,40 @@ function create_fragment(ctx) {
 
 		d: function destroy(detaching) {
 			if (detaching) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(div10);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(div12);
 			}
 
+			if (if_block) if_block.d();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["run_all"])(dispose);
 		}
 	};
 }
 
 function instance($$self, $$props, $$invalidate) {
-	let $config, $notifications;
+	let $notifications, $config;
 
-	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["validate_store"])(_store__WEBPACK_IMPORTED_MODULE_1__["config"], 'config');
-	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["subscribe"])($$self, _store__WEBPACK_IMPORTED_MODULE_1__["config"], $$value => { $config = $$value; $$invalidate('$config', $config); });
 	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["validate_store"])(_store__WEBPACK_IMPORTED_MODULE_1__["notifications"], 'notifications');
 	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["subscribe"])($$self, _store__WEBPACK_IMPORTED_MODULE_1__["notifications"], $$value => { $notifications = $$value; $$invalidate('$notifications', $notifications); });
+	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["validate_store"])(_store__WEBPACK_IMPORTED_MODULE_1__["config"], 'config');
+	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["subscribe"])($$self, _store__WEBPACK_IMPORTED_MODULE_1__["config"], $$value => { $config = $$value; $$invalidate('$config', $config); });
 
 	
 
-const saveConfig = async () => {
-  await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(`/api/v1/config`, $config)
+let hasAuthorized = false
+let requestToken = null
 
-  const id = (new Date()).getMilliseconds().toString()
+const addNotification = note => {
+  const id = nanoid__WEBPACK_IMPORTED_MODULE_3___default()()
 
   _store__WEBPACK_IMPORTED_MODULE_1__["notifications"].set([
     ...$notifications,
-    {
-      id,
-      type: 'info',
-      message: 'Configuration updated successfully.'
-    }
+    { ...note, id }
   ])
 
+  autoClose(id)
+}
+
+const autoClose = id => {
   setTimeout(() => {
     const index = $notifications.findIndex(n => n.id === id)
 
@@ -9702,11 +9942,78 @@ const saveConfig = async () => {
   }, 4000)
 }
 
+const getRequestToken = async () => {
+  if ($config.tmdb_key && $config.tmdb_key.length < 32) {
+    return
+  }
+
+  addNotification({
+    type: 'info',
+    message: 'Generating request token...'
+  })
+
+  const { data } = await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(`/api/v1/token`, {
+    token: $config.tmdb_key
+  })
+
+  _store__WEBPACK_IMPORTED_MODULE_1__["notifications"].set({
+    type: 'info',
+    message: 'Token created successfully.'
+  })
+
+  requestToken = data.token
+
+  window.open(`https://www.themoviedb.org/authenticate/${requestToken}`)
+  $$invalidate('hasAuthorized', hasAuthorized = true)
+}
+
+const getSessionId = async () => {
+  addNotification({
+    type: 'info',
+    message: 'Generating session...'
+  })
+
+  const { data } = await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(`/api/v1/session`, {
+    requestToken
+  })
+
+  addNotification({
+    type: 'info',
+    message: 'Session saved successfully.'
+  })
+
+  _store__WEBPACK_IMPORTED_MODULE_1__["config"].set({
+    ...$config,
+    tmdb_session: data.session
+  })
+
+  $$invalidate('hasAuthorized', hasAuthorized = false)
+}
+
+const saveConfig = async () => {
+  await axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(`/api/v1/config`, $config)
+
+  const id = (new Date()).getMilliseconds().toString()
+
+  addNotification({
+    type: 'info',
+    message: 'Configuration updated successfully.'
+  })
+}
+
 	function input0_input_handler() {
-		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.tv_directory = this.value, $$value));
+		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.tmdb_key = this.value, $$value));
+	}
+
+	function input_input_handler() {
+		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.tmdb_session = this.value, $$value));
 	}
 
 	function input1_input_handler() {
+		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.tv_directory = this.value, $$value));
+	}
+
+	function input2_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.movie_directory = this.value, $$value));
 	}
 
@@ -9714,57 +10021,62 @@ const saveConfig = async () => {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.movie_quality = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["select_value"])(this), $$value));
 	}
 
-	function input2_change_handler() {
+	function input3_change_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.fallback_movie_quality = this.checked, $$value));
 	}
 
-	function input3_change_handler() {
+	function input4_change_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.use_yify = this.checked, $$value));
 	}
 
-	function input4_input_handler() {
+	function input5_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.transmission_username = this.value, $$value));
 	}
 
-	function input5_input_handler() {
+	function input6_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.transmission_pw = this.value, $$value));
 	}
 
-	function input6_input_handler() {
+	function input7_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.transmission_host = this.value, $$value));
 	}
 
-	function input7_input_handler() {
+	function input8_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.transmission_port = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["to_number"])(this.value), $$value));
 	}
 
-	function input8_input_handler() {
+	function input9_input_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.pushbullet_token = this.value, $$value));
 	}
 
-	function input9_change_handler() {
+	function input10_change_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.notify_on_start = this.checked, $$value));
 	}
 
-	function input10_change_handler() {
+	function input11_change_handler() {
 		_store__WEBPACK_IMPORTED_MODULE_1__["config"].update($$value => ($$value.notify_on_finish = this.checked, $$value));
 	}
 
 	return {
+		hasAuthorized,
+		getRequestToken,
+		getSessionId,
 		saveConfig,
 		$config,
 		input0_input_handler,
+		input_input_handler,
 		input1_input_handler,
+		input2_input_handler,
 		select_change_handler,
-		input2_change_handler,
 		input3_change_handler,
-		input4_input_handler,
+		input4_change_handler,
 		input5_input_handler,
 		input6_input_handler,
 		input7_input_handler,
 		input8_input_handler,
-		input9_change_handler,
-		input10_change_handler
+		input9_input_handler,
+		input10_change_handler,
+		input11_change_handler
 	};
 }
 
@@ -9834,7 +10146,7 @@ function get_each_context_4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (110:2) {:else}
+// (117:2) {:else}
 function create_else_block_2(ctx) {
 	var div, each_blocks = [], each_1_lookup = new Map();
 
@@ -9854,7 +10166,7 @@ function create_else_block_2(ctx) {
 
 			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].c();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "flex flex-wrap -mx-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 110, 4, 2504);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 117, 4, 2690);
 		},
 
 		m: function mount(target, anchor) {
@@ -9881,7 +10193,34 @@ function create_else_block_2(ctx) {
 	};
 }
 
-// (108:2) {#if (loading)}
+// (115:25) 
+function create_if_block_5(ctx) {
+	var p;
+
+	return {
+		c: function create() {
+			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
+			p.textContent = "Go to settings to configure and authorize Pete.";
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 115, 4, 2621);
+		},
+
+		m: function mount(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, p, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d: function destroy(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(p);
+			}
+		}
+	};
+}
+
+// (113:2) {#if (loading)}
 function create_if_block_4(ctx) {
 	var current;
 
@@ -9917,7 +10256,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (112:6) {#each shows as show, index (show.id)}
+// (119:6) {#each shows as show, index (show.id)}
 function create_each_block_4(key_1, ctx) {
 	var div1, div0, img, img_src_value, img_alt_value, t0, button0, t1, button0_disabled_value, t2, button1, t3, button1_disabled_value, t4, button2, t5, button2_class_value, button2_disabled_value, t6, dispose;
 
@@ -9955,20 +10294,20 @@ function create_each_block_4(key_1, ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "class", "block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value = "//image.tmdb.org/t/p/w342" + ctx.show.poster_path);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = ctx.show.name);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 114, 12, 2716);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 121, 12, 2902);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "block py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
 			button0.disabled = button0_disabled_value = ctx.show.fetching;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 116, 12, 2824);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 123, 12, 3010);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
 			button1.disabled = button1_disabled_value = ctx.show.removing;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 124, 12, 3101);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 131, 12, 3287);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button2, "class", button2_class_value = "block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-red-" + (ctx.show.removing ? '200' : '800'));
 			button2.disabled = button2_disabled_value = ctx.show.removing;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button2, file, 132, 12, 3404);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button2, file, 139, 12, 3590);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "bg-white rounded shadow overflow-hidden");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 113, 10, 2650);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 120, 10, 2836);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "w-1/2 sm:w-1/3 lg:w-1/4 px-4 mb-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 112, 8, 2592);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 119, 8, 2778);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button0, "click", click_handler),
@@ -10032,7 +10371,7 @@ function create_each_block_4(key_1, ctx) {
 	};
 }
 
-// (147:0) {#if modals.showConfigureModal}
+// (154:0) {#if modals.showConfigureModal}
 function create_if_block_2(ctx) {
 	var current;
 
@@ -10083,7 +10422,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (149:2) <h3 slot="header">
+// (156:2) <h3 slot="header">
 function create_header_slot_1(ctx) {
 	var h3, t_value = ctx.selectedShow.name, t;
 
@@ -10092,7 +10431,7 @@ function create_header_slot_1(ctx) {
 			h3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h3");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h3, "slot", "header");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 148, 2, 3870);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 155, 2, 4056);
 		},
 
 		m: function mount(target, anchor) {
@@ -10114,7 +10453,7 @@ function create_header_slot_1(ctx) {
 	};
 }
 
-// (153:2) {:else}
+// (160:2) {:else}
 function create_else_block_1(ctx) {
 	var form, label0, span0, t1, select0, t2, label1, span1, t4, select1, t5, label2, span2, t7, select2, option0, option1, option2, t11, div, label3, input, t12, span3, dispose;
 
@@ -10178,46 +10517,46 @@ function create_else_block_1(ctx) {
 			span3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
 			span3.textContent = "Use alternate quality when desired quality isn't found";
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span0, "class", "text-gray-700");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 155, 8, 4095);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 162, 8, 4281);
 			if (ctx.showData.start_season === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select0_change_handler.call(select0));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select0, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select0, file, 156, 8, 4151);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select0, file, 163, 8, 4337);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label0, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 154, 6, 4065);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 161, 6, 4251);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span1, "class", "text-gray-700");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 164, 8, 4449);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 171, 8, 4635);
 			if (ctx.showData.start_episode === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select1_change_handler.call(select1));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select1, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select1, file, 165, 8, 4506);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select1, file, 172, 8, 4692);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label1, "class", "block mt-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 163, 6, 4414);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 170, 6, 4600);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span2, "class", "text-gray-700");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span2, file, 173, 8, 4810);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span2, file, 180, 8, 4996);
 			option0.__value = "HDTV";
 			option0.value = option0.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option0, file, 175, 10, 4950);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option0, file, 182, 10, 5136);
 			option1.__value = "720p";
 			option1.value = option1.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option1, file, 176, 10, 4995);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option1, file, 183, 10, 5181);
 			option2.__value = "1080p";
 			option2.value = option2.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option2, file, 177, 10, 5040);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option2, file, 184, 10, 5226);
 			if (ctx.showData.quality === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select2_change_handler.call(select2));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select2, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select2, file, 174, 8, 4861);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select2, file, 181, 8, 5047);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label2, "class", "block mt-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label2, file, 172, 6, 4775);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label2, file, 179, 6, 4961);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "type", "checkbox");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-checkbox");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 183, 10, 5198);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 190, 10, 5384);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span3, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span3, file, 184, 10, 5296);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span3, file, 191, 10, 5482);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label3, "class", "flex items-center");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label3, file, 182, 8, 5154);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label3, file, 189, 8, 5340);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "flex mt-4 mb-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 181, 6, 5117);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 188, 6, 5303);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(form, "class", "py-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 153, 4, 3992);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 160, 4, 4178);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(select0, "change", ctx.select0_change_handler),
@@ -10342,7 +10681,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (151:2) {#if modalLoading}
+// (158:2) {#if modalLoading}
 function create_if_block_3(ctx) {
 	var current;
 
@@ -10381,7 +10720,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (158:10) {#each Object.keys(availableSeasons) as season}
+// (165:10) {#each Object.keys(availableSeasons) as season}
 function create_each_block_3(ctx) {
 	var option, t_value = ctx.season, t, option_value_value;
 
@@ -10391,7 +10730,7 @@ function create_each_block_3(ctx) {
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			option.__value = option_value_value = Number(ctx.season);
 			option.value = option.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 158, 12, 4305);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 165, 12, 4491);
 		},
 
 		m: function mount(target, anchor) {
@@ -10419,7 +10758,7 @@ function create_each_block_3(ctx) {
 	};
 }
 
-// (167:10) {#each availableSeasons[showData.start_season] as episode}
+// (174:10) {#each availableSeasons[showData.start_season] as episode}
 function create_each_block_2(ctx) {
 	var option, t_value = ctx.episode, t, option_value_value;
 
@@ -10429,7 +10768,7 @@ function create_each_block_2(ctx) {
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			option.__value = option_value_value = ctx.episode;
 			option.value = option.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 167, 12, 4672);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 174, 12, 4858);
 		},
 
 		m: function mount(target, anchor) {
@@ -10457,7 +10796,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (191:2) <button     slot="action"     class="btn btn-primary ml-2"     on:click="{saveConfiguration}"     disabled="{modalLoading}"     type="button"   >
+// (198:2) <button     slot="action"     class="btn btn-primary ml-2"     on:click="{saveConfiguration}"     disabled="{modalLoading}"     type="button"   >
 function create_action_slot_1(ctx) {
 	var button, t, dispose;
 
@@ -10469,7 +10808,7 @@ function create_action_slot_1(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary ml-2");
 			button.disabled = ctx.modalLoading;
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "button");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 190, 2, 5430);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 197, 2, 5616);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", ctx.saveConfiguration);
 		},
 
@@ -10494,7 +10833,7 @@ function create_action_slot_1(ctx) {
 	};
 }
 
-// (148:0) <Modal on:close="{() => modals.showConfigureModal = false}">
+// (155:0) <Modal on:close="{() => modals.showConfigureModal = false}">
 function create_default_slot_1(ctx) {
 	var t0, current_block_type_index, if_block, t1, current;
 
@@ -10574,7 +10913,7 @@ function create_default_slot_1(ctx) {
 	};
 }
 
-// (203:0) {#if modals.showFetchModal}
+// (210:0) {#if modals.showFetchModal}
 function create_if_block(ctx) {
 	var current;
 
@@ -10625,7 +10964,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (205:2) <h3 slot="header">
+// (212:2) <h3 slot="header">
 function create_header_slot(ctx) {
 	var h3, t_value = ctx.selectedShow.name, t;
 
@@ -10634,7 +10973,7 @@ function create_header_slot(ctx) {
 			h3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("h3");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h3, "slot", "header");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 204, 2, 5700);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 211, 2, 5886);
 		},
 
 		m: function mount(target, anchor) {
@@ -10656,7 +10995,7 @@ function create_header_slot(ctx) {
 	};
 }
 
-// (209:2) {:else}
+// (216:2) {:else}
 function create_else_block(ctx) {
 	var form, label0, span0, t1, select0, t2, label1, span1, t4, select1, dispose;
 
@@ -10700,21 +11039,21 @@ function create_else_block(ctx) {
 				each_blocks[i].c();
 			}
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span0, "class", "text-gray-700");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 211, 8, 5919);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span0, file, 218, 8, 6105);
 			if (ctx.showData.start_season === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select0_change_handler_1.call(select0));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select0, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select0, file, 212, 8, 5975);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select0, file, 219, 8, 6161);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label0, "class", "block");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 210, 6, 5889);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label0, file, 217, 6, 6075);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(span1, "class", "text-gray-700");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 220, 8, 6273);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(span1, file, 227, 8, 6459);
 			if (ctx.showData.start_episode === void 0) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_render_callback"])(() => ctx.select1_change_handler_1.call(select1));
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(select1, "class", "form-select mt-1 block w-full");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select1, file, 221, 8, 6330);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(select1, file, 228, 8, 6516);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(label1, "class", "block mt-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 219, 6, 6238);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(label1, file, 226, 6, 6424);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(form, "class", "py-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 209, 4, 5822);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 216, 4, 6008);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(select0, "change", ctx.select0_change_handler_1),
@@ -10814,7 +11153,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (207:2) {#if modalLoading}
+// (214:2) {#if modalLoading}
 function create_if_block_1(ctx) {
 	var current;
 
@@ -10853,7 +11192,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (214:10) {#each Object.keys(availableSeasons) as season}
+// (221:10) {#each Object.keys(availableSeasons) as season}
 function create_each_block_1(ctx) {
 	var option, t_value = ctx.season, t, option_value_value;
 
@@ -10863,7 +11202,7 @@ function create_each_block_1(ctx) {
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			option.__value = option_value_value = Number(ctx.season);
 			option.value = option.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 214, 12, 6129);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 221, 12, 6315);
 		},
 
 		m: function mount(target, anchor) {
@@ -10891,7 +11230,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (223:10) {#each availableSeasons[showData.start_season] as episode}
+// (230:10) {#each availableSeasons[showData.start_season] as episode}
 function create_each_block(ctx) {
 	var option, t_value = ctx.episode, t, option_value_value;
 
@@ -10901,7 +11240,7 @@ function create_each_block(ctx) {
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			option.__value = option_value_value = ctx.episode;
 			option.value = option.__value;
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 223, 12, 6496);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(option, file, 230, 12, 6682);
 		},
 
 		m: function mount(target, anchor) {
@@ -10929,7 +11268,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (231:2) <button     slot="action"     class="btn btn-primary ml-2"     on:click="{fetchSeason}"     disabled="{modalLoading}"     type="button"   >
+// (238:2) <button     slot="action"     class="btn btn-primary ml-2"     on:click="{fetchSeason}"     disabled="{modalLoading}"     type="button"   >
 function create_action_slot(ctx) {
 	var button, t, dispose;
 
@@ -10941,7 +11280,7 @@ function create_action_slot(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary ml-2");
 			button.disabled = ctx.modalLoading;
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "button");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 230, 2, 6615);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 237, 2, 6801);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", ctx.fetchSeason);
 		},
 
@@ -10966,7 +11305,7 @@ function create_action_slot(ctx) {
 	};
 }
 
-// (204:0) <Modal on:close="{() => modals.showFetchModal = false}">
+// (211:0) <Modal on:close="{() => modals.showFetchModal = false}">
 function create_default_slot(ctx) {
 	var t0, current_block_type_index, if_block, t1, current;
 
@@ -11051,6 +11390,7 @@ function create_fragment(ctx) {
 
 	var if_block_creators = [
 		create_if_block_4,
+		create_if_block_5,
 		create_else_block_2
 	];
 
@@ -11058,7 +11398,8 @@ function create_fragment(ctx) {
 
 	function select_block_type(ctx) {
 		if ((ctx.loading)) return 0;
-		return 1;
+		if (ctx.goToSettings) return 1;
+		return 2;
 	}
 
 	current_block_type_index = select_block_type(ctx);
@@ -11080,9 +11421,9 @@ function create_fragment(ctx) {
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["empty"])();
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h2, file, 105, 2, 2433);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h2, file, 110, 2, 2534);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "container");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 104, 0, 2407);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 109, 0, 2508);
 		},
 
 		l: function claim(nodes) {
@@ -11204,6 +11545,7 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
 	
 
+  let goToSettings = false
   let loading = true
   let shows = []
   let selectedShow = {}
@@ -11218,13 +11560,17 @@ function instance($$self, $$props, $$invalidate) {
   const getList = async () => {
     $$invalidate('loading', loading = true)
 
-    const { data } = await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/tv')
-    $$invalidate('shows', shows = data.map(show => {
-      show.removing = false
-      show.fetching = false
+    try {
+      const { data } = await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/tv')
+      $$invalidate('shows', shows = data.map(show => {
+        show.removing = false
+        show.fetching = false
 
-      return show
-    }))
+        return show
+      }))
+    } catch (err) {
+      $$invalidate('goToSettings', goToSettings = true)
+    }
 
     $$invalidate('loading', loading = false)
   }
@@ -11362,6 +11708,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	return {
+		goToSettings,
 		loading,
 		shows,
 		selectedShow,

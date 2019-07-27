@@ -4,6 +4,7 @@
   import axios from 'axios'
   import { onMount } from 'svelte'
 
+  let goToSettings = false
   let loading = true
   let shows = []
   let selectedShow = {}
@@ -18,13 +19,17 @@
   const getList = async () => {
     loading = true
 
-    const { data } = await axios.get('/api/v1/tv')
-    shows = data.map(show => {
-      show.removing = false
-      show.fetching = false
+    try {
+      const { data } = await axios.get('/api/v1/tv')
+      shows = data.map(show => {
+        show.removing = false
+        show.fetching = false
 
-      return show
-    })
+        return show
+      })
+    } catch (err) {
+      goToSettings = true
+    }
 
     loading = false
   }
@@ -107,6 +112,8 @@
 
   {#if (loading)}
     <Loading />
+  {:else if goToSettings}
+    <p>Go to settings to configure and authorize Pete.</p>
   {:else}
     <div class="flex flex-wrap -mx-4">
       {#each shows as show, index (show.id)}

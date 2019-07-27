@@ -47,7 +47,12 @@ config.subscribe(value => {
 
   const localAlerts = []
 
-  if (!value.transmission_username || !value.tv_directory || !value.movie_directory) {
+  if (
+    !value.transmission_username ||
+    !value.tv_directory ||
+    !value.movie_directory ||
+    !value.tmdb_key
+  ) {
     localAlerts.push({
       type: `warning`,
       message: `<strong>Heads up!</strong> Your configuration isn't complete. Stuff won't work right...`
