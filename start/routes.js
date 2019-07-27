@@ -35,6 +35,8 @@ Route.group(() => {
 
   Route.post(`token`, `SessionController.getRequestToken`)
   Route.post(`session`, `SessionController.getSession`)
+
+  Route.post(`search/movies`, `SearchController.movies`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('index')

@@ -1,5 +1,6 @@
 <script>
 import TvWatchlist from './TvWatchlist.svelte'
+import MovieSearch from './MovieSearch.svelte'
 import Settings from './Settings.svelte'
 import Notifications from './Notifications.svelte'
 import Ws from '@adonisjs/websocket-client'
@@ -94,7 +95,7 @@ config.subscribe(value => {
 {#if currentTab === 'tv'}
   <TvWatchlist />
 {:else if (currentTab === 'movies')}
-  <p>movies</p>
+  <MovieSearch />
 {:else if (currentTab === 'settings')}
   <Settings />
 {/if}
