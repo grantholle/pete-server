@@ -99,6 +99,7 @@ class WatchlistController {
           start_episode: 1
         }
       )
+      await show.reload()
 
       if (!show.imdb_id) {
         show.imdb_id = await moviedb.getImdbId(watchlistShow.id)

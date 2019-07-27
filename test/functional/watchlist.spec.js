@@ -2,6 +2,7 @@
 
 const Route = use('Route')
 const Event = use('Event')
+const Logger = use('Logger')
 const { test, trait, before, after } = use('Test/Suite')('Watchlist')
 const getMoviedb = require('../../app/lib/tmdb')
 let moviedb
@@ -16,6 +17,8 @@ const transmission_pw = Env.get('TRANSMISSION_PW', null)
 const transmission_host = Env.get('TRANSMISSION_HOST', null)
 const transmission_port = Env.get('TRANSMISSION_PORT', null)
 const trans = require('../traits/clears-transmission')
+
+Logger.level = 'debug'
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')

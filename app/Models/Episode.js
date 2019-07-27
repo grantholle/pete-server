@@ -66,6 +66,8 @@ class Episode extends Model {
   async findMagnet (show) {
     const qualities = clone(Config.tvQualities)
     const search = async quality => {
+      Logger.debug(`Searching for ${show} ${this.getLabel()} @ ${quality} (default is ${show.quality})`)
+
       // Check rarbg first for the desired quality
       const searchEztv = async () => {
         // Check eztv second because it's quite a big more
@@ -149,7 +151,7 @@ class Episode extends Model {
       searchParams.search_string = `${show.name} ${searchParams.search_string}`
     }
 
-    Logger.debug(`Searching rarbg for ${show.name} ${this.getLabel()} using ${JSON.stringify(searchParams)}`)
+    Logger.debug(`Searching rarbg for ${show.name} ${this.getLabel()} @ ${quality} using ${JSON.stringify(searchParams)}`)
 
     try {
       const results = await rarbg.search(searchParams)
