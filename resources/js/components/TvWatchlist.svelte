@@ -1,8 +1,10 @@
 <script>
   import Loading from './Loading.svelte'
   import Modal from './Modal.svelte'
+  import TvSearch from './TvSearch.svelte'
   import axios from 'axios'
   import { onMount } from 'svelte'
+  import { addNotification } from '../store'
 
   let goToSettings = false
   let loading = true
@@ -23,7 +25,6 @@
       const { data } = await axios.get('/api/v1/tv')
       shows = data.map(show => {
         show.removing = false
-        show.fetching = false
 
         return show
       })
@@ -37,11 +38,21 @@
   const removeShow = async (show, index) => {
     shows[index].removing = true
 
+    addNotification({
+        type: 'info',
+        message: `Removing ${show.name} from your watchlist...`
+      })
+
     try {
       await axios.post(`/api/v1/watchlist/update`, {
         media_type: 'tv',
         media_id: show.id,
         watchlist: false
+      })
+
+      addNotification({
+        type: 'info',
+        message: `${show.name} removed from your watchlist`
       })
 
       shows.splice(index, 1)
@@ -52,9 +63,9 @@
     }
   }
 
-  const configure = async (index, modal) => {
+  const configure = async (show, modal) => {
     modalLoading = true
-    selectedShow = shows[index]
+    selectedShow = show
     modals[modal] = true
 
     // Fetch the show configuration
@@ -69,13 +80,14 @@
       }
     }
 
-    await setAvailableSeasons(selectedShow)
+    availableSeasons = await setAvailableSeasons(selectedShow)
     modalLoading = false
   }
 
   const setAvailableSeasons = async show => {
     const { data } = await axios.get(`/api/v1/tv/${show.id}/tmdb`)
-    availableSeasons = data.seasons.reduce((seasons, season) => {
+
+    return data.seasons.reduce((seasons, season) => {
       // Ignore season zero
       if (season.season_number !== 0) {
         seasons[season.season_number] = []
@@ -92,13 +104,19 @@
 
   const saveConfiguration = async e => {
     await axios.put(`/api/v1/tv/${showData.tmdb_id}`, showData)
+
+    addNotification({
+      type: 'info',
+      message: `Configuration saved for ${showData.name}`
+    })
+
     modals.showConfigureModal = false
   }
 
-  const fetchSeason = e => {
-    axios.post(`/api/v1/tv/${showData.tmdb_id}/fetch`, {
-      season: showData.start_season,
-      start: showData.start_episode
+  const fetchSeason = show => {
+    axios.post(`/api/v1/tv/${show.tmdb_id}/fetch`, {
+      season: show.start_season,
+      start: show.start_episode
     })
 
     modals.showFetchModal = false
@@ -106,6 +124,11 @@
 
   onMount(getList)
 </script>
+
+<TvSearch
+  on:refresh="{getList}"
+  on:fetch="{e => configure(e.detail, 'showFetchModal')}"
+/>
 
 <div class="container">
   <h2>TV Watchlist</h2>
@@ -123,18 +146,16 @@
 
             <button
               class="block py-1 text-sm md:text-base md:py-2 w-full text-gray-1000"
-              on:click="{() => configure(index, 'showFetchModal')}"
-              disabled="{show.fetching}"
+              on:click="{() => configure(show, 'showFetchModal')}"
             >
-              Fetch season
+              Download episodes
             </button>
 
             <button
               class="block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000"
-              on:click="{() => configure(index, 'showConfigureModal')}"
-              disabled="{show.removing}"
+              on:click="{() => configure(show, 'showConfigureModal')}"
             >
-              Configure
+              Show settings
             </button>
 
             <button
@@ -142,7 +163,7 @@
               on:click="{() => removeShow(show, index)}"
               disabled="{show.removing}"
             >
-              Remove
+              Remove from watchlist
             </button>
           </div>
         </div>
@@ -214,7 +235,7 @@
   {#if modalLoading}
     <Loading color="hsl(210, 24%, 16%)" />
   {:else}
-    <form on:submit|preventDefault="{fetchSeason}" class="py-4">
+    <form on:submit|preventDefault="{() => fetchSeason(showData)}" class="py-4">
       <label class="block">
         <span class="text-gray-700">Start season</span>
         <select bind:value="{showData.start_season}" class="form-select mt-1 block w-full">
@@ -238,11 +259,11 @@
   <button
     slot="action"
     class="btn btn-primary ml-2"
-    on:click="{fetchSeason}"
+    on:click="{() => fetchSeason(showData)}"
     disabled="{modalLoading}"
     type="button"
   >
-    Fetch
+    Download
   </button>
 </Modal>
 {/if}
