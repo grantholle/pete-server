@@ -1,5 +1,7 @@
 'use strict'
 
+const getMoviedb = require('../../lib/tmdb')
+
 class SearchController {
   /**
    * Search for a movie
@@ -7,8 +9,11 @@ class SearchController {
    * @param {object} ctx
    * @param {Response} ctx.response
    */
-  async index ({ request, response }) {
-    const { results } = await moviedb.accountMovieWatchlist()
+  async movies ({ request, response }) {
+    const query = request.input('query', '')
+
+    const moviedb = await getMoviedb()
+    const results = await moviedb.searchMovie({ query })
 
     return response.json(results)
   }

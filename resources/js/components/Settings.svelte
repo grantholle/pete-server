@@ -1,32 +1,9 @@
 <script>
-import { config, notifications } from '../store'
+import { config, addNotification } from '../store'
 import axios from 'axios'
-import nanoid from 'nanoid'
 
 let hasAuthorized = false
 let requestToken = null
-
-const addNotification = note => {
-  const id = nanoid()
-
-  notifications.set([
-    ...$notifications,
-    { ...note, id }
-  ])
-
-  autoClose(id)
-}
-
-const autoClose = id => {
-  setTimeout(() => {
-    const index = $notifications.findIndex(n => n.id === id)
-
-    notifications.set([
-      ...$notifications.slice(0, index),
-      ...$notifications.slice(index + 1)
-    ])
-  }, 4000)
-}
 
 const getRequestToken = async () => {
   if ($config.tmdb_key && $config.tmdb_key.length < 32) {
@@ -42,7 +19,7 @@ const getRequestToken = async () => {
     token: $config.tmdb_key
   })
 
-  notifications.set({
+  addNotification({
     type: 'info',
     message: 'Token created successfully.'
   })
@@ -146,7 +123,7 @@ const saveConfig = async () => {
     <div class="py-2">
       <label class="flex items-center">
         <input bind:checked="{$config.use_yify}" type="checkbox" class="form-checkbox">
-        <span class="ml-2">Use Yify as a source for movies. It will be given priority during searching. Yify is known for small filesizes, but quality suffers.</span>
+        <span class="ml-2">Give Yify priority when searching for movies.</span>
       </label>
     </div>
 

@@ -125,7 +125,7 @@ class MovieController {
    * @param {Params} ctx.params
    * @param {Response} ctx.response
    */
-  async torrent ({ params, response }) {
+  async torrent ({ params, request, response }) {
     let movie = await Movie.find('tmdb_id', params.id)
 
     // Be forgiving when looking up movies
@@ -139,6 +139,10 @@ class MovieController {
     }
 
     const magnet = await movie.findMagnet()
+
+    if (request.input('add', false)) {
+      await movie.addMagnet(magnet)
+    }
 
     return response.json({ magnet })
   }
