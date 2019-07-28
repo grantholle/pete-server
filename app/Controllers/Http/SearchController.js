@@ -17,6 +17,21 @@ class SearchController {
 
     return response.json(results)
   }
+
+  /**
+   * Search for a movie
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async tv ({ request, response }) {
+    const query = request.input('query', '')
+
+    const moviedb = await getMoviedb()
+    const results = await moviedb.searchTv({ query })
+
+    return response.json(results)
+  }
 }
 
 module.exports = SearchController

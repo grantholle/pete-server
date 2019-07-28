@@ -37,6 +37,7 @@ Route.group(() => {
   Route.post(`session`, `SessionController.getSession`)
 
   Route.post(`search/movies`, `SearchController.movies`)
+  Route.post(`search/tv`, `SearchController.tv`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('index')

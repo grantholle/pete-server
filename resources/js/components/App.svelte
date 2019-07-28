@@ -4,7 +4,7 @@ import MovieSearch from './MovieSearch.svelte'
 import Settings from './Settings.svelte'
 import Notifications from './Notifications.svelte'
 import Ws from '@adonisjs/websocket-client'
-import { activeTab, notifications, config } from '../store'
+import { activeTab, notifications, addNotification, config } from '../store'
 
 const ws = Ws()
 ws.connect()
@@ -12,21 +12,7 @@ ws.connect()
 ws.on('open', () => {
   const notes = ws.subscribe('notifications')
 
-  notes.on('message', data => {
-    notifications.set([
-      ...$notifications,
-      data
-    ])
-
-    setTimeout(() => {
-      const index = $notifications.findIndex(n => n.id === data.id)
-
-      notifications.set([
-        ...$notifications.slice(0, index),
-        ...$notifications.slice(index + 1)
-      ])
-    }, 4000)
-  })
+  notes.on('message', addNotification)
 })
 
 let currentTab
