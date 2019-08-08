@@ -84,7 +84,7 @@ class Show extends Model {
       return false
     }
 
-    notify(`There are ${episodes.size()} episode${episodes.size() !== 1 ? 's' : ''} in ${season} for ${this.name} that need to be downloaded.`)
+    notify(`There ${episodes.size() === 1 ? 'is' : 'are'} ${episodes.size()} episode${episodes.size() !== 1 ? 's' : ''} in ${season} for ${this.name} that need to be downloaded.`)
 
     for (const episode of episodes.rows) {
       notify(`Searching for ${episode.getLabel()} of ${this.name}.`)
