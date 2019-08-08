@@ -13,3 +13,4 @@ database/*.sqlite
 # VSCode & Webstorm history directories
 .history
 .idea
+adonis.sqlite-journal
