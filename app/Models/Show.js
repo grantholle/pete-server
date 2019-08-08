@@ -84,17 +84,17 @@ class Show extends Model {
       return false
     }
 
-    notify(`There are ${episodes.size()} episodes for ${this.name} that need to be downloaded.`)
+    notify(`There are ${episodes.size()} episode${episodes.size() !== 1 ? 's' : ''} in ${season} for ${this.name} that need to be downloaded.`)
 
     for (const episode of episodes.rows) {
-      notify(`Searching for season ${episode.season} episode ${episode.episode} of ${this.name}.`)
+      notify(`Searching for ${episode.getLabel()} of ${this.name}.`)
 
       try {
         await episode.findAndAddMagnet(this)
       } catch (err) {
         notify({
           type: 'error',
-          message: `Error occurred searching for season ${episode.season} episode ${episode.episode} of ${this.name}: ${err.message}`
+          message: `Error occurred searching for ${episode.getLabel()} of ${this.name}: ${err.message}`
         })
       }
     }
@@ -132,7 +132,7 @@ class Show extends Model {
     const episodesToSave = res.episodes.filter(e => episodes.indexOf(e.episode_number) === -1)
 
     if (episodesToSave) {
-      Logger.info(`Adding ${episodesToSave.length} episodes in season ${season} for ${this.name} to the database.`)
+      Logger.info(`Adding ${episodesToSave.length} episode${episodesToSave.length !== 1 ? 's' : ''} in season ${season} for ${this.name} to the database.`)
 
       await this.episodes().createMany(episodesToSave.map(e => ({
         name: e.name,
