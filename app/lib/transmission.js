@@ -27,16 +27,15 @@ const getInstance = async () => {
  * @returns {Promise}
  */
 module.exports.add = async (magnet, name, directory) => {
-  Logger.info(`${name}: ${magnet}`)
+  Logger.debug(`${name}: ${magnet}`)
+
   const transmission = await getInstance()
   const config = await Config.last()
 
   const torrent = await transmission.addUrl(magnet, { 'download-dir': directory })
-  const msg = `Started download for ${name}`
-  Logger.info(msg)
 
   if (config.notify_on_start) {
-    notify(msg)
+    notify(`Started download for ${name}`)
   }
 
   await Download.create({
