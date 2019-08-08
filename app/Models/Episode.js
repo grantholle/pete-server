@@ -2,7 +2,6 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const Event = use('Event')
 const Logger = use('Logger')
 const Config = use('App/Models/Config')
 const { clone, first } = require('lodash')
@@ -11,6 +10,7 @@ const transmission = require('../lib/transmission')
 const RarbgApi = require('rarbg')
 const Eztv = require('eztv-b')
 const path = require('path')
+const notify = require('../lib/notify')
 
 class Episode extends Model {
   /**
@@ -52,7 +52,7 @@ class Episode extends Model {
 
     await transmission.add(magnet, episodeName, directory)
 
-    Event.emit('notification::message', `${episodeName} added to Transmission.`)
+    notify(`${episodeName} added to Transmission.`)
 
     this.added = true
   }
