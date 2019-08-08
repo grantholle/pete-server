@@ -81,11 +81,11 @@ class Episode extends Model {
             return magnet
           }
         } catch (err) {
-          return await search(show, episode, qualities.shift())
+          return await search(qualities.shift())
         }
 
         // Everthing failed for this quality, try the next one
-        return await search(show, episode, qualities.shift())
+        return await search(qualities.shift())
       }
 
       try {
