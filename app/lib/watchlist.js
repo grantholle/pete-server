@@ -3,7 +3,6 @@
 const getMoviedb = require('./tmdb')
 /** @type {typeof import('../Models/Movie')} */
 const Movie = use('App/Models/Movie')
-const Logger = use('Logger')
 /** @type {typeof import('../Models/Show')} */
 const Show = use('App/Models/Show')
 const notify = require('./notify')
@@ -93,15 +92,15 @@ module.exports.tv = async () => {
  * @returns Promise<void>
  */
 module.exports.movies = async () => {
-  Logger.info(`Running movie watchlist check...`)
+  notify(`Running movie watchlist check...`)
 
   const moviedb = await getMoviedb()
   const { results } = await moviedb.accountMovieWatchlist()
 
-  Logger.info(`There ${results.length === 1 ? 'is' : 'are'} ${results.length} movie${results.length !== 1 ? 's' : ''} in your watchlist.`)
+  notify(`There ${results.length === 1 ? 'is' : 'are'} ${results.length} movie${results.length !== 1 ? 's' : ''} in your watchlist.`)
 
   for (const result of results) {
-    Logger.info(`Processing ${result.title} from your watchlist.`)
+    notify(`Processing ${result.title} from your watchlist.`)
 
     const movie = await Movie.create({
       tmdb_id: result.id,
@@ -117,7 +116,10 @@ module.exports.movies = async () => {
     try {
       await movie.findAndAddMagnet()
     } catch (err) {
-      Logger.error(`Error finding and adding magnet: ${err.message}`, err)
+      notify({
+        type: 'error',
+        message: `Error finding and adding magnet: ${err.message}`
+      })
     }
   }
 }

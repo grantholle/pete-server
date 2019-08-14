@@ -8,7 +8,6 @@ const getMoviedb = require('../../lib/tmdb')
 /** @type {typeof import('../../Models/Show')} */
 const Show = use('App/Models/Show')
 const Logger = use('Logger')
-const Event = use('Event')
 
 /**
  * Resourceful controller for interacting with TV watchlist
@@ -159,8 +158,6 @@ class TvController {
     const season = request.input('season', show.start_season)
     const start = request.input('start', show.start_episode)
     const force = request.input('force', false)
-
-    Event.emit('notification::message', `Fetching episodes of ${show.name} for season ${season} starting at episode ${start}`)
 
     // Run async/background
     show.searchForSeason(season, start, force)

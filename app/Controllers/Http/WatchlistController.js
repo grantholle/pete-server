@@ -1,6 +1,6 @@
 'use strict'
 
-const { tv, movies} = require('../../lib/watchlist')
+const { tv, movies } = require('../../lib/watchlist')
 const getMoviedb = require('../../lib/tmdb')
 const notify = require('../../lib/notify')
 

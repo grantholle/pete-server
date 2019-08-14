@@ -23,6 +23,10 @@ const launchModal = movie => {
   showModal = true
 }
 
+const checkList = () => {
+  axios.get(`/api/v1/watchlist/movies`)
+}
+
 const download = async movie => {
   addNotification({
     type: 'info',
@@ -44,8 +48,11 @@ const download = async movie => {
       <div class="flex-1 pr-4">
         <input bind:value="{query}" type="search" class="form-input text-xl block w-full" placeholder="Search movies...">
       </div>
-      <div class="w-24 text-right">
+      <div class="flex-none pr-4">
         <button type="submit" class="btn btn-primary text-xl">Search</button>
+      </div>
+      <div class="flex-none">
+        <button type="button" class="btn btn-primary text-xl" on:click="{() => checkList()}">Check Watchlist</button>
       </div>
     </div>
   </form>

@@ -35,6 +35,10 @@
     loading = false
   }
 
+  const checkList = async () => {
+    axios.get(`/api/v1/watchlist/tv`)
+  }
+
   const removeShow = async (show, index) => {
     shows[index].removing = true
 
@@ -132,7 +136,12 @@
 />
 
 <div class="container">
-  <h2>TV Watchlist</h2>
+  <div class="flex mb-4 py-2 border-b border-indigo-100 justify-between items-center">
+    <h2 class="mb-0">TV Watchlist</h2>
+    <div>
+      <button class="btn btn-primary" on:click="{() => checkList()}">Check watchlist</button>
+    </div>
+  </div>
 
   {#if (loading)}
     <Loading />
