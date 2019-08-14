@@ -52,87 +52,87 @@ after(async () => {
   Event.restore()
 })
 
-// test(`Can add and remove a movie to the watchlist`, async ({ assert, client, clearTransmission }) => {
-//   const id = 301528
+test(`Can add and remove a movie to the watchlist`, async ({ assert, client, clearTransmission }) => {
+  const id = 301528
 
-//   const watchlistRes = await client.post(Route.url('watchlist.update'))
-//     .send({
-//       media_type: 'movie',
-//       media_id: id,
-//       watchlist: true
-//     })
-//     .end()
-//   watchlistRes.assertStatus(200)
+  const watchlistRes = await client.post(Route.url('watchlist.update'))
+    .send({
+      media_type: 'movie',
+      media_id: id,
+      watchlist: true
+    })
+    .end()
+  watchlistRes.assertStatus(200)
 
-//   const { results } = await moviedb.accountMovieWatchlist()
-//   let existing = results.some(m => m.id === id);
+  const { results } = await moviedb.accountMovieWatchlist()
+  let existing = results.some(m => m.id === id);
 
-//   assert.isTrue(existing, `Movie gets added successfully`)
+  assert.isTrue(existing, `Movie gets added successfully`)
 
-//   await client.post(Route.url('watchlist.update'))
-//     .send({
-//       media_type: 'movie',
-//       media_id: id,
-//       watchlist: false
-//     })
-//     .end()
+  await client.post(Route.url('watchlist.update'))
+    .send({
+      media_type: 'movie',
+      media_id: id,
+      watchlist: false
+    })
+    .end()
 
-//   const res = await moviedb.accountMovieWatchlist()
-//   existing = res.results.some(m => m.id === id);
+  const res = await moviedb.accountMovieWatchlist()
+  existing = res.results.some(m => m.id === id);
 
-//   assert.isFalse(existing, `Movie gets removed successfully`)
-//   await clearTransmission()
-// }).timeout(30000)
+  assert.isFalse(existing, `Movie gets removed successfully`)
+  await clearTransmission()
+}).timeout(30000)
 
-// test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, client, clearTransmission }) => {
-//   const id = 181808
+test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, client, clearTransmission }) => {
+  const id = 181808
 
-//   await client.post(Route.url('watchlist.update'))
-//     .send({
-//       media_type: 'movie',
-//       media_id: id,
-//       watchlist: true
-//     })
-//     .end()
+  await client.post(Route.url('watchlist.update'))
+    .send({
+      media_type: 'movie',
+      media_id: id,
+      watchlist: true
+    })
+    .end()
 
-//   await watchlist.movies()
+  await watchlist.movies()
 
-//   const downloads = await Download.all()
-//   assert.equal(downloads.size(), 1)
+  const downloads = await Download.all()
+  assert.equal(downloads.size(), 1)
 
-//   await clearTransmission()
-// }).timeout(30000)
+  await clearTransmission()
+}).timeout(30000)
 
-// test(`Can add and remove a tv show to the watchlist`, async ({ assert, client, clearTransmission }) => {
-//   const id = 87108
-//   await client.post(Route.url('watchlist.update'))
-//     .send({
-//       media_type: 'tv',
-//       media_id: id,
-//       watchlist: true
-//     })
-//     .end()
+test(`Can add and remove a tv show to the watchlist`, async ({ assert, client, clearTransmission }) => {
+  const id = 87108
+  await client.post(Route.url('watchlist.update'))
+    .send({
+      media_type: 'tv',
+      media_id: id,
+      watchlist: true
+    })
+    .end()
 
-//   const { results } = await moviedb.accountTvWatchlist()
-//   let existing = results.some(m => m.id === id);
+  const { results } = await moviedb.accountTvWatchlist()
+  let existing = results.some(m => m.id === id);
 
-//   assert.isTrue(existing, `Show gets added successfully`)
+  assert.isTrue(existing, `Show gets added successfully`)
 
-//   await client.post(Route.url('watchlist.update'))
-//     .send({
-//       media_type: 'tv',
-//       media_id: id,
-//       watchlist: false
-//     })
-//     .end()
+  await client.post(Route.url('watchlist.update'))
+    .send({
+      media_type: 'tv',
+      media_id: id,
+      watchlist: false
+    })
+    .end()
 
-//   const res = await moviedb.accountTvWatchlist()
-//   existing = res.results.some(m => m.id === id);
+  const res = await moviedb.accountTvWatchlist()
+  existing = res.results.some(m => m.id === id);
 
-//   assert.isFalse(existing, `Show gets removed successfully`)
+  assert.isFalse(existing, `Show gets removed successfully`)
 
-//   await clearTransmission()
-// }).timeout(30000)
+  await clearTransmission()
+}).timeout(30000)
 
 test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert, client, clearTransmission }) => {
   // Get the current watchlist and modify it to contain
