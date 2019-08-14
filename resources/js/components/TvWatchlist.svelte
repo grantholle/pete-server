@@ -116,7 +116,8 @@
   const fetchSeason = show => {
     axios.post(`/api/v1/tv/${show.tmdb_id}/fetch`, {
       season: show.start_season,
-      start: show.start_episode
+      start: show.start_episode,
+      force: show.force
     })
 
     modals.showFetchModal = false
@@ -253,6 +254,13 @@
           {/each}
         </select>
       </label>
+
+      <div class="flex mt-4">
+        <label class="flex items-center">
+          <input bind:checked="{showData.force}" type="checkbox" class="form-checkbox">
+          <span class="ml-2">Force download: if an episode has been downloaded previously, add again.</span>
+        </label>
+      </div>
     </form>
   {/if}
 

@@ -66,17 +66,21 @@ class Show extends Model {
    * @param {int} season The season to search
    * @param {int} startEpisode The episode at which to start
    */
-  async searchForSeason (season, startEpisode = 1) {
+  async searchForSeason (season, startEpisode = 1, force = false) {
     // Add the episodes for the season
     await this.getEpisodesForSeason(season)
 
     // Get the episodes for this season and after the start episode
-    let episodes = await this.episodes()
+    let episodes = this.episodes()
       .where('season', season)
       .where('episode', '>=', startEpisode)
-      .where('added', false)
       .orderBy('episode', 'asc')
-      .fetch()
+
+    if (!force) {
+      episodes.where('added', false)
+    }
+
+    episodes = await episodes.fetch()
 
     // If no episodes are needed for this season
     if (!episodes || episodes.size() === 0) {

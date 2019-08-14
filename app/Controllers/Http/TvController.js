@@ -158,11 +158,12 @@ class TvController {
     const show = await Show.findByOrFail('tmdb_id', params.id)
     const season = request.input('season', show.start_season)
     const start = request.input('start', show.start_episode)
+    const force = request.input('force', false)
 
     Event.emit('notification::message', `Fetching episodes of ${show.name} for season ${season} starting at episode ${start}`)
 
     // Run async/background
-    show.searchForSeason(season, start)
+    show.searchForSeason(season, start, force)
 
     return response.json({ success: true })
   }
