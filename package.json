@@ -48,6 +48,7 @@
     "rarbg": "^1.2.7",
     "sanitize-filename": "^1.6.1",
     "sqlite3": "^4.0.8",
+    "svelte-routing": "^1.3.0",
     "transmission-promise": "^1.1.2",
     "yify-promise": "^1.0.1"
   },

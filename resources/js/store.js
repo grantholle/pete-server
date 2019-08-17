@@ -2,8 +2,6 @@ import { writable } from 'svelte/store'
 import axios from 'axios'
 import nanoid from 'nanoid'
 
-export let activeTab = writable('tv')
-
 export let notifications = writable([])
 let $notifications
 
