@@ -62,11 +62,14 @@ class Show extends Model {
   }
 
   /**
+   * Searches for episodes in a season
    *
    * @param {int} season The season to search
    * @param {int} startEpisode The episode at which to start
+   * @param {boolean} force Download episodes despite already being downloaded
+   * @param {boolean} single Only download a single episode
    */
-  async searchForSeason (season, startEpisode = 1, force = false) {
+  async searchForSeason (season, startEpisode = 1, force = false, single = false) {
     // Add the episodes for the season
     await this.getEpisodesForSeason(season)
 
@@ -100,6 +103,10 @@ class Show extends Model {
           type: 'error',
           message: `Error occurred searching for ${episode.getLabel()} of ${this.name}: ${err.message}`
         })
+      }
+
+      if (single) {
+        break
       }
     }
   }
