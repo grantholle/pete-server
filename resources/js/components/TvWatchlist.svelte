@@ -35,6 +35,10 @@
     loading = false
   }
 
+  const checkList = async () => {
+    axios.get(`/api/v1/watchlist/tv`)
+  }
+
   const removeShow = async (show, index) => {
     shows[index].removing = true
 
@@ -116,7 +120,8 @@
   const fetchSeason = show => {
     axios.post(`/api/v1/tv/${show.tmdb_id}/fetch`, {
       season: show.start_season,
-      start: show.start_episode
+      start: show.start_episode,
+      force: show.force
     })
 
     modals.showFetchModal = false
@@ -131,7 +136,12 @@
 />
 
 <div class="container">
-  <h2>TV Watchlist</h2>
+  <div class="flex mb-4 py-2 border-b border-indigo-100 justify-between items-center">
+    <h2 class="mb-0">TV Watchlist</h2>
+    <div>
+      <button class="btn btn-primary" on:click="{() => checkList()}">Check watchlist</button>
+    </div>
+  </div>
 
   {#if (loading)}
     <Loading />
@@ -253,6 +263,13 @@
           {/each}
         </select>
       </label>
+
+      <div class="flex mt-4">
+        <label class="flex items-center">
+          <input bind:checked="{showData.force}" type="checkbox" class="form-checkbox">
+          <span class="ml-2">Force download: if an episode has been downloaded previously, add again.</span>
+        </label>
+      </div>
     </form>
   {/if}
 

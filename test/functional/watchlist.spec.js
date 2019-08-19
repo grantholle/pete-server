@@ -6,8 +6,12 @@ const Logger = use('Logger')
 const { test, trait, before, after } = use('Test/Suite')('Watchlist')
 const getMoviedb = require('../../app/lib/tmdb')
 let moviedb
+/** @type {typeof import('../../app/Models/Config')} */
 const Config = use('App/Models/Config')
+/** @type {typeof import('../../app/Models/Download')} */
 const Download = use('App/Models/Download')
+/** @type {typeof import('../../app/Models/Show')} */
+const Show = use('App/Models/Show')
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env')
 const tmdb_key = Env.get('TMDB_KEY', null)
@@ -17,6 +21,7 @@ const transmission_pw = Env.get('TRANSMISSION_PW', null)
 const transmission_host = Env.get('TRANSMISSION_HOST', null)
 const transmission_port = Env.get('TRANSMISSION_PORT', null)
 const trans = require('../traits/clears-transmission')
+const watchlist = require('../../app/lib/watchlist')
 
 Logger.level = 'debug'
 
@@ -50,13 +55,14 @@ after(async () => {
 test(`Can add and remove a movie to the watchlist`, async ({ assert, client, clearTransmission }) => {
   const id = 301528
 
-  await client.post(Route.url('watchlist.update'))
+  const watchlistRes = await client.post(Route.url('watchlist.update'))
     .send({
       media_type: 'movie',
       media_id: id,
       watchlist: true
     })
     .end()
+  watchlistRes.assertStatus(200)
 
   const { results } = await moviedb.accountMovieWatchlist()
   let existing = results.some(m => m.id === id);
@@ -89,8 +95,7 @@ test(`Can retrieve watchlist and get the torrents for them`, async ({ assert, cl
     })
     .end()
 
-  const movieRes = await client.get(Route.url('watchlist.movies')).end()
-  movieRes.assertStatus(200)
+  await watchlist.movies()
 
   const downloads = await Download.all()
   assert.equal(downloads.size(), 1)
@@ -133,7 +138,7 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
   // Get the current watchlist and modify it to contain
   // only one show, reset it later
   let needToAdd = true
-  const bobsBurgers = 32726
+  const showToKeep = 19885
   const getExistingWatchlist = async () => {
     const { results } = await moviedb.accountTvWatchlist()
 
@@ -142,7 +147,7 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
   const existingWatchlist = await getExistingWatchlist()
 
   for (const id of existingWatchlist) {
-    if (id === bobsBurgers) {
+    if (id === showToKeep) {
       needToAdd = false
       continue
     }
@@ -154,33 +159,41 @@ test(`Can retrieve tv watchlist and get the torrents for them`, async ({ assert,
     })
   }
 
-  // Add bob's burgers
   if (needToAdd) {
     await moviedb.accountWatchlistUpdate({
       media_type: 'tv',
-      media_id: bobsBurgers,
+      media_id: showToKeep,
       watchlist: true
     })
   }
 
-  const res = await client.get(Route.url('watchlist.tv')).end()
-  res.assertStatus(200)
+  // Set the show properties so we know what it did exactly
+  const sherlock = await Show.findOrNew({ tmdb_id: showToKeep })
+  sherlock.name = 'Sherlock'
+  sherlock.start_season = 3
+  sherlock.start_episode = 3
+  sherlock.quality = 'HDTV'
+  sherlock.use_alt_quality = true
+  await sherlock.save()
+
+  // Call the function to process the watchlist
+  await watchlist.tv()
 
   const downloads = await Download.all()
   assert.isTrue(downloads.size() > 0)
 
-  // Remove bob's burgers
+  // Reset the show watchlist
   if (needToAdd) {
     await moviedb.accountWatchlistUpdate({
       media_type: 'tv',
-      media_id: bobsBurgers,
+      media_id: showToKeep,
       watchlist: false
     })
   }
 
   // Re-add all the shows
   for (const id of existingWatchlist) {
-    if (id === bobsBurgers) {
+    if (id === showToKeep) {
       continue
     }
 

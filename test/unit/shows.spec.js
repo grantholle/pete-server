@@ -3,6 +3,8 @@
 const { test, trait, before, after } = use('Test/Suite')('Shows')
 /** @type {typeof import('../../app/Models/Show')} */
 const Show = use('App/Models/Show')
+/** @type {typeof import('../../app/Models/Episode')} */
+const Episode = use('App/Models/Episode')
 /** @type {typeof import('../../app/Models/Config')} */
 const Config = use('App/Models/Config')
 /** @type {typeof import('../../app/Models/Download')} */
@@ -149,4 +151,52 @@ test('can find a magnet for episodes and get added to transmission', async ({ as
   await clearTransmission()
 }).timeout(100000)
 
+test('can force add episodes that have been previously added', async ({ assert, clearTransmission }) => {
+  const show = await Show.findOrNew({ tmdb_id: 66732 })
+  show.start_season = 3
+  show.quality = 'HDTV'
+  show.use_alt_quality = true
+  await show.save()
+  await show.episodes().delete()
 
+  // add an episode and flag it as added
+  await show.episodes().create({
+    season: 3,
+    episode: 8,
+    added: true
+  })
+
+  // fetch season with force
+  await show.searchForSeason(3, 8, true)
+
+  // assert that the download exists anyway
+  const downloads = await Download.all()
+  assert.isTrue(downloads.size() === 1)
+
+  await clearTransmission()
+}).timeout(100000)
+
+test(`it won't add episodes that have already been added`, async ({ assert, clearTransmission }) => {
+  const show = await Show.findOrNew({ tmdb_id: 66732 })
+  show.start_season = 3
+  show.quality = 'HDTV'
+  show.use_alt_quality = true
+  await show.save()
+  await show.episodes().delete()
+
+  // add an episode and flag it as added
+  await show.episodes().create({
+    season: 3,
+    episode: 8,
+    added: true
+  })
+
+  // fetch season with force
+  await show.searchForSeason(3, 8)
+
+  // assert that the download exists anyway
+  const downloads = await Download.all()
+  assert.isTrue(downloads.size() === 0)
+
+  await clearTransmission()
+}).timeout(100000)

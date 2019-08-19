@@ -2,7 +2,6 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const Event = use('Event')
 const Logger = use('Logger')
 const Config = use('App/Models/Config')
 const { clone, first } = require('lodash')
@@ -11,6 +10,7 @@ const transmission = require('../lib/transmission')
 const RarbgApi = require('rarbg')
 const Eztv = require('eztv-b')
 const path = require('path')
+const notify = require('../lib/notify')
 
 class Episode extends Model {
   /**
@@ -52,7 +52,7 @@ class Episode extends Model {
 
     await transmission.add(magnet, episodeName, directory)
 
-    Event.emit('notification::message', `${episodeName} added to Transmission.`)
+    notify(`${episodeName} added to Transmission.`)
 
     this.added = true
   }
@@ -66,7 +66,7 @@ class Episode extends Model {
   async findMagnet (show) {
     const qualities = clone(Config.tvQualities)
     const search = async quality => {
-      Logger.debug(`Searching for ${show} ${this.getLabel()} @ ${quality} (default is ${show.quality})`)
+      Logger.debug(`Searching for ${show.name} ${this.getLabel()} @ ${quality} (default is ${show.quality})`)
 
       // Check rarbg first for the desired quality
       const searchEztv = async () => {
@@ -81,11 +81,11 @@ class Episode extends Model {
             return magnet
           }
         } catch (err) {
-          return await search(show, episode, qualities.shift())
+          return await search(qualities.shift())
         }
 
         // Everthing failed for this quality, try the next one
-        return await search(show, episode, qualities.shift())
+        return await search(qualities.shift())
       }
 
       try {
@@ -120,6 +120,7 @@ class Episode extends Model {
 
     if (!magnet) {
       this.attempts = this.attempts + 1
+      Logger.info(`Failed to find magnet for ${this.getLabel()} of ${show.name}. There ${this.attempts === 1 ? 'has' : 'have'} been ${this.attempts} attempt${this.attempts === 1 ? '' : 's'}`)
     } else {
       await this.addMagnet(show, magnet)
     }
@@ -177,7 +178,7 @@ class Episode extends Model {
   async searchEztv (show, quality) {
     const eztv = new Eztv()
 
-    Logger.debug(`Searching eztv for ${show.name} ${this.getLabel()}`)
+    Logger.debug(`Searching eztv for ${show.name} ${this.getLabel()} @ ${quality}`)
 
     const getAllSEpisodes = () => {
       const paginate = async page => {

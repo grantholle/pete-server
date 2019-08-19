@@ -1,11 +1,14 @@
 {
   "name": "pete-server",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
   "description": "The HTTP server to manage Pete",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "./node_modules/.bin/pm2 start pete.config.js",
+    "stop": "./node_modules/.bin/pm2 stop pete.config.js",
+    "restart": "./node_modules/.bin/pm2 restart pete.config.js",
+    "scheduler": "node ace run:scheduler",
     "test": "node ace test",
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
     "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js"
@@ -39,15 +42,18 @@
     "@adonisjs/vow": "^1.0.17",
     "@adonisjs/websocket": "^1.0.11",
     "@adonisjs/websocket-client": "^1.0.9",
+    "adonis-scheduler": "^3.0.2",
     "eztv-b": "^1.1.1",
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moviedb-promise": "^1.3.2",
     "nanoid": "^2.0.3",
+    "pm2": "^3.5.1",
     "pushbullet": "^2.4.0",
     "rarbg": "^1.2.7",
     "sanitize-filename": "^1.6.1",
     "sqlite3": "^4.0.8",
+    "svelte-routing": "^1.3.0",
     "transmission-promise": "^1.1.2",
     "yify-promise": "^1.0.1"
   },
@@ -75,5 +81,9 @@
   },
   "autoload": {
     "App": "./app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grantholle/pete-server"
   }
 }
