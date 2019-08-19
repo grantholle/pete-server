@@ -39,6 +39,7 @@
     "@adonisjs/vow": "^1.0.17",
     "@adonisjs/websocket": "^1.0.11",
     "@adonisjs/websocket-client": "^1.0.9",
+    "adonis-scheduler": "^3.0.2",
     "eztv-b": "^1.1.1",
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
