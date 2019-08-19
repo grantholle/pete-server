@@ -158,9 +158,10 @@ class TvController {
     const season = request.input('season', show.start_season)
     const start = request.input('start', show.start_episode)
     const force = request.input('force', false)
+    const single = request.input('single', false)
 
     // Run async/background
-    show.searchForSeason(season, start, force)
+    show.searchForSeason(season, start, force, single)
 
     return response.json({ success: true })
   }

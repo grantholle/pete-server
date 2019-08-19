@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait, before, after } = use('Test/Suite')('Shows')
+const { test, trait, before, after, afterEach } = use('Test/Suite')('Shows')
 /** @type {typeof import('../../app/Models/Show')} */
 const Show = use('App/Models/Show')
 /** @type {typeof import('../../app/Models/Episode')} */
@@ -29,6 +29,7 @@ trait(trans)
 
 before(() => Event.fake())
 after(async () => Event.restore())
+afterEach(async () => await Download.query().delete())
 
 const originalEpisodes = [
   {
@@ -168,6 +169,31 @@ test('can force add episodes that have been previously added', async ({ assert, 
 
   // fetch season with force
   await show.searchForSeason(3, 8, true)
+
+  // assert that the download exists anyway
+  const downloads = await Download.all()
+  assert.isTrue(downloads.size() === 1)
+
+  await clearTransmission()
+}).timeout(100000)
+
+test('it will only download a single episode', async ({ assert, clearTransmission }) => {
+  const show = await Show.findOrNew({ tmdb_id: 66732 })
+  show.start_season = 3
+  show.quality = '720p'
+  show.use_alt_quality = true
+  await show.save()
+  await Download.query().delete()
+
+  // add an episode and flag it as added
+  await show.episodes().create({
+    season: 3,
+    episode: 8,
+    added: true
+  })
+
+  // fetch single episdoe with force
+  await show.searchForSeason(3, 1, true, true)
 
   // assert that the download exists anyway
   const downloads = await Download.all()
