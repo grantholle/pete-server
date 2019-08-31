@@ -104,6 +104,47 @@ class FinishedController {
 
     return response.end()
   }
+
+  /**
+   * Copies the script to the home directory
+   * and sets the values for Transmission
+   *
+   * @param {object} ctx
+   * @param {Response} ctx.response
+   */
+  async updateScript ({ response }) {
+    const transmission = await getInstance()
+    const homedir = require('os').homedir()
+    const fs = require('fs')
+    const dirPath = p.join(homedir, `.config`, `pete`)
+    const localDoneSh = p.join(__dirname, `../../../done.sh`)
+    const doneSh = p.join(dirPath, `done.sh`)
+
+    fs.copyFile(localDoneSh, doneSh, async err => {
+      if (err) {
+        return notify({
+          type: `error`,
+          message: err.message
+        })
+      }
+
+      fs.chmodSync(doneSh, 0o755)
+
+      try {
+        await transmission.session({
+          'script-torrent-done-enabled': true,
+          'script-torrent-done-filename': doneSh
+        })
+
+        notify(`Finished script copied to ${doneSh} and Transmission settings updated.`)
+      } catch (err) {
+        console.log(err)
+        Logger.error(err)
+      }
+    })
+
+    return response.json({ success: true })
+  }
 }
 
 module.exports = FinishedController

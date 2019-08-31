@@ -40,6 +40,7 @@ Route.group(() => {
   Route.post(`search/tv`, `SearchController.tv`)
 
   Route.post(`finished`, `FinishedController.index`)
+  Route.post(`script`, `FinishedController.updateScript`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('index')
