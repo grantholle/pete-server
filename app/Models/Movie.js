@@ -71,10 +71,10 @@ class Movie extends Model {
     const config = await Config.last()
     const source = config.use_yify ? 'searchYify' : 'searchRarbg'
     const fallbackSearcher = config.use_yify ? 'searchRarbg' : 'searchYify'
+    const qualities = clone(Config.movieQualities)
 
     // We'll give yify a higher priority for searching... I guess
-    const search = async (searcher, qualities) => {
-      const quality = qualities.shift()
+    const search = async (searcher, quality) => {
       let magnet = await this[searcher](quality)
 
       // If there's a result, then yay, return that
@@ -98,7 +98,8 @@ class Movie extends Model {
       return await search(source, qualities.shift())
     }
 
-    return await search(source, clone(Config.movieQualities))
+    qualities.splice(qualities.indexOf(config.movie_quality), 1)
+    return await search(source, config.movie_quality)
   }
 
   /**
