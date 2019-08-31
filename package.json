@@ -11,7 +11,8 @@
     "scheduler": "node ace run:scheduler",
     "test": "node ace test",
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
-    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js"
+    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "postinstall": "node install.js"
   },
   "keywords": [
     "movies",
@@ -45,6 +46,7 @@
     "adonis-scheduler": "^3.0.2",
     "eztv-b": "^1.1.1",
     "lodash": "^4.17.14",
+    "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "moviedb-promise": "^1.3.2",
     "nanoid": "^2.0.3",

@@ -2,6 +2,9 @@
 
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env')
+const homedir = require('os').homedir()
+const p = require('path')
+const dirPath = p.join(homedir, `.config`, `pete`)
 
 module.exports = {
 
@@ -188,7 +191,7 @@ module.exports = {
     | Available drivers are: `file` and `console`.
     |
     */
-    transport: 'console',
+    transport: 'file',
 
     /*
     |--------------------------------------------------------------------------
@@ -219,8 +222,8 @@ module.exports = {
     file: {
       driver: 'file',
       name: 'adonis-app',
-      filename: 'adonis.log',
-      level: 'info'
+      filename: p.join(dirPath, 'adonis.log'),
+      level: 'debug'
     }
   },
 
