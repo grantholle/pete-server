@@ -48,3 +48,5 @@ module.exports.add = async (magnet, name, directory) => {
 }
 
 module.exports.transmission = getInstance
+
+module.exports.getInstance = getInstance

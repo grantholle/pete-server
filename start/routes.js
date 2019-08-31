@@ -38,6 +38,8 @@ Route.group(() => {
 
   Route.post(`search/movies`, `SearchController.movies`)
   Route.post(`search/tv`, `SearchController.tv`)
+
+  Route.post(`finished`, `FinishedController.index`)
 }).prefix(`api/v1`)
 
 Route.on('*').render('index')
