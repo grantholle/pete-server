@@ -20,6 +20,11 @@ module.exports = message => {
 
   send.id = nanoid()
 
-  Event.emit('notification::message', send)
+  try {
+    Event.emit('notification::message', send)
+  } catch (err) {
+    Logger.error(err)
+  }
+
   Logger[send.type](send.message)
 }

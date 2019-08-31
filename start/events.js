@@ -4,7 +4,10 @@ const Event = use('Event')
 const Ws = use('Ws')
 
 Event.on('notification::message', message => {
-  Ws.getChannel('notifications')
+  const topic = Ws.getChannel('notifications')
     .topic('notifications')
-    .broadcastToAll('message', message)
+
+  if (topic) {
+    topic.broadcastToAll('message', message)
+  }
 })
