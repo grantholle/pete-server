@@ -2,13 +2,16 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const Event = use('Event')
 const Logger = use('Logger')
 const getMoviedb = require('../lib/tmdb')
 const notify = require('../lib/notify')
 
 class Show extends Model {
-  eztvCache = []
+  constructor () {
+    super()
+
+    this.eztvCache = []
+  }
 
   /**
    * Relationship to episodes
