@@ -31,7 +31,7 @@ const getRequestToken = async () => {
     message: 'Token created successfully.'
   })
 
-  requestToken = data.token
+  requestToken = data.token.request_token
 
   window.open(`https://www.themoviedb.org/authenticate/${requestToken}`)
   hasAuthorized = true
