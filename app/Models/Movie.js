@@ -48,10 +48,9 @@ class Movie extends Model {
     }
 
     const movieName = sanitize(`${this.name} (${this.year})`)
-    const directory = path.join(config.movie_directory, movieName)
 
     try {
-      await transmission.add(magnet, movieName, directory)
+      await transmission.add(magnet, movieName, config.movie_directory)
     } catch (err) {
       notify({
         type: 'error',
