@@ -9,8 +9,18 @@ config.subscribe(value => {
   }
 })
 
-let hasAuthorized = false
-let requestToken = null
+const getQueryVariable = variable => {
+  var query = window.location.search.substring(1)
+  var vars = query.split("&")
+  for (var i=0; i<vars.length; i++) {
+    var pair = vars[i].split("=")
+    if(pair[0] == variable){return pair[1]}
+  }
+  return(false)
+}
+
+let hasAuthorized = getQueryVariable('approved')
+let requestToken = getQueryVariable('request_token')
 
 const getRequestToken = async () => {
   if (conf.tmdb_key && conf.tmdb_key.length < 32) {
@@ -22,19 +32,15 @@ const getRequestToken = async () => {
     message: 'Generating request token...'
   })
 
-  const { data } = await axios.post(`/api/v1/token`, {
-    token: conf.tmdb_key
-  })
+  axios.post(`/api/v1/token`, { token: conf.tmdb_key })
+  const { data } = await axios.get(`https://api.themoviedb.org/3/authentication/token/new?api_key=${conf.tmdb_key}`)
 
   addNotification({
     type: 'info',
     message: 'Token created successfully.'
   })
 
-  requestToken = data.token.request_token
-
-  window.open(`https://www.themoviedb.org/authenticate/${requestToken}`)
-  hasAuthorized = true
+  window.location.href = `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=${window.location.href}`
 }
 
 const getSessionId = async () => {
@@ -43,9 +49,11 @@ const getSessionId = async () => {
     message: 'Generating session...'
   })
 
-  const { data } = await axios.post(`/api/v1/session`, {
-    requestToken
+  const { data } = await axios.post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${conf.tmdb_key}`, {
+    request_token: requestToken
   })
+
+  await axios.post(`/api/v1/session`, { session_id: data.session_id })
 
   addNotification({
     type: 'info',
@@ -54,7 +62,7 @@ const getSessionId = async () => {
 
   config.set({
     ...conf,
-    tmdb_session: data.session
+    tmdb_session: data.session_id
   })
 
   hasAuthorized = false

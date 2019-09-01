@@ -15,24 +15,15 @@ class SessionController {
     config.tmdb_key = request.input('token')
     await config.save()
 
-    const moviedb = new MovieDb(config.tmdb_key)
-    const token = await moviedb.requestToken()
-
-    return response.json({ token })
+    return response.json({ success: true })
   }
 
   async getSession ({ request, response }) {
     const config = await Config.last()
-    const moviedb = new MovieDb(config.tmdb_key)
-    moviedb.token = {
-      expires_at: null,
-      request_token: request.input('requestToken')
-    }
-
-    config.tmdb_session = await moviedb.session()
+    config.tmdb_session = request.input('session_id')
     await config.save()
 
-    return response.json({ session: config.tmdb_session })
+    return response.json({ success: true })
   }
 }
 
