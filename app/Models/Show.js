@@ -7,11 +7,7 @@ const getMoviedb = require('../lib/tmdb')
 const notify = require('../lib/notify')
 
 class Show extends Model {
-  constructor () {
-    super()
-
-    this.eztvCache = []
-  }
+  eztvCache = []
 
   /**
    * Relationship to episodes
