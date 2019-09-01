@@ -8,6 +8,7 @@
     "start": "./node_modules/.bin/pm2 start pete.config.js",
     "stop": "./node_modules/.bin/pm2 stop pete.config.js",
     "restart": "./node_modules/.bin/pm2 restart pete.config.js",
+    "logs": "./node_modules/.bin/pm2 logs --lines 1000",
     "scheduler": "node ace run:scheduler",
     "test": "node ace test",
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --config webpack.config.js --watch",
