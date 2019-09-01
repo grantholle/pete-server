@@ -4,6 +4,9 @@
   "adonis-version": "4.1.0",
   "description": "The HTTP server to manage Pete",
   "main": "server.js",
+  "bin": {
+    "pete": "cli.js"
+  },
   "scripts": {
     "start": "./node_modules/.bin/pm2 start pete.config.js",
     "stop": "./node_modules/.bin/pm2 stop pete.config.js",
@@ -45,6 +48,7 @@
     "@adonisjs/websocket": "^1.0.11",
     "@adonisjs/websocket-client": "^1.0.9",
     "adonis-scheduler": "^3.0.2",
+    "commander": "^3.0.1",
     "eztv-b": "^1.1.1",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
