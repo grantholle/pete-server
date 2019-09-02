@@ -159,6 +159,8 @@ class TvController {
     const start = request.input('start', show.start_episode)
     const force = request.input('force', false)
     const single = request.input('single', false)
+    show.quality = request.input('quality', show.quality)
+    await show.save()
 
     // Run async/background
     show.searchForSeason(season, start, force, single)

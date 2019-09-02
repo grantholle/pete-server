@@ -122,7 +122,8 @@
       season: show.start_season,
       start: show.start_episode,
       force: show.force,
-      single: show.single
+      single: show.single,
+      quality: show.quality
     })
 
     modals.showFetchModal = false
@@ -262,6 +263,15 @@
           {#each availableSeasons[showData.start_season] as episode}
             <option value="{episode}">{episode}</option>
           {/each}
+        </select>
+      </label>
+
+      <label class="block mt-4">
+        <span class="text-gray-700">Quality</span>
+        <select bind:value="{showData.quality}" class="form-select mt-1 block w-full">
+          <option value="HDTV">HDTV</option>
+          <option value="720p">720p</option>
+          <option value="1080p">1080p</option>
         </select>
       </label>
 
