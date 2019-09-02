@@ -10646,7 +10646,7 @@ function create_else_block(ctx) {
 			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "px-4 py-2 text-lg border-b border-gray-400 text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 70, 10, 1849);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 70, 10, 1900);
 		},
 
 		m: function mount(target, anchor) {
@@ -10678,7 +10678,7 @@ function create_if_block_1(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "class", "block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value = "//image.tmdb.org/t/p/w342" + ctx.movie.poster_path);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = ctx.movie.title);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 68, 10, 1725);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 68, 10, 1776);
 		},
 
 		m: function mount(target, anchor) {
@@ -10740,13 +10740,13 @@ function create_each_block(key_1, ctx) {
 			button1.textContent = "Info";
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "block py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 73, 8, 1963);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 73, 8, 2014);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 80, 8, 2152);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 80, 8, 2203);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "bg-white rounded shadow overflow-hidden");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 66, 6, 1629);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 66, 6, 1680);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "w-1/2 sm:w-1/3 lg:w-1/4 px-4 mb-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 65, 4, 1575);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 65, 4, 1626);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button0, "click", click_handler_1),
@@ -10855,9 +10855,9 @@ function create_header_slot(ctx) {
 			small = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("small");
 			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t2_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(small, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(small, file, 94, 42, 2510);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(small, file, 94, 42, 2561);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h3, "slot", "header");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 94, 2, 2470);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 94, 2, 2521);
 		},
 
 		m: function mount(target, anchor) {
@@ -10897,7 +10897,7 @@ function create_action_slot(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "slot", "action");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary ml-2");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "button");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 100, 2, 2788);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 100, 2, 2839);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", ctx.click_handler_3);
 		},
 
@@ -10931,11 +10931,11 @@ function create_default_slot(ctx) {
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("View on TMDb");
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(p, "class", "text-xl mb-6");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 96, 2, 2591);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 96, 2, 2642);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "class", "text-primary underline inline-block mb-6");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "href", a_href_value = "//www.themoviedb.org/movie/" + ctx.selectedMovie.id);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "target", "_blank");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a, file, 98, 2, 2647);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a, file, 98, 2, 2698);
 		},
 
 		m: function mount(target, anchor) {
@@ -11013,26 +11013,26 @@ function create_fragment(ctx) {
 			if (if_block1) if_block1.c();
 			if_block1_anchor = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["empty"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "type", "search");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-input text-xl block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-input md:text-xl block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "placeholder", "Search movies...");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 48, 8, 1020);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "flex-1 pr-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 47, 6, 986);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 48, 8, 1056);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "w-full pb-4 md:pb-0 md:flex-1 md:pr-4");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 47, 6, 996);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "type", "submit");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "btn btn-primary text-xl");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 51, 8, 1190);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "flex-none pr-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 50, 6, 1153);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "btn btn-primary md:text-xl");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 51, 8, 1232);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "md:flex-none pr-4");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 50, 6, 1192);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "type", "button");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "btn btn-primary text-xl");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 54, 8, 1311);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div2, "class", "flex-none");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div2, file, 53, 6, 1279);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div3, "class", "flex items-center pb-8");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "btn btn-primary md:text-xl");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 54, 8, 1359);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div2, "class", "md:flex-none");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div2, file, 53, 6, 1324);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div3, "class", "flex flex-wrap items-center pb-8");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div3, file, 46, 4, 943);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 45, 2, 896);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div4, "class", "flex flex-wrap -mx-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div4, file, 63, 2, 1499);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div4, file, 63, 2, 1550);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div5, "class", "container");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div5, file, 44, 0, 870);
 
@@ -12335,7 +12335,7 @@ function create_else_block(ctx) {
 			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "class", "px-4 py-2 text-lg border-b border-gray-400 text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 81, 10, 1936);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 81, 10, 1942);
 		},
 
 		m: function mount(target, anchor) {
@@ -12367,7 +12367,7 @@ function create_if_block_1(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "class", "block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value = "//image.tmdb.org/t/p/w342" + ctx.show.poster_path);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = ctx.show.name);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 79, 10, 1815);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(img, file, 79, 10, 1821);
 		},
 
 		m: function mount(target, anchor) {
@@ -12436,15 +12436,15 @@ function create_each_block(key_1, ctx) {
 			button2.textContent = "Add to watchlist";
 			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "block py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 84, 8, 2048);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button0, file, 84, 8, 2054);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 91, 8, 2254);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button1, file, 91, 8, 2260);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button2, "class", "block border-t border-gray-400 py-1 text-sm md:text-base md:py-2 w-full text-gray-1000");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button2, file, 98, 8, 2466);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button2, file, 98, 8, 2472);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "bg-white rounded shadow overflow-hidden");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 77, 6, 1720);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 77, 6, 1726);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "w-1/2 sm:w-1/3 lg:w-1/4 px-4 mb-8");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 76, 4, 1666);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 76, 4, 1672);
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button0, "click", click_handler),
@@ -12556,9 +12556,9 @@ function create_header_slot(ctx) {
 			small = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("small");
 			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t2_value);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(small, "class", "ml-2");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(small, file, 112, 40, 2836);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(small, file, 112, 40, 2842);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(h3, "slot", "header");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 112, 2, 2798);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(h3, file, 112, 2, 2804);
 		},
 
 		m: function mount(target, anchor) {
@@ -12598,7 +12598,7 @@ function create_action_slot(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "slot", "action");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary ml-2");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "button");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 118, 2, 3110);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 118, 2, 3116);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", ctx.click_handler_3);
 		},
 
@@ -12632,11 +12632,11 @@ function create_default_slot(ctx) {
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("View on TMDb");
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(p, "class", "text-xl mb-6");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 114, 2, 2918);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 114, 2, 2924);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "class", "text-primary underline inline-block mb-6");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "href", a_href_value = "//www.themoviedb.org/tv/" + ctx.selectedShow.id);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(a, "target", "_blank");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a, file, 116, 2, 2973);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a, file, 116, 2, 2979);
 		},
 
 		m: function mount(target, anchor) {
@@ -12710,21 +12710,21 @@ function create_fragment(ctx) {
 			if (if_block1) if_block1.c();
 			if_block1_anchor = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["empty"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "type", "search");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-input text-xl block w-full");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "class", "form-input md:text-xl block w-full");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "placeholder", "Search for a show...");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(input, file, 62, 8, 1270);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "flex-1 pr-4");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div0, file, 61, 6, 1236);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "submit");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary text-xl");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 65, 8, 1445);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary md:text-xl");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(button, file, 65, 8, 1448);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "class", "w-24 text-right");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 64, 6, 1407);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div1, file, 64, 6, 1410);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div2, "class", "flex items-center pb-8");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div2, file, 60, 4, 1193);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(form, file, 59, 2, 1146);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div3, "class", "flex flex-wrap -mx-4");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div3, file, 74, 2, 1593);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div3, file, 74, 2, 1599);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div4, "class", "container");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div4, file, 58, 0, 1120);
 

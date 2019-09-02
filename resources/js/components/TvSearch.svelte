@@ -60,10 +60,10 @@ const addToWatchlist = async show => {
   <form on:submit|preventDefault="{search}">
     <div class="flex items-center pb-8">
       <div class="flex-1 pr-4">
-        <input bind:value="{query}" type="search" class="form-input text-xl block w-full" placeholder="Search for a show...">
+        <input bind:value="{query}" type="search" class="form-input md:text-xl block w-full" placeholder="Search for a show...">
       </div>
       <div class="w-24 text-right">
-        <button type="submit" class="btn btn-primary text-xl">Search</button>
+        <button type="submit" class="btn btn-primary md:text-xl">Search</button>
       </div>
     </div>
   </form>

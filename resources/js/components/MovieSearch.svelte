@@ -44,15 +44,15 @@ const download = async movie => {
 
 <div class="container">
   <form on:submit|preventDefault="{search}">
-    <div class="flex items-center pb-8">
-      <div class="flex-1 pr-4">
-        <input bind:value="{query}" type="search" class="form-input text-xl block w-full" placeholder="Search movies...">
+    <div class="flex flex-wrap items-center pb-8">
+      <div class="w-full pb-4 md:pb-0 md:flex-1 md:pr-4">
+        <input bind:value="{query}" type="search" class="form-input md:text-xl block w-full" placeholder="Search movies...">
       </div>
-      <div class="flex-none pr-4">
-        <button type="submit" class="btn btn-primary text-xl">Search</button>
+      <div class="md:flex-none pr-4">
+        <button type="submit" class="btn btn-primary md:text-xl">Search</button>
       </div>
-      <div class="flex-none">
-        <button type="button" class="btn btn-primary text-xl" on:click="{() => checkList()}">Check Watchlist</button>
+      <div class="md:flex-none">
+        <button type="button" class="btn btn-primary md:text-xl" on:click="{() => checkList()}">Check Watchlist</button>
       </div>
     </div>
   </form>
