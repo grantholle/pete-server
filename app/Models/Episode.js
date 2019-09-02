@@ -46,7 +46,7 @@ class Episode extends Model {
 
     const showName = sanitize(show.name)
     const episodeName = sanitize(`${showName} - ${this.getLabel()} - ${this.name}`)
-    const directory = path.join(config.tv_directory, showName, episodeName)
+    const directory = path.join(config.tv_directory, showName, `Season ${this.season}`)
 
     Logger.debug(`Adding magnet for ${episodeName}: ${magnet}`)
 
