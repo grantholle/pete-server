@@ -5,6 +5,7 @@ const Model = use('Model')
 const Logger = use('Logger')
 const getMoviedb = require('../lib/tmdb')
 const notify = require('../lib/notify')
+const moment = require('moment')
 
 class Show extends Model {
   eztvCache = []
@@ -138,8 +139,12 @@ class Show extends Model {
       .fetch()
 
     episodes = episodes.toJSON().map(e => Number(e.episode))
+    const today = moment().startOf('day')
 
-    const episodesToSave = res.episodes.filter(e => episodes.indexOf(e.episode_number) === -1)
+    const episodesToSave = res.episodes.filter(e => (
+      today.diff(moment(e.air_date, 'YYYY-MM-DD')) > 0 &&
+      episodes.indexOf(e.episode_number) === -1
+    ))
 
     if (episodesToSave) {
       Logger.info(`Adding ${episodesToSave.length} episode${episodesToSave.length !== 1 ? 's' : ''} in season ${season} for ${this.name} to the database.`)
