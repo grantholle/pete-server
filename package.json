@@ -50,7 +50,7 @@
     "adonis-scheduler": "^3.0.2",
     "commander": "^3.0.1",
     "eztv-b": "^1.1.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "moviedb-promise": "^1.4.1",
